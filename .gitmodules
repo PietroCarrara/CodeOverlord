@@ -1,0 +1,3 @@
+[submodule "Prime"]
+	path = Prime
+	url = ./Prime/.git

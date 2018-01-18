@@ -1,0 +1,24 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{66F70D0D-94F2-47DE-8746-95E2E9D3C527}") = "Prime", "Prime\Prime\Prime.csproj", "{66F70D0D-94F2-47DE-8746-95E2E9D3C527}"
+EndProject
+Project("{74B8B1C8-D6DE-4289-95DA-2F3719FA1F9F}") = "CodeOverlord", "CodeOverlord\CodeOverlord.csproj", "{74B8B1C8-D6DE-4289-95DA-2F3719FA1F9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66F70D0D-94F2-47DE-8746-95E2E9D3C527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F70D0D-94F2-47DE-8746-95E2E9D3C527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F70D0D-94F2-47DE-8746-95E2E9D3C527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F70D0D-94F2-47DE-8746-95E2E9D3C527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B8B1C8-D6DE-4289-95DA-2F3719FA1F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B8B1C8-D6DE-4289-95DA-2F3719FA1F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B8B1C8-D6DE-4289-95DA-2F3719FA1F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B8B1C8-D6DE-4289-95DA-2F3719FA1F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
+
