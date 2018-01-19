@@ -1,5 +1,6 @@
 using Prime;
 using Prime.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Overlord
 {
@@ -9,7 +10,17 @@ namespace Overlord
 		{
 			base.Initialize();
 
-			Add(new Demo());
+			Grid.Width = 20;
+			Grid.Height = 20;
+			Grid.TileWidth = 16;
+			Grid.TileHeight = 16;
+
+			var s = new Slime();
+			Add(s);
+
+			var s2 = new Slime();
+			s2.Pos = new Point(20, 20);
+			Add(s2);
 		}
 	}
 }
