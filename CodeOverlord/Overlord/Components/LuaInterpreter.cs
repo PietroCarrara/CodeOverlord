@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Prime;
 using Microsoft.Xna.Framework;
@@ -73,6 +74,11 @@ namespace Overlord
 			{
 				var list = this.Owner.Scene.GetEntities<Monster>();
 				list.Remove((Monster)this.Owner);
+				list = list.OrderBy((m) =>
+				{
+					var dist = ((Monster)Owner).Pos - m.Pos;
+					return Math.Abs(dist.X) + Math.Abs(dist.Y);
+				}).ToList();
 				return list;
 			});
 		}
