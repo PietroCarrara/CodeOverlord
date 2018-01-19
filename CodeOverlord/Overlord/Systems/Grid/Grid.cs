@@ -23,18 +23,18 @@ namespace Overlord
 
 			for(int i = 1; ; i++)
 			{
-				if (PointToWorld(0, i).Y >= pos.Y)
+				if (PointToWorld(0, i).Y > pos.Y)
 				{
-					res.Y = i;
+					res.Y = i - 1;
 					break;
 				}
 			}
 
 			for(int i = 1; ; i++)
 			{
-				if (PointToWorld(i, 0).X >= pos.X)
+				if (PointToWorld(i, 0).X > pos.X)
 				{
-					res.X = i;
+					res.X = i - 1;
 					break;
 				}
 			}
