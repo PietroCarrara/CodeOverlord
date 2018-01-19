@@ -45,6 +45,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
 	<Compile Include="Overlord\Components\LuaInterpreter.cs" />
+	<Compile Include="Overlord\Entities\MonsterDragger.cs" />
+	<Compile Include="Overlord\Entities\MonsterSpawner.cs" />
 	<Compile Include="Overlord\Entities\Monsters\Monster.cs" />
 	<Compile Include="Overlord\Entities\Monsters\Slime.cs" />
 	<Compile Include="Overlord\Scenes\MainScene.cs" />

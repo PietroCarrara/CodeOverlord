@@ -34,7 +34,6 @@ namespace Overlord
 					end
 
 					if(target == nil) then
-						print('a')
 						return
 					end
 
