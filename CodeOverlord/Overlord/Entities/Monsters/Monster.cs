@@ -93,9 +93,24 @@ namespace Overlord
 			if(Math.Abs(x + y) > Reach)
 				throw new InvalidAttackException("This monster only reaches " + this.Reach + " spaces, but you tried reaching " + (x + y) + "!");
 
-			// TrueAttack();
+			var m = BattleManager.GetByPos(this.Pos + new Point(x, y));
+			if (m != null)
+			{
+				m.ReceiveDamage(this.Damage);
 
+				// playAttackAnimation();
+			}
+
+			BattleManager.Current = null;
 			Lua.IsReady = false;
+		}
+
+		public void ReceiveDamage(int d)
+		{
+			this.Health -= d;
+
+			if(this.Health <= 0)
+				this.Destroy();
 		}
 	}
 }

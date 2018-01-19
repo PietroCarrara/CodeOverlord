@@ -16,5 +16,30 @@ namespace Overlord
 		{
 			return PointToWorld(p.X, p.Y);
 		}
+
+		public static Point WorldToPoint(Vector2 pos)
+		{
+			var res = Point.Zero;
+
+			for(int i = 1; ; i++)
+			{
+				if (PointToWorld(0, i).Y >= pos.Y)
+				{
+					res.Y = i;
+					break;
+				}
+			}
+
+			for(int i = 1; ; i++)
+			{
+				if (PointToWorld(i, 0).X >= pos.X)
+				{
+					res.X = i;
+					break;
+				}
+			}
+
+			return res;
+		}
 	}
 }

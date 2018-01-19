@@ -1,6 +1,7 @@
 using Prime;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Overlord
 {
@@ -39,6 +40,26 @@ namespace Overlord
 				Current = participants[currIndex];
 				Current.GetComponent<LuaInterpreter>().IsReady = true;
 			}
+		}
+
+		public static Monster GetByPos(int x, int y)
+		{
+			var p = new Point(x, y);
+
+			foreach(var m in Monsters)
+			{
+				if(m.Pos == p)
+				{
+					return m;
+				}
+			}
+
+			return null;
+		}
+
+		public static Monster GetByPos(Point p)
+		{
+			return GetByPos(p.X, p.Y);
 		}
 	}
 }
