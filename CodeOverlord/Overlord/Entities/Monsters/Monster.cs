@@ -10,6 +10,8 @@ namespace Overlord
 	{
 		protected int Movement, Damage, Health, Reach;
 
+		private const float speed = 50;
+
 		private Point pos;
 		public Point Pos
 		{
@@ -26,6 +28,9 @@ namespace Overlord
 
 		public LuaInterpreter Lua;
 
+		// Where the player wants us to go
+		private Vector2? target;
+		private Point targetP;
 
 		public override void Initialize()
 		{
@@ -37,11 +42,37 @@ namespace Overlord
 			LuaInterpreter.RegisterType<Monster>();
 
 			this.Add(Lua);
+
+			BattleManager.Monsters.Add(this);
 		}
 
 		public override void Update()
 		{
 			base.Update();
+
+			if(this.target != null && this.Position.DistanceBetween(this.target.Value) > 1)
+			{
+				var movement = Vector2.Zero;
+				var target = this.target.Value;
+
+				if(this.Position.X < target.X)
+					movement.X = speed;
+				else if(this.Position.X > target.X)
+					movement.X = -speed;
+
+				if(this.Position.Y < target.Y)
+					movement.Y = speed;
+				else if(this.Position.Y > target.Y)
+					movement.Y = -speed;
+
+				this.Position += movement * Time.DetlaTime;
+			}
+			else if (target != null)
+			{
+				this.Pos = targetP;
+				target = null;
+				BattleManager.Current = null;
+			}
 		}
 
 		public void Move(int x, int y)
@@ -50,9 +81,9 @@ namespace Overlord
 				throw new InvalidMoveException("This monster only moves " + this.Movement + " spaces, but you tried moving " + (x + y) + "!");
 
 			var p = this.Pos + new Point(x, y);
-			base.Position = Grid.PointToWorld(p);
 			
-			this.Pos = p;
+			this.target = Grid.PointToWorld(p);
+			this.targetP = p;
 
 			Lua.IsReady = false;
 		}
@@ -66,6 +97,5 @@ namespace Overlord
 
 			Lua.IsReady = false;
 		}
-
 	}
 }

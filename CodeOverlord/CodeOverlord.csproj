@@ -49,6 +49,7 @@
 	<Compile Include="Overlord\Entities\Monsters\Slime.cs" />
 	<Compile Include="Overlord\Scenes\MainScene.cs" />
 	<Compile Include="Overlord\Systems\Grid\Grid.cs" />
+	<Compile Include="Overlord\Systems\BattleManager.cs" />
 	<Compile Include="Overlord\Exceptions\OverlordException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidCodeException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidMoveException.cs" />

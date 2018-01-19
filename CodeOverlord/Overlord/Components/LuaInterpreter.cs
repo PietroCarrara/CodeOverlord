@@ -63,9 +63,6 @@ namespace Overlord
 					break;
 				}
 			}
-
-			if(Input.IsKeyPressed(Keys.Enter))
-				IsReady = true;
 		}
 
 		private void setupScript()

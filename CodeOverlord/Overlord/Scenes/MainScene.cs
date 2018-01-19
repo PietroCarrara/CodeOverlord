@@ -21,6 +21,15 @@ namespace Overlord
 			var s2 = new Slime();
 			s2.Pos = new Point(20, 20);
 			Add(s2);
+
+			BattleManager.Sort();
+		}
+
+		public override void Update()
+		{
+			base.Update();
+
+			BattleManager.Update();
 		}
 	}
 }
