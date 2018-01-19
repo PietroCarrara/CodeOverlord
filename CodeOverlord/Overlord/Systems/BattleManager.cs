@@ -29,6 +29,12 @@ namespace Overlord
 			total = participants.Count();
 		}
 
+		public static void Remove(Monster m)
+		{
+			if(participants.Remove(m) || Monsters.Remove(m))
+				total--;
+		}
+
 		public static void Update()
 		{
 			if(Current == null && total > 0)

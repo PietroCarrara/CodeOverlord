@@ -75,6 +75,11 @@ namespace Overlord
 			}
 		}
 
+		public override void OnDestroy()
+		{
+			BattleManager.Remove(this);
+		}
+
 		public void Move(int x, int y)
 		{
 			if(Math.Abs(x + y) > Movement)
