@@ -1,6 +1,7 @@
 using Prime;
 using Prime.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
@@ -22,7 +23,12 @@ namespace Overlord
 			s2.Pos = new Point(20, 20);
 			Add(s2);
 
-			BattleManager.Sort();
+			var font = this.Content.Load<SpriteFont>("Fonts/Arial");
+			var bt = new Button(200, 50, new RectangleSprite(200, 50, Color.Green), new RectangleSprite(200, 50, Color.Red), "Start!", font, () =>
+			{
+				BattleManager.Sort();
+			});
+			Add(bt);
 		}
 
 		public override void Update()

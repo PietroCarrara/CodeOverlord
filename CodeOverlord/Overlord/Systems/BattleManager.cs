@@ -31,7 +31,7 @@ namespace Overlord
 
 		public static void Update()
 		{
-			if(Current == null)
+			if(Current == null && total > 0)
 			{
 				currIndex++;
 				if (currIndex >= total)
