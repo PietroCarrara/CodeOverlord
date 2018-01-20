@@ -1,4 +1,5 @@
 using Prime;
+using Prime.Graphics;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -9,6 +10,8 @@ namespace Overlord
 	public class Monster : Entity
 	{
 		protected int Movement, Damage, Health, Reach;
+
+		protected SpriteSheet animations;
 
 		private const float speed = 50;
 
@@ -52,6 +55,8 @@ namespace Overlord
 
 			if(this.target != null && this.Position.DistanceBetween(this.target.Value) > 1)
 			{
+				animations.Play("walk");
+
 				var movement = Vector2.Zero;
 				var target = this.target.Value;
 
@@ -69,6 +74,7 @@ namespace Overlord
 			}
 			else if (target != null)
 			{
+				animations.Play("idle");
 				this.Pos = targetP;
 				target = null;
 				BattleManager.Current = null;
@@ -85,6 +91,11 @@ namespace Overlord
 			if(Math.Abs(x + y) > Movement)
 				throw new InvalidMoveException("This monster only moves " + this.Movement + " spaces, but you tried moving " + (x + y) + "!");
 
+			if(x > 0)
+				this.animations.FlipX = true;
+			else
+				this.animations.FlipX = false;
+
 			var p = this.Pos + new Point(x, y);
 			
 			this.target = Grid.PointToWorld(p);
@@ -98,15 +109,20 @@ namespace Overlord
 			if(Math.Abs(x + y) > Reach)
 				throw new InvalidAttackException("This monster only reaches " + this.Reach + " spaces, but you tried reaching " + (x + y) + "!");
 
+			if(x > 0)
+				this.animations.FlipX = true;
+			else
+				this.animations.FlipX = false;
+
 			var m = BattleManager.GetByPos(this.Pos + new Point(x, y));
 			if (m != null)
 			{
-				m.ReceiveDamage(this.Damage);
-
-				// playAttackAnimation();
+				animations.Play("attack", () =>
+				{
+					animations.Play("idle");
+					m.ReceiveDamage(this.Damage);
+				});
 			}
-
-			BattleManager.Current = null;
 			Lua.IsReady = false;
 		}
 
@@ -115,7 +131,17 @@ namespace Overlord
 			this.Health -= d;
 
 			if(this.Health <= 0)
-				this.Destroy();
+			{
+				animations.Play("die", () => 
+				{
+					Destroy();
+					BattleManager.Current = null;
+				});
+			}
+			else
+			{
+				BattleManager.Current = null;
+			}
 		}
 	}
 }

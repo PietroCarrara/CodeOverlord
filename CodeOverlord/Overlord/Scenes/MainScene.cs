@@ -13,16 +13,8 @@ namespace Overlord
 
 			Grid.Width = 20;
 			Grid.Height = 20;
-			Grid.TileWidth = 16;
-			Grid.TileHeight = 16;
-
-			var s = new Slime();
-			s.Pos = new Point(1, 1);
-			Add(s);
-
-			var s2 = new Slime();
-			s2.Pos = new Point(20, 20);
-			Add(s2);
+			Grid.TileWidth = 64;
+			Grid.TileHeight = 64;
 
 			var dragger = new MonsterDragger();
 			Add(dragger);

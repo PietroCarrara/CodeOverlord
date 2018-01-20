@@ -2,6 +2,8 @@ using Prime;
 using Prime.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.TextureAtlases;
 
 namespace Overlord
 {
@@ -19,11 +21,25 @@ namespace Overlord
 		{
 			base.Initialize();
 
+			var tex = this.Scene.Content.Load<Texture2D>("Sprites/Monsters/Slime/spritesheet");
+
+			animations = new SpriteSheet(tex, new Point(320, 640), new Point(32));
+
+            animations.Add("idle", 0, 10, 0.1f);
+            animations.Add("walk", 20, 30, 0.1f);
+            animations.Add("attack", 30, 40, 0.07f);
+            animations.Add("die", 40, 50, 0.1f);
+
+			animations.Play("idle");
+
+            animations.Width = Grid.TileWidth;
+            animations.Height = Grid.TileHeight;
+
+			Add(animations);
+
 			LuaInterpreter.RegisterType<Slime>();
 
 			Lua.Script.Globals["this"] = this;
-
-			this.Add(new RectangleSprite(16, 16, Color.SeaGreen));
 
 			Lua.Content = @"
 				function update()
@@ -41,9 +57,20 @@ namespace Overlord
 					movement.x = target.Pos.X - this.Pos.X
  					movement.y = target.Pos.Y - this.Pos.Y
 
-					if (math.abs(movement.x) + math.abs(movement.y) <= 1) then
+					if (math.abs(movement.x) + math.abs(movement.y) == 1) then
 						this.Attack(movement.x, movement.y)
 					else
+						
+						if(this.Pos.X > target.Pos.X) then
+							movement.x = movement.x + 1
+						elseif (this.Pos.X < target.Pos.Y) then
+							movement.x = movement.x - 1
+						elseif (this.Pos.Y < target.Pos.Y) then
+							movement.y = movement.y - 1
+						elseif (this.Pos.Y > target.Pos.Y) then
+							movement.y = movement.y + 1
+						end
+
 						while (math.abs(movement.x) + math.abs(movement.y) > 3) do
 							if(math.abs(movement.x) > math.abs(movement.y)) then
 								if(movement.x > 0) then
