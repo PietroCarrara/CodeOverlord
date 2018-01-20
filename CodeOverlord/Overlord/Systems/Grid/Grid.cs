@@ -9,7 +9,7 @@ namespace Overlord
 
 		public static Vector2 PointToWorld(int x, int y)
 		{
-			return new Vector2(x * TileWidth - TileWidth / 2, y * TileHeight - TileHeight / 2);
+			return new Vector2(x * TileWidth + TileWidth / 2f, y * TileHeight + TileHeight / 2f);
 		}
 
 		public static Vector2 PointToWorld(Point p)
@@ -21,23 +21,8 @@ namespace Overlord
 		{
 			var res = Point.Zero;
 
-			for(int i = 1; ; i++)
-			{
-				if (PointToWorld(0, i).Y > pos.Y)
-				{
-					res.Y = i - 1;
-					break;
-				}
-			}
-
-			for(int i = 1; ; i++)
-			{
-				if (PointToWorld(i, 0).X > pos.X)
-				{
-					res.X = i - 1;
-					break;
-				}
-			}
+			res.X = (int)(pos.X / TileWidth);
+			res.Y = (int)(pos.Y / TileHeight);
 
 			return res;
 		}

@@ -31,8 +31,10 @@ namespace Overlord
 
 		public static void Remove(Monster m)
 		{
-			if(participants.Remove(m) || Monsters.Remove(m))
-				total--;
+			Monsters.Remove(m);
+			participants.Remove(m);
+			
+			total--;
 		}
 
 		public static void Update()
@@ -46,6 +48,16 @@ namespace Overlord
 				Current = participants[currIndex];
 				Current.GetComponent<LuaInterpreter>().IsReady = true;
 			}
+		}
+
+		public static bool IsEmpty(int x, int y)
+		{
+			return IsEmpty(new Point(x, y));
+		}
+
+		public static bool IsEmpty(Point p)
+		{
+			return GetByPos(p) == null;
 		}
 
 		public static Monster GetByPos(int x, int y)
