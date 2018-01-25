@@ -47,7 +47,7 @@ namespace Overlord
 
 		public override void Update()
 		{
-			if(routine == null)
+			if(routine == null && IsReady)
 			{
 				routine = Script.CreateCoroutine(Script.Globals["update"]).Coroutine;
 				routine.AutoYieldCounter = 1;
