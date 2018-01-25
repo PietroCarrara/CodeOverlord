@@ -41,55 +41,52 @@ namespace Overlord
 
 			Lua.Script.Globals["this"] = this;
 
-			Lua.Content = @"
-				function update()
-					local target = nil
-					
-					if (#monsters() > 0) then
-						target = monsters()[1]
-					end
+			Lua.Content = @"function update()
+	local target = nil
+	if (#monsters() > 0) then
+		target = monsters()[1]
+	end
 
-					if(target == nil) then
-						return
-					end
+	if(target == nil) then
+		return
+	end
 
-					local movement = {}
-					movement.x = target.Pos.X - this.Pos.X
- 					movement.y = target.Pos.Y - this.Pos.Y
+	local movement = {}
+	movement.x = target.Pos.X - this.Pos.X
+ 	movement.y = target.Pos.Y - this.Pos.Y
 
-					if (math.abs(movement.x) + math.abs(movement.y) == 1) then
-						this.Attack(movement.x, movement.y)
-					else
-						
-						if(this.Pos.X > target.Pos.X) then
-							movement.x = movement.x + 1
-						elseif (this.Pos.X < target.Pos.Y) then
-							movement.x = movement.x - 1
-						elseif (this.Pos.Y < target.Pos.Y) then
-							movement.y = movement.y - 1
-						elseif (this.Pos.Y > target.Pos.Y) then
-							movement.y = movement.y + 1
-						end
+	if (math.abs(movement.x) + math.abs(movement.y) == 1) then
+		this.Attack(movement.x, movement.y)
+	else
+		if(this.Pos.X > target.Pos.X) then
+			movement.x = movement.x + 1
+		elseif (this.Pos.X < target.Pos.Y) then
+			movement.x = movement.x - 1
+		elseif (this.Pos.Y < target.Pos.Y) then
+			movement.y = movement.y - 1
+		elseif (this.Pos.Y > target.Pos.Y) then
+			movement.y = movement.y + 1
+		end
 
-						while (math.abs(movement.x) + math.abs(movement.y) > 3) do
-							if(math.abs(movement.x) > math.abs(movement.y)) then
-								if(movement.x > 0) then
-									movement.x = movement.x - 1
-								else
-									movement.x = movement.x + 1
-								end
-							else
-								if(movement.y > 0) then
-									movement.y = movement.y - 1
-								else
-									movement.y = movement.y + 1
-								end
-							end
-						end
-
-						this.Move(movement.x, movement.y)
-					end
+		while (math.abs(movement.x) + math.abs(movement.y) > 3) do
+			if(math.abs(movement.x) > math.abs(movement.y)) then
+				if(movement.x > 0) then
+					movement.x = movement.x - 1
+				else
+					movement.x = movement.x + 1
 				end
+			else
+				if(movement.y > 0) then
+					movement.y = movement.y - 1
+				else
+					movement.y = movement.y + 1
+				end
+			end
+		end
+
+		this.Move(movement.x, movement.y)
+	end
+end
 			";
 		}
 	}

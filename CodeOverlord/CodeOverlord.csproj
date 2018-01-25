@@ -47,6 +47,8 @@
 	<Compile Include="Overlord\Components\LuaInterpreter.cs" />
 	<Compile Include="Overlord\Entities\MonsterDragger.cs" />
 	<Compile Include="Overlord\Entities\MonsterSpawner.cs" />
+	<Compile Include="Overlord\Entities\MonsterEditor\Editor.cs" />
+	<Compile Include="Overlord\Entities\MonsterEditor\EditorSpawner.cs" />
 	<Compile Include="Overlord\Entities\Monsters\Monster.cs" />
 	<Compile Include="Overlord\Entities\Monsters\Slime.cs" />
 	<Compile Include="Overlord\Scenes\MainScene.cs" />

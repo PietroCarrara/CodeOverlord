@@ -19,6 +19,8 @@ namespace Overlord
 			var dragger = new MonsterDragger();
 			Add(dragger);
 
+			var editor = Add(new EditorSpawner());
+
 			var spawner = new MonsterSpawner();
 			Add(spawner);
 
@@ -29,8 +31,10 @@ namespace Overlord
 				BattleManager.Sort();
 				dragger.Destroy();
 				spawner.Destroy();
+				editor.Destroy();
 				bt.Destroy();
 			};
+			bt.Position = new Vector2(1280, 720) / 2;
 			Add(bt);
 		}
 
