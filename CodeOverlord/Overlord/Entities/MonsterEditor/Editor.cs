@@ -42,9 +42,10 @@ namespace Overlord
         {
 			base.Initialize();
 
-            var font = this.Scene.Content.Load<SpriteFont>("Fonts/Arial");
+            var font = this.Scene.Content.Load<SpriteFont>("Fonts/Editor");
 
-            this.textBox = new TextBox(width, height, font, new RectangleSprite(width, height, Color.Green));
+            this.textBox = new TextBox(width, height - btHeight, font, new RectangleSprite(width, height - btHeight, Color.Black));
+			this.textBox.Position = new Vector2(0, (textBox.Height - this.Height)/2 + 1);
 			this.textBox.Text = monster.Lua.Content;
 			this.textBox.ResetCarret();
 			this.Insert(textBox);
@@ -61,7 +62,7 @@ namespace Overlord
 				System.Console.WriteLine(this.textBox.Text);
 				monster.Lua.Content = this.textBox.Text;
 			});
-			saveButton.Position = new Vector2(width, height) / 2 - new Vector2(btWidth, btHeight) / 2;
+			saveButton.Position = new Vector2(width, height) / 2 - new Vector2(btWidth / 2, btHeight / 2);
 			this.Insert(saveButton);
         }
     }

@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="OverlordGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
 	<Compile Include="Overlord\Components\LuaInterpreter.cs" />
 	<Compile Include="Overlord\Entities\MonsterDragger.cs" />

@@ -14,7 +14,7 @@ namespace Overlord
         [STAThread]
         static void Main()
         {
-            using (var game = new PrimeGame(new MainScene()))
+            using (var game = new OverLordGame(new MainScene()))
                 game.Run();
         }
     }

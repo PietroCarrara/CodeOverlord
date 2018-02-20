@@ -24,7 +24,7 @@ namespace Overlord
 			var spawner = new MonsterSpawner();
 			Add(spawner);
 
-			var font = this.Content.Load<SpriteFont>("Fonts/Arial");
+			var font = this.Content.Load<SpriteFont>("Fonts/Editor");
 			var bt = new Button(200, 50, new RectangleSprite(200, 50, Color.Green), new RectangleSprite(200, 50, Color.Red), "Start!", font, null); 
 			bt.OnClick = () =>
 			{
