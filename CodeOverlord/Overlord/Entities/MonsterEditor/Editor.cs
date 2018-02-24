@@ -1,5 +1,6 @@
 using Prime;
 using Prime.Graphics;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -30,10 +31,12 @@ namespace Overlord
             }
         }
 
-        private Editor(float w, float h, Sprite bg) : base(w, h, bg)
+		public Action<string> OnSave;
+
+        public Editor(float w, float h) : base(w, h)
         { }
 
-        public Editor(Monster m) : this(width, height, new RectangleSprite(width, height, Color.Green))
+        public Editor(Monster m) : this(width, height)
         {
             this.monster = m;
         }
@@ -46,8 +49,14 @@ namespace Overlord
 
             this.textBox = new TextBox(width, height - btHeight, font, new RectangleSprite(width, height - btHeight, Color.Black));
 			this.textBox.Position = new Vector2(0, (textBox.Height - this.Height)/2 + 1);
-			this.textBox.Text = monster.Lua.Content;
-			this.textBox.ResetCarret();
+			this.textBox.Text = "";
+
+			if (this.monster != null)
+			{
+				this.textBox.Text = monster.Lua.Content;
+				this.textBox.ResetCarret();
+			}
+
 			this.Insert(textBox);
 
 			this.closeButton = new Button(btWidth, btHeight, new RectangleSprite(btWidth, btHeight, Color.Red), new RectangleSprite(btWidth, btHeight, Color.Green), "Close", font, () =>
@@ -59,8 +68,10 @@ namespace Overlord
 
 			this.saveButton = new Button(btWidth, btHeight, new RectangleSprite(btWidth, btHeight, Color.Red), new RectangleSprite(btWidth, btHeight, Color.Green), "Save", font, () =>
 			{
-				System.Console.WriteLine(this.textBox.Text);
-				monster.Lua.Content = this.textBox.Text;
+				if (this.monster != null)
+					monster.Lua.Content = this.textBox.Text;
+
+				OnSave?.Invoke(this.textBox.Text);
 			});
 			saveButton.Position = new Vector2(width, height) / 2 - new Vector2(btWidth / 2, btHeight / 2);
 			this.Insert(saveButton);
