@@ -72,8 +72,15 @@ namespace Overlord
 
 			Script.Globals["monsters"] = (Func<List<Monster>>)(() => 
 			{
-				var list = this.Owner.Scene.GetEntities<Monster>();
-				list.Remove((Monster)this.Owner);
+				var list = new List<Monster>();
+				
+				foreach (var m in BattleManager.Monsters)
+				{
+					list.Add(m);
+				}
+
+				list.Remove((Monster) this.Owner);
+
 				list = list.OrderBy((m) =>
 				{
 					var dist = ((Monster)Owner).Pos - m.Pos;
