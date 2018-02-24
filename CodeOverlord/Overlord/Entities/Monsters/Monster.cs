@@ -45,8 +45,6 @@ namespace Overlord
 			LuaInterpreter.RegisterType<Monster>();
 
 			this.Add(Lua);
-
-			BattleManager.Monsters.Add(this);
 		}
 
 		public override void Update()

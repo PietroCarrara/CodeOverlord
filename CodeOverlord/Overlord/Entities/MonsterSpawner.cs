@@ -4,14 +4,36 @@ namespace Overlord
 {
 	public class MonsterSpawner : Entity
 	{
+		public Monster Monster;
+
 		public override void Update()
 		{
 			if(Input.IsButtonPressed(MouseButtons.Right))
 			{
-				var m = new Slime();
-				m.Pos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
+				base.Update();
+
+				if (Monster == null)
+					return;
+
+				Monster m;
+
+				var t = Monster.GetType();
+				if (t == typeof(Slime))
+				{
+					m = new Slime();
+				}
+				else
+				{
+					return;
+				}
 
 				this.Scene.Add(m);
+				
+				m.Lua.Content = Monster.Lua.Content;
+
+				m.Pos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
+
+				BattleManager.Monsters.Add(m);
 			}
 		}
 	}

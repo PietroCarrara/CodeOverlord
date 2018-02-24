@@ -34,8 +34,11 @@ namespace Overlord
 				editor.Destroy();
 				bt.Destroy();
 			};
-			bt.Position = new Vector2(1280, 720) / 2;
+			bt.Position = PrimeGame.Center - new Vector2(0, 200);
 			Add(bt);
+
+			var selector = Add(new ScriptSelector(300, 300, spawner));
+			selector.Position = new Vector2(1280 - selector.Width / 2, 720 / 2 - selector.Height / 2);
 		}
 
 		public override void Update()
