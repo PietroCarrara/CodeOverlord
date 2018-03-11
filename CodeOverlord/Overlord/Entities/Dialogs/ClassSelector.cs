@@ -8,7 +8,9 @@ namespace Overlord
 {
 	public class ClassSelector : Box
 	{
-		private const int width = 300, height = 100;
+		private const int width = 480, height = 160;
+
+		private const int borderW = 48, borderH = 16;
 
 		private ScriptSelector scripts;
 		
@@ -16,14 +18,17 @@ namespace Overlord
 
 		private ListView<Monster> classes;
 
-		public ClassSelector(ScriptSelector s) : base(width, height)
+		public ClassSelector(ScriptSelector s) : base(width + borderW, height + borderH)
 		{  
 			this.scripts = s;
 		}
 
 		public override void Initialize()
 		{
-			this.Add(new RectangleSprite(width, height, Color.BlueViolet));
+			// Background
+			var bg = this.Add(new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Panels/Panel0")));
+			bg.Width = this.Width + borderW;
+			bg.Height = this.Height + borderH;
 
 			this.Position = PrimeGame.Center;
 
@@ -32,7 +37,7 @@ namespace Overlord
 			var font = Scene.Content.Load<SpriteFont>("Fonts/Editor");
 
 			var done = new Button(width, height / 10, btBg, btBg, "Done", font, close);
-			done.Position = new Vector2(0, height / 2 - height / 10 / 2);
+			done.Position = new Vector2(0, height / 2 - height / 10 / 2 + borderH / 2);
 
 			classes = new ListView<Monster>(width, height * 0.9f, width / 3f + 30, height * 0.9f);
 			classes.Position = new Vector2(0, -height / 2 + height * 0.9f / 2);

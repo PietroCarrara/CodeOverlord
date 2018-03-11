@@ -22,21 +22,29 @@ namespace Overlord
 
 		public override void Initialize()
 		{
-			var bg = this.Add(new RectangleSprite((int)this.Width, (int)this.Height, Color.Blue));
+			var bg = this.Add(new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Panels/Panel0")));
+			bg.Width = this.Width;
+			bg.Height = this.Height;
 			bg.RelativePosition = new Vector2(0, this.Height) / 2;
 
-			float btWidth = this.Width;
+			float btWidth = this.Width - this.Width / 8;
 			float btHeight = this.Height / 10;
 
-			btSprite = new RectangleSprite((int)btWidth, (int)btHeight, Color.Green);
-			btHover = new RectangleSprite((int)btWidth, (int)btHeight);
+			btSprite = new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0"));
+			btSprite.Width = btWidth;
+			btSprite.Height = btHeight;
+
+			btHover = new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0Hover"));
+			btHover.Width = btWidth;
+			btHover.Height = btHeight;
+
 			btFont = Scene.Content.Load<SpriteFont>("Fonts/Editor");
 
 			var bt = new Prime.Button(btWidth, btHeight, btSprite, btHover, "Create New", btFont, () => 
 			{
 				this.Scene.Add(new ClassSelector(this));
 			});
-			bt.Position = new Vector2(0, this.Height - btHeight / 2);
+			bt.Position = new Vector2(0, this.Height - btHeight / 2 - this.Height / 20);
 
 			Scripts = new ListView<Monster>(Width, Height * .9f, 150, 150);
 			Scripts.Position = new Vector2(0, Height * .9f / 2);

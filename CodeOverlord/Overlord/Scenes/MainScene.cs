@@ -25,7 +25,9 @@ namespace Overlord
 			Add(spawner);
 
 			var font = this.Content.Load<SpriteFont>("Fonts/Editor");
-			var bt = new Button(200, 50, new RectangleSprite(200, 50, Color.Green), new RectangleSprite(200, 50, Color.Red), "Start!", font, null); 
+			var btSpr = new Sprite(this.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0"));
+			var btSprHover = new Sprite(this.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0Hover"));
+			var bt = new Button(200, 50, btSpr, btSprHover, "Start!", font, null); 
 			bt.OnClick = () =>
 			{
 				BattleManager.Sort();
