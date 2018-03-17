@@ -31,7 +31,7 @@ namespace Overlord
 				
 				m.Lua.Content = Monster.Lua.Content;
 
-				m.Pos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
+				m.GridPos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
 
 				BattleManager.Monsters.Add(m);
 			}

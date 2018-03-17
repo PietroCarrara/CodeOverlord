@@ -12,9 +12,11 @@ namespace Overlord
 	{
 		public Script Script = new Script();
 
-		public bool IsReady;
+		public bool CurrentInstructionDone = true;
 
 		private Coroutine routine;
+
+		public new Monster Owner;
 
 		private string content = "";
 		public string Content
@@ -25,8 +27,6 @@ namespace Overlord
 			}
 			set
 			{
-				this.Script = new Script();
-				setupScript();
 				this.Script.DoString(value);
 				this.content = value;
 			}
@@ -42,28 +42,37 @@ namespace Overlord
 
 		public override void Initialize()
 		{
+			this.Owner = (Monster) base.Owner;
+
 			setupScript();
 		}
 
-		public override void Update()
+		public void AddSkill(Skill s)
 		{
-			if(routine == null && IsReady)
+			this.Script.Globals[s.Name] = s.GetCode();
+		}
+
+		public void DoTurn()
+		{
+			if (!CurrentInstructionDone)
+				return;
+
+			if(routine == null)
 			{
 				routine = Script.CreateCoroutine(Script.Globals["update"]).Coroutine;
 				routine.AutoYieldCounter = 1;
 				routine.Resume(1);
 			}
 
-			while(IsReady)
-			{
-				var result = routine.Resume();
+			var result = routine.Resume();
 
-				if(result.Type != DataType.YieldRequest)
-				{
-					routine = null;
-					break;
-				}
+			if(result.Type != DataType.YieldRequest)
+			{
+				routine = null;
 			}
+
+			if (Owner.CurrentStamina <= 0 && CurrentInstructionDone)
+				BattleManager.Current = null;
 		}
 
 		private void setupScript()
@@ -83,7 +92,7 @@ namespace Overlord
 
 				list = list.OrderBy((m) =>
 				{
-					var dist = ((Monster)Owner).Pos - m.Pos;
+					var dist = ((Monster)Owner).GridPos - m.GridPos;
 					return Math.Abs(dist.X) + Math.Abs(dist.Y);
 				}).ToList();
 				return list;

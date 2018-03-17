@@ -9,35 +9,36 @@ namespace Overlord
 {
 	public class Monster : Entity
 	{
-		protected int Movement, Damage, Health, Reach;
+		public int Stamina, Damage, Health, Reach;
+		public int CurrentStamina, CurrentDamage, CurrentHealth, CurrentReach;
 
-		protected SpriteSheet animations;
+		public SpriteSheet Animations;
 
 		private const float speed = 50;
 
-		private Point pos;
-		public Point Pos
+		public Point GridPos
 		{
 			get
 			{
-				return pos;
+				return Grid.WorldToPoint(this.Position);
 			}
 			internal set
 			{
-				pos = value;
-				this.Position = Grid.PointToWorld(pos);
+				this.Position = Grid.PointToWorld(value);
 			}
 		}
 
 		public LuaInterpreter Lua;
 
-		// Where the player wants us to go
-		private Vector2? target;
-		private Point targetP;
-
 		public override void Initialize()
 		{
 			base.Initialize();
+
+			// These should be set on the child class
+			CurrentStamina = Stamina;
+			CurrentDamage = Damage;
+			CurrentHealth = Health;
+			CurrentReach = Reach;
 
 			Lua = new LuaInterpreter();
 
@@ -45,38 +46,16 @@ namespace Overlord
 			LuaInterpreter.RegisterType<Monster>();
 
 			this.Add(Lua);
-		}
 
-		public override void Update()
-		{
-			base.Update();
-
-			if(this.target != null && this.Position.DistanceBetween(this.target.Value) > 1)
-			{
-				animations.Play("walk");
-
-				var movement = Vector2.Zero;
-				var target = this.target.Value;
-
-				if(this.Position.X < target.X)
-					movement.X = speed;
-				else if(this.Position.X > target.X)
-					movement.X = -speed;
-
-				if(this.Position.Y < target.Y)
-					movement.Y = speed;
-				else if(this.Position.Y > target.Y)
-					movement.Y = -speed;
-
-				this.Position += movement * Time.DetlaTime;
-			}
-			else if (target != null)
-			{
-				animations.Play("idle");
-				this.Pos = targetP;
-				target = null;
-				BattleManager.Current = null;
-			}
+			// Basic skills
+			this.Add(new MoveUp());
+			this.Add(new MoveDown());
+			this.Add(new MoveLeft());
+			this.Add(new MoveRight());
+			this.Add(new AttackUp());
+			this.Add(new AttackDown());
+			this.Add(new AttackLeft());
+			this.Add(new AttackRight());
 		}
 
 		public override void OnDestroy()
@@ -84,61 +63,27 @@ namespace Overlord
 			BattleManager.Remove(this);
 		}
 
-		public void Move(int x, int y)
+		public void ReceiveTurn()
 		{
-			if(Math.Abs(x + y) > Movement)
-				throw new InvalidMoveException("This monster only moves " + this.Movement + " spaces, but you tried moving " + (x + y) + "!");
-
-			if(x > 0)
-				this.animations.FlipX = true;
-			else
-				this.animations.FlipX = false;
-
-			var p = this.Pos + new Point(x, y);
-			
-			this.target = Grid.PointToWorld(p);
-			this.targetP = p;
-
-			Lua.IsReady = false;
+			this.CurrentStamina = this.Stamina;
 		}
 
-		public void Attack(int x, int y)
+		public void ReceiveDamage(int d, Action a = null)
 		{
-			if(Math.Abs(x + y) > Reach)
-				throw new InvalidAttackException("This monster only reaches " + this.Reach + " spaces, but you tried reaching " + (x + y) + "!");
+			this.CurrentHealth -= d;
 
-			if(x > 0)
-				this.animations.FlipX = true;
-			else
-				this.animations.FlipX = false;
-
-			var m = BattleManager.GetByPos(this.Pos + new Point(x, y));
-			if (m != null)
+			if(this.CurrentHealth <= 0)
 			{
-				animations.Play("attack", () =>
-				{
-					animations.Play("idle");
-					m.ReceiveDamage(this.Damage);
-				});
-			}
-			Lua.IsReady = false;
-		}
-
-		public void ReceiveDamage(int d)
-		{
-			this.Health -= d;
-
-			if(this.Health <= 0)
-			{
-				animations.Play("die", () => 
+				Animations.Play("die", () => 
 				{
 					Destroy();
-					BattleManager.Current = null;
+					System.Console.WriteLine("Ayyy");
+					a?.Invoke();
 				});
 			}
-			else
+			else if (a != null)
 			{
-				BattleManager.Current = null;
+				a();
 			}
 		}
 	}

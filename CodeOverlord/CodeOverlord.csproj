@@ -46,6 +46,15 @@
     <Compile Include="OverlordGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
 	<Compile Include="Overlord\Components\LuaInterpreter.cs" />
+	<Compile Include="Overlord\Components\Monster\Skill.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Move\MoveUp.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Move\MoveDown.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Move\MoveLeft.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Move\MoveRight.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackDown.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackLeft.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackRight.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackUp.cs" />
 	<Compile Include="Overlord\Entities\MonsterDragger.cs" />
 	<Compile Include="Overlord\Entities\MonsterSpawner.cs" />
 	<Compile Include="Overlord\Entities\ScriptSelector.cs" />

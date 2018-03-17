@@ -16,7 +16,7 @@ namespace Overlord
 				}
 				else
 				{
-					target.Pos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
+					target.GridPos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
 				}
 			}
 			else

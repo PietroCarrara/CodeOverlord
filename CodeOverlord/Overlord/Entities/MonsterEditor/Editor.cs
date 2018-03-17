@@ -49,13 +49,6 @@ namespace Overlord
 
             this.textBox = new TextBox(width, height - btHeight, font, new RectangleSprite(width, height - btHeight, Color.Black));
 			this.textBox.Position = new Vector2(0, (textBox.Height - this.Height)/2 + 1);
-			this.textBox.Text = "";
-
-			if (this.monster != null)
-			{
-				this.textBox.Text = monster.Lua.Content;
-				this.textBox.ResetCarret();
-			}
 
 			this.Insert(textBox);
 

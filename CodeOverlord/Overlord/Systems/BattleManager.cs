@@ -11,11 +11,11 @@ namespace Overlord
 
 		// public static List<Hero> Heroes = new List<Hero>();
 
-		public static Entity Current;
+		public static Monster Current;
 		private static int currIndex=-1;
 		private static int total;
 
-		private static List<Entity> participants = new List<Entity>();
+		private static List<Monster> participants = new List<Monster>();
 		public static void Sort()
 		{
 			participants.Clear();
@@ -39,15 +39,20 @@ namespace Overlord
 
 		public static void Update()
 		{
-			if(Current == null && total > 0)
+			if (total <= 0)
+				return;
+
+			if(Current == null)
 			{
 				currIndex++;
 				if (currIndex >= total)
 					currIndex = 0;
 
 				Current = participants[currIndex];
-				Current.GetComponent<LuaInterpreter>().IsReady = true;
+				Current.ReceiveTurn();
 			}
+			
+			Current.GetComponent<LuaInterpreter>().DoTurn();
 		}
 
 		public static bool IsEmpty(int x, int y)
@@ -66,7 +71,7 @@ namespace Overlord
 
 			foreach(var m in Monsters)
 			{
-				if(m.Pos == p)
+				if(m.GridPos == p)
 				{
 					return m;
 				}
