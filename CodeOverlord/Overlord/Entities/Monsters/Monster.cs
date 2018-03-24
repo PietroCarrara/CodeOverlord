@@ -1,5 +1,6 @@
 using Prime;
 using Prime.Graphics;
+using MoonSharp.Interpreter;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -9,8 +10,8 @@ namespace Overlord
 {
 	public class Monster : Entity
 	{
-		public int Stamina, Damage, Health, Reach;
-		public int CurrentStamina, CurrentDamage, CurrentHealth, CurrentReach;
+		internal int Stamina, Damage, Health, Reach;
+		internal int CurrentStamina, CurrentDamage, CurrentHealth, CurrentReach;
 
 		public SpriteSheet Animations;
 
@@ -42,9 +43,6 @@ namespace Overlord
 
 			Lua = new LuaInterpreter();
 
-			LuaInterpreter.RegisterType<Vector2>();
-			LuaInterpreter.RegisterType<Monster>();
-
 			this.Add(Lua);
 
 			// Basic skills
@@ -52,10 +50,25 @@ namespace Overlord
 			this.Add(new MoveDown());
 			this.Add(new MoveLeft());
 			this.Add(new MoveRight());
+
 			this.Add(new AttackUp());
 			this.Add(new AttackDown());
 			this.Add(new AttackLeft());
 			this.Add(new AttackRight());
+
+			this.Add(new Monsters());
+		}
+
+		public static Monster FromScript(string s)
+		{
+			var lua = new Lua();
+
+			var m = (Monster) lua.DoString(s).Table["base"];
+
+			if (m is Slime)
+				return new Slime();
+
+			return null;
 		}
 
 		public override void OnDestroy()
@@ -77,7 +90,6 @@ namespace Overlord
 				Animations.Play("die", () => 
 				{
 					Destroy();
-					System.Console.WriteLine("Ayyy");
 					a?.Invoke();
 				});
 			}

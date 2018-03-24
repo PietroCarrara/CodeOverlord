@@ -14,9 +14,7 @@ namespace Overlord
 
 		private ScriptSelector scripts;
 		
-		private List<Monster> monsters = new List<Monster>{ new Slime(), new Slime(), new Slime() };
-
-		private ListView<Monster> classes;
+		private ListView<string> classes;
 
 		public ClassSelector(ScriptSelector s) : base(width + borderW, height + borderH)
 		{  
@@ -26,7 +24,7 @@ namespace Overlord
 		public override void Initialize()
 		{
 			// Background
-			var bg = this.Add(new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Panels/Panel0")));
+			var bg = this.Add(new Sprite(Content.Sprites.UI.Panels.Panel0(this.Scene)));
 			bg.Width = this.Width + borderW;
 			bg.Height = this.Height + borderH;
 
@@ -34,50 +32,35 @@ namespace Overlord
 
 			var btBg = new RectangleSprite(width, height / 10);
 
-			var font = Scene.Content.Load<SpriteFont>("Fonts/Editor");
+			var font = Content.Fonts.Editor(this.Scene);
 
 			var done = new Button(width, height / 10, btBg, btBg, "Done", font, close);
 			done.Position = new Vector2(0, height / 2 - height / 10 / 2 + borderH / 2);
 
-			classes = new ListView<Monster>(width, height * 0.9f, width / 3f + 30, height * 0.9f);
+			classes = new ListView<string>(width, height * 0.9f, width / 3f + 30, height * 0.9f);
 			classes.Position = new Vector2(0, -height / 2 + height * 0.9f / 2);
 
 			this.Insert(done);
 			this.Insert(classes);
 
-			foreach (var m in monsters)
-			{
-				this.Scene.Add(m);
-				classes.Add(m, m.GetComponent<Sprite>());
-				m.GetComponent<Sprite>().IsVisible = false;
-			}
+			// Add all monsters
+			classes.Add(Slime.DefaultCode, Content.Sprites.Monsters.Slime.SpriteSheet(this.Scene));
 		}
 
 		private void close()
 		{
-			if (classes.Selected != null)
+			if (classes.Selected != "")
 			{
-				var editor = this.Scene.Add(new Editor(500, 500));
+				var editor = this.Scene.Add(new Editor(classes.Selected));
 				editor.Position = PrimeGame.Center;
+
 				
 				editor.OnSave = (src) =>
 				{
-					classes.Selected.Lua.Content = src;
-
-					classes.Selected.GetComponent<Sprite>().IsVisible = true;
-
-					scripts.Scripts.Add(classes.Selected, this.Scene.Content.Load<Texture2D>("Icons/Scroll"));
+					scripts.Scripts.Add(src, Content.Icons.Scroll(this.Scene));
 					
-					classes.Selected.GetComponent<Sprite>().IsVisible = false;
-
 					editor.Destroy();
 				};
-			}
-
-			foreach(var m in monsters)
-			{
-				if (m != classes.Selected)
-					m.Destroy();
 			}
 
 			this.Destroy();

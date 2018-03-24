@@ -18,37 +18,28 @@ namespace Overlord
 		private Button saveButton;
 		private Button closeButton;
 
-        private Monster monster;
-        public Monster Monster
-        {
-            get
-            {
-                return monster;
-            }
-            set
-            {
-                this.monster = value;
-            }
-        }
+		private string initalText = "";
 
 		public Action<string> OnSave;
 
         public Editor(float w, float h) : base(w, h)
         { }
 
-        public Editor(Monster m) : this(width, height)
+        public Editor(string s) : this(width, height)
         {
-            this.monster = m;
+			this.initalText = s;
         }
 
         public override void Initialize()
         {
 			base.Initialize();
 
-            var font = this.Scene.Content.Load<SpriteFont>("Fonts/Editor");
+            var font = Content.Fonts.Editor(this.Scene);
 
             this.textBox = new TextBox(width, height - btHeight, font, new RectangleSprite(width, height - btHeight, Color.Black));
 			this.textBox.Position = new Vector2(0, (textBox.Height - this.Height)/2 + 1);
+			this.textBox.Text = initalText;
+			this.textBox.ResetCarret();
 
 			this.Insert(textBox);
 
@@ -61,9 +52,6 @@ namespace Overlord
 
 			this.saveButton = new Button(btWidth, btHeight, new RectangleSprite(btWidth, btHeight, Color.Red), new RectangleSprite(btWidth, btHeight, Color.Green), "Save", font, () =>
 			{
-				if (this.monster != null)
-					monster.Lua.Content = this.textBox.Text;
-
 				OnSave?.Invoke(this.textBox.Text);
 			});
 			saveButton.Position = new Vector2(width, height) / 2 - new Vector2(btWidth / 2, btHeight / 2);

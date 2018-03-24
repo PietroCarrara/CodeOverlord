@@ -4,7 +4,7 @@ namespace Overlord
 {
 	public class MonsterSpawner : Entity
 	{
-		public Monster Monster;
+		public string Script;
 
 		public override void Update()
 		{
@@ -12,24 +12,14 @@ namespace Overlord
 			{
 				base.Update();
 
-				if (Monster == null)
+				if (Script == "")
 					return;
 
-				Monster m;
-
-				var t = Monster.GetType();
-				if (t == typeof(Slime))
-				{
-					m = new Slime();
-				}
-				else
-				{
-					return;
-				}
+				var m = Monster.FromScript(Script);
 
 				this.Scene.Add(m);
 				
-				m.Lua.Content = Monster.Lua.Content;
+				m.Lua.Content = Script;
 
 				m.GridPos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
 

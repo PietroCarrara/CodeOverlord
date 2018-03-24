@@ -9,6 +9,8 @@ namespace Overlord
 {
 	public class Slime : Monster
 	{
+		public const string DefaultCode = "local this = {}\nthis.base = Slime()\n\nfunction this.update()\n\t\nend\n\nreturn this";
+
 		public Slime()
 		{
 			this.Stamina = 1;
@@ -21,23 +23,13 @@ namespace Overlord
 		{
 			base.Initialize();
 
-			var tex = this.Scene.Content.Load<Texture2D>("Sprites/Monsters/Slime/spritesheet");
+			base.Animations = Add(Content.Sprites.Monsters.Slime.SpriteSheet(this.Scene));
 
-			Animations = new SpriteSheet(tex, new Point(320, 640), new Point(32));
-
-            Animations.Add("idle", 0, 10, 0.1f);
-            Animations.Add("walk", 20, 30, 0.1f);
-            Animations.Add("attack", 30, 40, 0.07f);
-            Animations.Add("die", 40, 50, 0.1f);
-
-			Animations.Play("idle");
-
-            Animations.Width = Grid.TileWidth;
-            Animations.Height = Grid.TileHeight;
-
-			Add(Animations);
-
-			LuaInterpreter.RegisterType<Slime>();
+			// Slime skills
+			this.Add(new PushUp());
+			this.Add(new PushDown());
+			this.Add(new PushLeft());
+			this.Add(new PushRight());
 		}
 	}
 }

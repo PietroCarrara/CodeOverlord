@@ -84,3 +84,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/UI/Panels/Panel0.png
 
+#begin Scripts/sample.lua
+/copy:Scripts/sample.lua
+

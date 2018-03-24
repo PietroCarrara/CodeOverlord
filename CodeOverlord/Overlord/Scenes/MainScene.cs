@@ -11,6 +11,8 @@ namespace Overlord
 		{
 			base.Initialize();
 
+			this.ClearColor = Color.Black;
+
 			Grid.Width = 20;
 			Grid.Height = 20;
 			Grid.TileWidth = 64;
@@ -19,21 +21,18 @@ namespace Overlord
 			var dragger = new MonsterDragger();
 			Add(dragger);
 
-			var editor = Add(new EditorSpawner());
-
 			var spawner = new MonsterSpawner();
 			Add(spawner);
 
-			var font = this.Content.Load<SpriteFont>("Fonts/Editor");
-			var btSpr = new Sprite(this.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0"));
-			var btSprHover = new Sprite(this.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0Hover"));
+			var font = Overlord.Content.Fonts.Editor(this);
+			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
+			var btSprHover = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
 			var bt = new Button(200, 50, btSpr, btSprHover, "Start!", font, null); 
 			bt.OnClick = () =>
 			{
 				BattleManager.Sort();
 				dragger.Destroy();
 				spawner.Destroy();
-				editor.Destroy();
 				bt.Destroy();
 			};
 			bt.Position = PrimeGame.Center - new Vector2(0, 200);

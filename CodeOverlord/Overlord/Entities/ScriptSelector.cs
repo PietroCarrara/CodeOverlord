@@ -15,14 +15,14 @@ namespace Overlord
 			this.m = m;
 		}
 
-		public ListView<Monster> Scripts;
+		public ListView<string> Scripts;
 
 		Sprite btSprite, btHover;
 		SpriteFont btFont;
 
 		public override void Initialize()
 		{
-			var bg = this.Add(new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Panels/Panel0")));
+			var bg = this.Add(new Sprite(Content.Sprites.UI.Panels.Panel0(this.Scene)));
 			bg.Width = this.Width;
 			bg.Height = this.Height;
 			bg.RelativePosition = new Vector2(0, this.Height) / 2;
@@ -30,15 +30,15 @@ namespace Overlord
 			float btWidth = this.Width - this.Width / 8;
 			float btHeight = this.Height / 10;
 
-			btSprite = new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0"));
+			btSprite = new Sprite(Content.Sprites.UI.Buttons.Button0(this.Scene));
 			btSprite.Width = btWidth;
 			btSprite.Height = btHeight;
 
-			btHover = new Sprite(this.Scene.Content.Load<Texture2D>("Sprites/UI/Buttons/Button0Hover"));
+			btHover = new Sprite(Content.Sprites.UI.Buttons.Button0Hover(this.Scene));
 			btHover.Width = btWidth;
 			btHover.Height = btHeight;
 
-			btFont = Scene.Content.Load<SpriteFont>("Fonts/Editor");
+			btFont = Content.Fonts.Editor(this.Scene);
 
 			var bt = new Prime.Button(btWidth, btHeight, btSprite, btHover, "Create New", btFont, () => 
 			{
@@ -46,12 +46,21 @@ namespace Overlord
 			});
 			bt.Position = new Vector2(0, this.Height - btHeight / 2 - this.Height / 20);
 
-			Scripts = new ListView<Monster>(Width, Height * .9f, 150, 150);
+			Scripts = new ListView<string>(Width, Height * .9f, 150, 150);
 			Scripts.Position = new Vector2(0, Height * .9f / 2);
-			Scripts.OnSelected = (m) =>
+			Scripts.OnSelected = (s) =>
 			{
-				this.m.Monster = m;
+				this.m.Script = s;
 			};
+
+			var scripts = ScriptIO.GetScripts();
+
+			foreach ( var s in scripts )
+			{
+				var script = ScriptIO.Load(s);
+
+				Scripts.Add(script, Content.Icons.Scroll(this.Scene));
+			}
 
 			this.Insert(Scripts);
 			this.Insert(bt);

@@ -55,21 +55,33 @@
 	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackLeft.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackRight.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Attack\AttackUp.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\Push.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushUp.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushDown.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushLeft.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushRight.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Monsters.cs" />
 	<Compile Include="Overlord\Entities\MonsterDragger.cs" />
 	<Compile Include="Overlord\Entities\MonsterSpawner.cs" />
 	<Compile Include="Overlord\Entities\ScriptSelector.cs" />
 	<Compile Include="Overlord\Entities\Dialogs\ClassSelector.cs" />
 	<Compile Include="Overlord\Entities\MonsterEditor\Editor.cs" />
-	<Compile Include="Overlord\Entities\MonsterEditor\EditorSpawner.cs" />
 	<Compile Include="Overlord\Entities\Monsters\Monster.cs" />
 	<Compile Include="Overlord\Entities\Monsters\Slime.cs" />
 	<Compile Include="Overlord\Scenes\MainScene.cs" />
 	<Compile Include="Overlord\Systems\Grid\Grid.cs" />
 	<Compile Include="Overlord\Systems\BattleManager.cs" />
+	<Compile Include="Overlord\Helpers\ScriptIO.cs" />
+	<Compile Include="Overlord\Helpers\Content\Fonts.cs" />
+	<Compile Include="Overlord\Helpers\Content\Icons.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\Monsters\Slime.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Panels.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Buttons.cs" />
 	<Compile Include="Overlord\Exceptions\OverlordException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidCodeException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidMoveException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidAttackException.cs" />
+	<Compile Include="Overlord\Lua.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
