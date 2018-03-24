@@ -28,6 +28,7 @@ namespace Overlord
 			var target = Grid.PointToWorld(gridPos);
 
 			Owner.Animations.Play("walk");
+			Owner.Animations.FlipX = true;
 
 			Tasks.Create (
 				() => Owner.Position.X += speed * Time.DetlaTime,
