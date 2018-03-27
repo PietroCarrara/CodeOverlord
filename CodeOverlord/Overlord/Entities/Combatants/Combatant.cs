@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Overlord
 {
-	public class Monster : Entity
+	public class Combatant : Entity
 	{
 		internal int Stamina, Damage, Health, Reach;
 		internal int CurrentStamina, CurrentDamage, CurrentHealth, CurrentReach;
@@ -57,23 +57,6 @@ namespace Overlord
 			this.Add(new AttackRight());
 
 			this.Add(new Monsters());
-		}
-
-		public static Monster FromScript(string s)
-		{
-			var lua = new Lua();
-
-			var m = (Monster) lua.DoString(s).Table["base"];
-
-			if (m is Slime)
-				return new Slime();
-
-			return null;
-		}
-
-		public override void OnDestroy()
-		{
-			BattleManager.Remove(this);
 		}
 
 		public void ReceiveTurn()

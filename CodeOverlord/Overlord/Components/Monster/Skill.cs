@@ -12,7 +12,7 @@ namespace Overlord
 		// Get the skill function callback
 		public abstract object GetCode();
 
-		public new Monster Owner;
+		public new Combatant Owner;
 
 		public Skill(string name)
 		{
@@ -33,7 +33,7 @@ namespace Overlord
 		{
 			base.Initialize();
 
-			this.Owner = (Monster) base.Owner;
+			this.Owner = (Combatant) base.Owner;
 
 			Owner.Lua.AddSkill(this);
 		}

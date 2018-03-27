@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
-    public class Editor : Box
+    public class Editor : UIEntity
     {
 		private const int width = 1280 / 2;
 		private const int height = 500;

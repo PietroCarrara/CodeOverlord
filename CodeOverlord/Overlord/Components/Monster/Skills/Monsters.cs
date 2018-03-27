@@ -25,7 +25,9 @@ namespace Overlord
 			}
 
 			// Don't include yourself in the list
-			list.Remove(this.Owner);
+			var monster = this.Owner as Monster;
+			if (monster != null)
+				list.Remove(monster);
 
 			// Sort by distance
 			list = list.OrderBy((m) =>

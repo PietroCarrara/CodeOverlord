@@ -17,7 +17,7 @@ namespace Overlord
 
 		private Coroutine routine;
 
-		public new Monster Owner;
+		public new Combatant Owner;
 
 		private string content = "";
 		public string Content
@@ -35,7 +35,7 @@ namespace Overlord
 
 		public override void Initialize()
 		{
-			this.Owner = (Monster) base.Owner;
+			this.Owner = (Combatant) base.Owner;
 		}
 
 		public void AddSkill(Skill s)

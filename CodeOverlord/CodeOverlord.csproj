@@ -66,8 +66,10 @@
 	<Compile Include="Overlord\Entities\ScriptSelector.cs" />
 	<Compile Include="Overlord\Entities\Dialogs\ClassSelector.cs" />
 	<Compile Include="Overlord\Entities\MonsterEditor\Editor.cs" />
-	<Compile Include="Overlord\Entities\Monsters\Monster.cs" />
-	<Compile Include="Overlord\Entities\Monsters\Slime.cs" />
+	<Compile Include="Overlord\Entities\Combatants\Combatant.cs" />
+	<Compile Include="Overlord\Entities\Combatants\Hero.cs" />
+	<Compile Include="Overlord\Entities\Combatants\Monster.cs" />
+	<Compile Include="Overlord\Entities\Combatants\Monsters\Slime.cs" />
 	<Compile Include="Overlord\Scenes\MainScene.cs" />
 	<Compile Include="Overlord\Systems\Grid\Grid.cs" />
 	<Compile Include="Overlord\Systems\BattleManager.cs" />

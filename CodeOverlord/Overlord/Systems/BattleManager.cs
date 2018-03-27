@@ -9,22 +9,22 @@ namespace Overlord
 	{
 		public static List<Monster> Monsters = new List<Monster>();
 
-		// public static List<Hero> Heroes = new List<Hero>();
+		public static List<Hero> Heroes = new List<Hero>();
 
-		public static Monster Current;
+		public static Combatant Current;
 		private static int currIndex=-1;
 		private static int total;
 
-		private static List<Monster> participants = new List<Monster>();
+		private static List<Combatant> participants = new List<Combatant>();
 		public static void Sort()
 		{
 			participants.Clear();
 			participants.AddRange(Monsters);
-			// participants.AddRange(Heroes);
+			participants.AddRange(Heroes);
 			
 			// Maybe have some kind of 'Speed' status?
 			// By now just shuffle it
-			participants.OrderBy((e) => Randomic.Rand(1000));
+			participants = participants.OrderBy((e) => Randomic.Rand()).ToList();
 
 			total = participants.Count();
 		}
@@ -32,6 +32,14 @@ namespace Overlord
 		public static void Remove(Monster m)
 		{
 			Monsters.Remove(m);
+			participants.Remove(m);
+			
+			total--;
+		}
+
+		public static void Remove(Hero m)
+		{
+			Heroes.Remove(m);
 			participants.Remove(m);
 			
 			total--;
@@ -65,11 +73,11 @@ namespace Overlord
 			return GetByPos(p) == null;
 		}
 
-		public static Monster GetByPos(int x, int y)
+		public static Combatant GetByPos(int x, int y)
 		{
 			var p = new Point(x, y);
 
-			foreach(var m in Monsters)
+			foreach(var m in participants)
 			{
 				if(m.GridPos == p)
 				{
@@ -80,7 +88,7 @@ namespace Overlord
 			return null;
 		}
 
-		public static Monster GetByPos(Point p)
+		public static Combatant GetByPos(Point p)
 		{
 			return GetByPos(p.X, p.Y);
 		}

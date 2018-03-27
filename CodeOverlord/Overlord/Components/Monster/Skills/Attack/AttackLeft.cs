@@ -21,7 +21,7 @@ namespace Overlord
 
 			var p = Owner.GridPos;
 
-			Monster target = null;
+			Combatant target = null;
 			
 			for (int i = 1; i <= Owner.CurrentReach; i++)
 			{

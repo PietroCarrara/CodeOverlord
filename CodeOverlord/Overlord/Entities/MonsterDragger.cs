@@ -4,7 +4,7 @@ namespace Overlord
 {
 	public class MonsterDragger : Entity
 	{
-		private Monster target;
+		private Combatant target;
 
 		public override void Update()
 		{

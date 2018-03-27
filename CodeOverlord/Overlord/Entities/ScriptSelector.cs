@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
-	public class ScriptSelector : Box
+	public class ScriptSelector : UIEntity 
 	{
 		private MonsterSpawner m;
 
@@ -17,9 +17,6 @@ namespace Overlord
 
 		public ListView<string> Scripts;
 
-		Sprite btSprite, btHover;
-		SpriteFont btFont;
-
 		public override void Initialize()
 		{
 			var bg = this.Add(new Sprite(Content.Sprites.UI.Panels.Panel0(this.Scene)));
@@ -27,27 +24,8 @@ namespace Overlord
 			bg.Height = this.Height;
 			bg.RelativePosition = new Vector2(0, this.Height) / 2;
 
-			float btWidth = this.Width - this.Width / 8;
-			float btHeight = this.Height / 10;
-
-			btSprite = new Sprite(Content.Sprites.UI.Buttons.Button0(this.Scene));
-			btSprite.Width = btWidth;
-			btSprite.Height = btHeight;
-
-			btHover = new Sprite(Content.Sprites.UI.Buttons.Button0Hover(this.Scene));
-			btHover.Width = btWidth;
-			btHover.Height = btHeight;
-
-			btFont = Content.Fonts.Editor(this.Scene);
-
-			var bt = new Prime.Button(btWidth, btHeight, btSprite, btHover, "Create New", btFont, () => 
-			{
-				this.Scene.Add(new ClassSelector(this));
-			});
-			bt.Position = new Vector2(0, this.Height - btHeight / 2 - this.Height / 20);
-
-			Scripts = new ListView<string>(Width, Height * .9f, 150, 150);
-			Scripts.Position = new Vector2(0, Height * .9f / 2);
+			Scripts = this.Insert(new ListView<string>(Width, Height, Width, Height / 5));
+			Scripts.Position = new Vector2(0, Height / 2);
 			Scripts.OnSelected = (s) =>
 			{
 				this.m.Script = s;
@@ -59,11 +37,11 @@ namespace Overlord
 			{
 				var script = ScriptIO.Load(s);
 
-				Scripts.Add(script, Content.Icons.Scroll(this.Scene));
-			}
+				var text = new TextComponent(s, Content.Fonts.Editor(this.Scene));
+				text.Color = Color.Black;
 
-			this.Insert(Scripts);
-			this.Insert(bt);
+				Scripts.Add(script, text);
+			}
 		}
 	}
 }
