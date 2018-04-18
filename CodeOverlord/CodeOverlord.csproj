@@ -61,35 +61,51 @@
 	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushLeft.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushRight.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Monsters.cs" />
+	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttack.cs" />
+	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackUp.cs" />
+	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackDown.cs" />
+	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackLeft.cs" />
+	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackRight.cs" />
 	<Compile Include="Overlord\Entities\MonsterDragger.cs" />
 	<Compile Include="Overlord\Entities\MonsterSpawner.cs" />
 	<Compile Include="Overlord\Entities\ScriptSelector.cs" />
-	<Compile Include="Overlord\Entities\Dialogs\ClassSelector.cs" />
+	<Compile Include="Overlord\Entities\MousePositionHighlight.cs" />
 	<Compile Include="Overlord\Entities\MonsterEditor\Editor.cs" />
 	<Compile Include="Overlord\Entities\Combatants\Combatant.cs" />
 	<Compile Include="Overlord\Entities\Combatants\Hero.cs" />
 	<Compile Include="Overlord\Entities\Combatants\Monster.cs" />
 	<Compile Include="Overlord\Entities\Combatants\Monsters\Slime.cs" />
-	<Compile Include="Overlord\Scenes\MainScene.cs" />
+	<Compile Include="Overlord\Entities\Combatants\Heroes\Rogue.cs" />
+	<Compile Include="Overlord\Scenes\LevelScene.cs" />
 	<Compile Include="Overlord\Systems\Grid\Grid.cs" />
 	<Compile Include="Overlord\Systems\BattleManager.cs" />
 	<Compile Include="Overlord\Helpers\ScriptIO.cs" />
 	<Compile Include="Overlord\Helpers\Content\Fonts.cs" />
 	<Compile Include="Overlord\Helpers\Content\Icons.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\Monsters\Slime.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\Heroes\Rogue.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Panels.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Buttons.cs" />
 	<Compile Include="Overlord\Exceptions\OverlordException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidCodeException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidMoveException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidAttackException.cs" />
-	<Compile Include="Overlord\Lua.cs" />
+	<Compile Include="Overlord\MonsterLua.cs" />
+	<Compile Include="Overlord\HeroLua.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+	<Reference Include="MonoGame.Extended">
+      <HintPath>..\packages\MonoGame.Extended.0.6.602\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
+    </Reference>
+	<Reference Include="MonoGame.Extended.Graphics">
+      <HintPath>..\packages\MonoGame.Extended.Graphics.0.6.602\lib\portable-net45+win8+wpa81\MonoGame.Extended.Graphics.dll</HintPath>
+    </Reference>    <Reference Include="MonoGame.Extended.Tiled">
+      <HintPath>..\packages\MonoGame.Extended.Tiled.0.6.602\lib\portable-net45+win8+wpa81\MonoGame.Extended.Tiled.dll</HintPath>
     </Reference>
 	<Reference Include="MoonSharp">
 		<HintPath>..\packages\MoonSharp.2.0.0.0\lib\net40-client\MoonSharp.Interpreter.dll</HintPath>

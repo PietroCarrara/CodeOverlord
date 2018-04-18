@@ -37,7 +37,7 @@ namespace Overlord
 			{
 				var script = ScriptIO.Load(s);
 
-				var text = new TextComponent(s, Content.Fonts.Editor(this.Scene));
+				var text = new TextComponent(s.Replace("Content/Scripts/", ""), Content.Fonts.Editor(this.Scene));
 				text.Color = Color.Black;
 
 				Scripts.Add(script, text);

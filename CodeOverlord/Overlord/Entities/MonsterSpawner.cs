@@ -18,8 +18,6 @@ namespace Overlord
 				var m = Monster.FromScript(Script);
 
 				this.Scene.Add(m);
-				
-				m.Lua.Content = Script;
 
 				m.GridPos = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
 

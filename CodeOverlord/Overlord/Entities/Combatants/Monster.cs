@@ -6,14 +6,17 @@ namespace Overlord
 	{
 		public static Monster FromScript(string s)
 		{
-			var lua = new Lua();
+			var lua = new MonsterLua();
 
-			var m = (Monster) lua.DoString(s).Table["base"];
+			var m = (Monster) lua.Script.DoString(s).Table["base"];
+			m.Lua.Content = s;
 
-			if (m is Slime)
-				return new Slime();
+			return m;
+		}
 
-			return null;
+		public Monster()
+		{
+			base.Lua = new MonsterLua();
 		}
 
 		public override void OnDestroy()

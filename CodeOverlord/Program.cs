@@ -14,7 +14,7 @@ namespace Overlord
         [STAThread]
         static void Main()
         {
-            using (var game = new OverLordGame(new MainScene()))
+            using (var game = new OverLordGame(new LevelScene(ScriptIO.Load("Content/Scripts/Levels/basic-room.lua"))))
                 game.Run();
         }
     }

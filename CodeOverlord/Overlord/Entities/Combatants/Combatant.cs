@@ -41,8 +41,6 @@ namespace Overlord
 			CurrentHealth = Health;
 			CurrentReach = Reach;
 
-			Lua = new LuaInterpreter();
-
 			this.Add(Lua);
 
 			// Basic skills

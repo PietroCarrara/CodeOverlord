@@ -11,11 +11,26 @@ namespace Overlord
 
 		public static List<Hero> Heroes = new List<Hero>();
 
+		private static LevelScene scene;
+
 		public static Combatant Current;
 		private static int currIndex=-1;
 		private static int total;
 
 		private static List<Combatant> participants = new List<Combatant>();
+		public static List<Combatant> Participants
+		{
+			get
+			{
+				return participants;
+			}
+		}
+
+		public static void Init(LevelScene s)
+		{
+			scene = s;
+		}
+
 		public static void Sort()
 		{
 			participants.Clear();
@@ -27,6 +42,24 @@ namespace Overlord
 			participants = participants.OrderBy((e) => Randomic.Rand()).ToList();
 
 			total = participants.Count();
+		}
+
+		public static void Add(Hero h)
+		{
+			Heroes.Add(h);
+			// TODO: Add in order (higher iniciative comes first, that sort of thing)
+			participants.Add(h);
+
+			total++;
+		}
+
+		public static void Add(Monster m)
+		{
+			Monsters.Add(m);
+			// TODO: Add in order (higher iniciative comes first, that sort of thing)
+			participants.Add(m);
+
+			total++;
 		}
 
 		public static void Remove(Monster m)
@@ -53,8 +86,13 @@ namespace Overlord
 			if(Current == null)
 			{
 				currIndex++;
+				
+				// A turn has passed, reset the order
 				if (currIndex >= total)
+				{
 					currIndex = 0;
+					scene.EndTurn();
+				}
 
 				Current = participants[currIndex];
 				Current.ReceiveTurn();

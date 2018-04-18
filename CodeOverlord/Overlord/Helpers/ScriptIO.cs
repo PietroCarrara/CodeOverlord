@@ -10,9 +10,9 @@ namespace Overlord
 			return File.ReadAllText(filename);
 		}
 
-		public static string[] GetScripts()
+		public static string[] GetScripts(string path = "")
 		{
-			return Directory.GetFiles("Content/Scripts/");
+			return Directory.GetFiles( path == "" ? "Content/Scripts/" : path );
 		}
 	}
 }

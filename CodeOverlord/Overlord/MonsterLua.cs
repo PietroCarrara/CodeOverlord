@@ -5,11 +5,11 @@ using System;
 
 namespace Overlord
 {
-	public class Lua : Script
+	public class MonsterLua : LuaInterpreter
 	{
-		public Lua()
+		public MonsterLua()
 		{
-			this.Globals["Slime"] = (Func<Slime>)(() => new Slime());
+			base.Script.Globals["Slime"] = (Func<Slime>)(() => new Slime());
 
 			UserData.RegisterType<Point>();
 			UserData.RegisterType<Vector2>();

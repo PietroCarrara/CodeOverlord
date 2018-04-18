@@ -10,7 +10,7 @@ namespace Overlord
 {
 	public class LuaInterpreter : Component
 	{
-		public Lua Script = new Lua();
+		public Script Script = new Script();
 		public MoonSharp.Interpreter.Table This;
 
 		public bool CurrentInstructionDone = true;
@@ -35,6 +35,8 @@ namespace Overlord
 
 		public override void Initialize()
 		{
+			base.Initialize();
+
 			this.Owner = (Combatant) base.Owner;
 		}
 
