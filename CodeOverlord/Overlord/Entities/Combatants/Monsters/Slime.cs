@@ -9,8 +9,6 @@ namespace Overlord
 {
 	public class Slime : Monster
 	{
-		public const string DefaultCode = "local this = {}\nthis.base = Slime()\n\nfunction this.update()\n\t\nend\n\nreturn this";
-
 		public Slime()
 		{
 			this.Stamina = 1;
