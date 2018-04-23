@@ -1,7 +1,7 @@
--- sample.lua
+-- Dumb slime
 
 local this = {}
-this.base = Slime()
+this = Slime()
 
 function this.update()
 	moveLeft()

@@ -15,14 +15,13 @@ level.heroes = {
 	"Content/Scripts/Heroes/Rogue/rogue.lua",
 	"Content/Scripts/Heroes/Rogue/rogue.lua",
 	"Content/Scripts/Heroes/Rogue/rogue.lua",
-	"Content/Scripts/Heroes/Rogue/rogue.lua"
 }
 
--- Width and heigth in a 1280x720 screen
-level.dimensions = { x = 1000, y = 1000 }
+level.dimensions = { x = 1300, y = 1300 }
 
 level.spawns = {
-	{ x = 10, y = 2 }
+	{ x = 0, y = -8 },
+	{ x = -1, y = -8 },
 }
 
 return level

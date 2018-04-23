@@ -24,7 +24,7 @@ namespace Overlord
 
 		private void run()
 		{
-			var damage = Owner.CurrentDamage * 3;
+			var damage = Owner.CurrentDamage;
 
 			Begin();
 

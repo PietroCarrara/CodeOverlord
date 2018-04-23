@@ -19,10 +19,10 @@ namespace Overlord
 			base.Animations = Add(Content.Sprites.Heroes.Rogue.SpriteSheet(this.Scene));
 
 			// Rogue Skills
-			Lua.AddSkill(new SurpriseAttackUp());
-			Lua.AddSkill(new SurpriseAttackDown());
-			Lua.AddSkill(new SurpriseAttackLeft());
-			Lua.AddSkill(new SurpriseAttackRight());
+			this.Add(new SurpriseAttackUp());
+			this.Add(new SurpriseAttackDown());
+			this.Add(new SurpriseAttackLeft());
+			this.Add(new SurpriseAttackRight());
 		}
 	}
 }

@@ -9,7 +9,12 @@ namespace Overlord
 	{
 		public HeroLua()
 		{
-			base.Script.Globals["Rogue"] = (Func<Rogue>)(() => new Rogue());
+			base.Script.Globals["Rogue"] = (Func<Table>)(() =>
+			{
+				var t = combatant();
+				t["base"] = new Rogue();
+				return t;
+			});
 
 			UserData.RegisterType<Point>();
 			UserData.RegisterType<Vector2>();

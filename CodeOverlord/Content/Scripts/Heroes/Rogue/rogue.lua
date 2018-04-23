@@ -5,42 +5,37 @@
 -- Distributed under terms of the MIT license.
 --
 
+local points = require 'Point'
+
 local this = {}
-this.base = Rogue()
+this = Rogue()
 
 local pastAttacks = {}
 
 function this.update()
-	
-	moveLeft()
-
-	if (true) then
-		return
-	end
-
 
 	if (#monsters() > 0) then
-		
-		local target = monsters()[0]
 
-		local dist = target.base.Position - this.base.Position
+		local target = monsters()[1]
+
+		local dist = this.getPosition() - target.getPosition()
 
 		if (math.abs(dist.X) + math.abs(dist.Y) <= 1) then
 			attack(target, dist)
 		else
-			move()
+			move(target)
 		end
 	end
 end
 
-function move()
-	if (target.base.Position.X > this.base.Position.X) then
+function move(target)
+	if (target.getPosition().X > this.getPosition().X) then
 		moveRight()
-	elseif (target.base.Position.X < this.base.Position.X) then
+	elseif (target.getPosition().X < this.getPosition().X) then
 		moveLeft()
-	elseif (target.base.Position.Y < this.base.Position.Y) then
+	elseif (target.getPosition().Y < this.getPosition().Y) then
 		moveUp()
-	elseif (target.base.Position.Y > this.base.Position.Y) then
+	elseif (target.getPosition().Y > this.getPosition().Y) then
 		moveDown()
 	end
 end
@@ -51,22 +46,22 @@ function attack(target, dist)
 
 	if (not contains(pastAttacks, target)) then
 		attackFuncName = "surpriseAttack"
-		pastAttacks.insert(target)
+		table.insert(pastAttacks, target)
 	end
 
 	if (dist.X > 0) then
-		attackFuncName = attackFuncName .. "Right()"
+		attackFuncName = attackFuncName .. "Right"
 	elseif (dist.X < 0) then
 		attackLeft()
-		attackFuncName = attackFuncName .. "Left()"
-	elseif (dist.Y > 0) then
-		attackFuncName = attackFuncName .. "Down()"
+		attackFuncName = attackFuncName .. "Left"
+	elseif (dist.Y < 0) then
+		attackFuncName = attackFuncName .. "Down"
 	else
-		attackFuncName = attackFuncName .. "Up()"
+		attackFuncName = attackFuncName .. "Up"
 	end
 
-	local attackFunc = load(attackFuncName)
-	attackFunc()
+	_G[attackFuncName]();
+
 end
 
 function contains(arr, val)

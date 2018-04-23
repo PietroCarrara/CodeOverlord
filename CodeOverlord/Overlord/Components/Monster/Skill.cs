@@ -35,7 +35,7 @@ namespace Overlord
 
 			this.Owner = (Combatant) base.Owner;
 
-			Owner.Lua.AddSkill(this);
+			this.Owner.Lua.AddSkill(this);
 		}
 	}
 }

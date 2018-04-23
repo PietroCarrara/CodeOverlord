@@ -2,6 +2,7 @@ using Prime;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using MoonSharp.Interpreter;
 
 namespace Overlord
 {
@@ -12,27 +13,26 @@ namespace Overlord
 
 		public override object GetCode()
 		{
-			return (Func<List<Monster>>) run;
+			return (Func<List<ProxyCombatant>>) run;
 		}
 
-		private List<Monster> run()
+		private List<ProxyCombatant> run()
 		{
-			var list = new List<Monster>();
+			var list = new List<ProxyCombatant>();
 
 			foreach (var m in BattleManager.Monsters)
 			{
-				list.Add(m);
+				list.Add(new ProxyCombatant(this.Owner.Lua.Script, m));
 			}
 
-			// Don't include yourself in the list
 			var monster = this.Owner as Monster;
 			if (monster != null)
-				list.Remove(monster);
+				list.RemoveAll((x) => x.Combatant == monster);
 
-			// Sort by distance
+			// TODO: Sort by distance
 			list = list.OrderBy((m) =>
 			{
-				var dist = (this.Owner).GridPos - m.GridPos;
+				var dist = this.Owner.GridPos - m.Combatant.GridPos;
 				return Math.Abs(dist.X) + Math.Abs(dist.Y);
 			}).ToList();
 

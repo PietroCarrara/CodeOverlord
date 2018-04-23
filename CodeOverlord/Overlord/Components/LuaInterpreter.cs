@@ -33,6 +33,14 @@ namespace Overlord
 			}
 		}
 
+		public LuaInterpreter()
+		{
+			var loader = new MoonSharp.Interpreter.Loaders.FileSystemScriptLoader();
+			loader.ModulePaths = new string[]{"Content/Scripts/Lib/?.lua"};
+
+			this.Script.Options.ScriptLoader = loader;
+		}
+
 		public override void Initialize()
 		{
 			base.Initialize();
@@ -66,6 +74,15 @@ namespace Overlord
 
 			if (Owner.CurrentStamina <= 0 && CurrentInstructionDone)
 				BattleManager.Current = null;
+		}
+
+		protected virtual Table combatant()
+		{
+			var t = new Table(this.Script);
+
+			t["getPosition"] = (Func<Point>)(() => this.Owner.GridPos);
+
+			return t;
 		}
 	}
 }

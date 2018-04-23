@@ -102,9 +102,6 @@
 #begin Scripts/Levels/basic-room.lua
 /copy:Scripts/Levels/basic-room.lua
 
-#begin Scripts/sample.lua
-/copy:Scripts/sample.lua
-
 #begin Sprites/Rooms/Basic Room/map.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -121,4 +118,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Rooms/Basic Room/tileset.png
+
+#begin Scripts/Monsters/sample.lua
+/copy:Scripts/Monsters/sample.lua
 

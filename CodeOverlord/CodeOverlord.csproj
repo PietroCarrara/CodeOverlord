@@ -68,6 +68,7 @@
 	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackRight.cs" />
 	<Compile Include="Overlord\Entities\MonsterDragger.cs" />
 	<Compile Include="Overlord\Entities\MonsterSpawner.cs" />
+	<Compile Include="Overlord\Entities\ProxyCombatant.cs" />
 	<Compile Include="Overlord\Entities\ScriptSelector.cs" />
 	<Compile Include="Overlord\Entities\MousePositionHighlight.cs" />
 	<Compile Include="Overlord\Entities\MonsterEditor\Editor.cs" />

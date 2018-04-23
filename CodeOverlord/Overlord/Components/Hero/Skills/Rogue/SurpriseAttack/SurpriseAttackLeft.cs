@@ -4,7 +4,7 @@ namespace Overlord
 {
 	public class SurpriseAttackLeft : SurpriseAttack
 	{
-		public SurpriseAttackLeft() : base(new Point(-1, 0), "Up")
+		public SurpriseAttackLeft() : base(new Point(-1, 0), "Left")
 		{  }
 	}
 }
