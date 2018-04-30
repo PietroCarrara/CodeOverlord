@@ -17,8 +17,6 @@ namespace Overlord
 		{
 			Begin();
 
-			Console.WriteLine("Attacking up!");
-
 			Owner.CurrentStamina--;
 
 			var p = Owner.GridPos;

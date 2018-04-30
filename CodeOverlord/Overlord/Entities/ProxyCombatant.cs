@@ -28,7 +28,12 @@ namespace Overlord
 
 		public DynValue MetaIndex(Script s, string metaname)
 		{
-			return Combatant.Lua.This.MetaTable.Get(metaname);
+			if (Combatant.Lua.This.MetaTable != null)
+			{
+				return Combatant.Lua.This.MetaTable.Get(metaname);
+			}
+
+			return null;
 		}
 	}
 }

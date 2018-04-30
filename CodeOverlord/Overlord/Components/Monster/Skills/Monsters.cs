@@ -29,7 +29,6 @@ namespace Overlord
 			if (monster != null)
 				list.RemoveAll((x) => x.Combatant == monster);
 
-			// TODO: Sort by distance
 			list = list.OrderBy((m) =>
 			{
 				var dist = this.Owner.GridPos - m.Combatant.GridPos;

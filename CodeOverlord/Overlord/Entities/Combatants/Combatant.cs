@@ -54,7 +54,10 @@ namespace Overlord
 			this.Add(new AttackLeft());
 			this.Add(new AttackRight());
 
+			this.Add(new PassTurn());
+
 			this.Add(new Monsters());
+			this.Add(new Heroes());
 		}
 
 		public void ReceiveTurn()

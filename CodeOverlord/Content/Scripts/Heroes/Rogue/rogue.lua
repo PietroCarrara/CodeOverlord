@@ -5,8 +5,6 @@
 -- Distributed under terms of the MIT license.
 --
 
-local points = require 'Point'
-
 local this = {}
 this = Rogue()
 
@@ -52,7 +50,6 @@ function attack(target, dist)
 	if (dist.X > 0) then
 		attackFuncName = attackFuncName .. "Right"
 	elseif (dist.X < 0) then
-		attackLeft()
 		attackFuncName = attackFuncName .. "Left"
 	elseif (dist.Y < 0) then
 		attackFuncName = attackFuncName .. "Down"
@@ -61,7 +58,6 @@ function attack(target, dist)
 	end
 
 	_G[attackFuncName]();
-
 end
 
 function contains(arr, val)

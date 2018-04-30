@@ -98,7 +98,7 @@ namespace Overlord
 				Current.ReceiveTurn();
 			}
 			
-			Current.GetComponent<LuaInterpreter>().DoTurn();
+			Current.Lua.DoTurn();
 		}
 
 		public static bool IsEmpty(int x, int y)

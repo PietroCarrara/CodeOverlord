@@ -60,7 +60,9 @@
 	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushDown.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushLeft.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Slime\Push\PushRight.cs" />
+	<Compile Include="Overlord\Components\Skills\PassTurn.cs" />
 	<Compile Include="Overlord\Components\Monster\Skills\Monsters.cs" />
+	<Compile Include="Overlord\Components\Monster\Skills\Heroes.cs" />
 	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttack.cs" />
 	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackUp.cs" />
 	<Compile Include="Overlord\Components\Hero\Skills\Rogue\SurpriseAttack\SurpriseAttackDown.cs" />

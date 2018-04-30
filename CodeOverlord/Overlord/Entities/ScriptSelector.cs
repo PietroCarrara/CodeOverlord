@@ -31,13 +31,13 @@ namespace Overlord
 				this.m.Script = s;
 			};
 
-			var scripts = ScriptIO.GetScripts();
+			var scripts = ScriptIO.GetScripts("Content/Scripts/Monsters");
 
 			foreach ( var s in scripts )
 			{
 				var script = ScriptIO.Load(s);
 
-				var text = new TextComponent(s.Replace("Content/Scripts/", ""), Content.Fonts.Editor(this.Scene));
+				var text = new TextComponent(s.Replace("Content/Scripts", ""), Content.Fonts.Editor(this.Scene));
 				text.Color = Color.Black;
 
 				Scripts.Add(script, text);
