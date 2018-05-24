@@ -9,7 +9,7 @@ namespace Overlord
 	{
 		public Combatant Combatant;
 
-		public ProxyCombatant(Script s, Combatant c)
+		public ProxyCombatant(Combatant c)
 		{
 			this.Combatant = c;
 		}

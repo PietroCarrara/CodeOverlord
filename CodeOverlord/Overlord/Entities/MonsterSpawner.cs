@@ -4,7 +4,7 @@ namespace Overlord
 {
 	public class MonsterSpawner : Entity
 	{
-		public string Script;
+		public VirtualFile Script;
 
 		public override void Update()
 		{
@@ -12,10 +12,10 @@ namespace Overlord
 			{
 				base.Update();
 
-				if (Script == "")
+				if (Script.Text == "")
 					return;
 
-				var m = Monster.FromScript(Script);
+				var m = Monster.FromScript(Script.Text);
 
 				this.Scene.Add(m);
 

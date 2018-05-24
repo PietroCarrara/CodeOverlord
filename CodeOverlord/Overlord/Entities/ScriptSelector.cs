@@ -15,7 +15,30 @@ namespace Overlord
 			this.m = m;
 		}
 
-		public ListView<string> Scripts;
+		private Dictionary<string, VirtualFile> dict = new Dictionary<string, VirtualFile>();
+		public VirtualFile this[string key]
+		{
+			get
+			{
+				return dict[key];
+			}
+			set
+			{
+				// If this is the first time,
+				// add it to the listview
+				if (!dict.ContainsKey(key))
+				{
+					var text = new TextComponent(key, Content.Fonts.Editor(this.Scene));
+					text.Color = Color.Black;
+
+					Scripts.Add(value, text);
+				}
+
+				dict[key] = value;
+			}
+		}
+
+		public ListView<VirtualFile> Scripts;
 
 		public override void Initialize()
 		{
@@ -24,24 +47,12 @@ namespace Overlord
 			bg.Height = this.Height;
 			bg.RelativePosition = new Vector2(0, this.Height) / 2;
 
-			Scripts = this.Insert(new ListView<string>(Width, Height, Width, Height / 5));
+			Scripts = this.Insert(new ListView<VirtualFile>(Width, Height, Width, Height / 5));
 			Scripts.Position = new Vector2(0, Height / 2);
 			Scripts.OnSelected = (s) =>
 			{
 				this.m.Script = s;
 			};
-
-			var scripts = ScriptIO.GetScripts("Content/Scripts/Monsters");
-
-			foreach ( var s in scripts )
-			{
-				var script = ScriptIO.Load(s);
-
-				var text = new TextComponent(s.Replace("Content/Scripts", ""), Content.Fonts.Editor(this.Scene));
-				text.Color = Color.Black;
-
-				Scripts.Add(script, text);
-			}
 		}
 	}
 }
