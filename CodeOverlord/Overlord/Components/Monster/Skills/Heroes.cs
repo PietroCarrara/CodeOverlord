@@ -20,9 +20,9 @@ namespace Overlord
 		{
 			var list = new List<ProxyCombatant>();
 
-			foreach (var m in BattleManager.Heroes)
+			foreach (var h in BattleManager.Heroes)
 			{
-				list.Add(new ProxyCombatant(this.Owner.Lua.Script, m));
+				list.Add(new ProxyCombatant(h));
 			}
 
 			var hero = this.Owner as Hero;

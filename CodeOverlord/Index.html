@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style type="text/css" media="screen">
+    #editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 30px;
+    }
+</style>
+</head>
+<body>
+
+<div id="editor"></div>
+    
+<script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+	var EditSession = ace.require("ace/edit_session").EditSession;
+
+	var editorSessions = [];
+	var currentSession = "";
+
+    var editor = ace.edit("editor");
+
+	function createSession(name, code) {
+		editorSessions[name] = new EditSession(code);
+	}
+
+	function setSession(name) {
+		editor.setSession(editorSessions[name])
+		currentSession = name;
+	}
+
+	editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/lua");
+	
+	editor.commands.addCommand({
+    	name: 'w',
+    	bindKey: {win: "Ctrl-S", "mac": "Cmd-S"},
+    	exec: function(editor) {
+			window.location.replace("action://save");
+    	}
+	});
+
+	window.onload = function () {
+		window.location.replace("action://done");
+	}
+
+</script>
+</body>
+</html>

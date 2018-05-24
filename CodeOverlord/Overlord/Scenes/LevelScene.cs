@@ -7,6 +7,7 @@ using MonoGame.Extended.Tiled;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Overlord.Editor;
 
 namespace Overlord
 {
@@ -26,7 +27,9 @@ namespace Overlord
 
 		public List<Point> Spawns = new List<Point>();
 
-		public LevelScene(string scriptContent)
+		public Dictionary<string, VirtualFile> VirtualFiles = new Dictionary<string, VirtualFile>();
+
+		public LevelScene(string scriptContent, string root)
 		{
 			UserData.RegisterType<Point>();
 
@@ -49,6 +52,13 @@ namespace Overlord
 				point.Y = (int) pos.Table.Get("y").Number;
 		
 				this.Spawns.Add(point);
+			}
+
+			foreach (var s in level.Get("files").Table.Values.AsObjects<string>())
+			{
+				var content = ScriptIO.Load(root + s);
+
+				this.VirtualFiles[s] = new VirtualFile(content);
 			}
 		}
 
@@ -95,6 +105,13 @@ namespace Overlord
 			Add(bt);
 
 			var selector = Add(new ScriptSelector(300, 300, spawner));
+			
+			foreach (var pair in this.VirtualFiles)
+			{
+				System.Console.WriteLine(pair.Key);
+				selector[pair.Key] = pair.Value;
+			}
+
 			selector.Position = new Vector2(1280 - selector.Width / 2, 720 / 2 - selector.Height / 2);
 
 			// Camera setup
@@ -103,6 +120,21 @@ namespace Overlord
 
 			this.Cam.Add(new DelayedFollowTarget(camTarget, 10));
 			this.Cam.Position = Vector2.Zero;
+		}
+
+		public void OnEditorReady()
+		{
+			foreach (var pair in this.VirtualFiles)
+			{
+				App.CreateSession(pair.Key, pair.Value.Text);
+				// App.SetSession(pair.Key);
+			}
+		}
+
+		public void SetScriptText(string key, string text)
+		{
+			System.Console.WriteLine(text);
+			this.VirtualFiles[key].Text = text;
 		}
 
 		public virtual void EndTurn()
@@ -133,6 +165,11 @@ namespace Overlord
 			base.Update();
 
 			BattleManager.Update();
+
+			if (!Input.HasFocus())
+			{
+				return;
+			}
 
 			if (Input.MousePosition().X >= 1260 || Input.IsKeyDown(Keys.D))
 				camTarget.Position.X += camSpeed;

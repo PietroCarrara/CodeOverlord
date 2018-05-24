@@ -8,5 +8,19 @@ else
 	cd ./CodeOverlord/bin/DesktopGL/AnyCPU/Debug/
 fi
 
+# Junk dll's
+rm atk-sharp.dll
+rm gdk-sharp.dll
+rm gio-sharp.dll
+rm gtk-sharp.dll
+rm glib-sharp.dll
+rm cairo-sharp.dll
+rm pango-sharp.dll
+
+root="/home/pietro/Projects/CodeOverlord"
+
+rm -rf "./ace"
+cp "$root/EditorHtml/ace/" "./ace/" -r
+
 mono CodeOverlord.exe
-cd ../../../../../
+cd "$root"

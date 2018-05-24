@@ -22,7 +22,7 @@ namespace Overlord
 
 			foreach (var m in BattleManager.Monsters)
 			{
-				list.Add(new ProxyCombatant(this.Owner.Lua.Script, m));
+				list.Add(new ProxyCombatant(m));
 			}
 
 			var monster = this.Owner as Monster;

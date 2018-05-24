@@ -19,6 +19,14 @@ level.heroes = {
 
 level.dimensions = { x = 1300, y = 1300 }
 
+-- User can't create new files
+level.lockFiles = true
+
+-- Files provided by the level
+level.files = {
+	"sample-slime.lua"
+}
+
 level.spawns = {
 	{ x = 0, y = -8 },
 	{ x = -1, y = -8 },

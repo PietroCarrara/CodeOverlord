@@ -1,5 +1,9 @@
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 using Prime;
+using Eto.Forms;
+using Overlord.Editor;
 
 namespace Overlord
 {
@@ -14,9 +18,21 @@ namespace Overlord
         [STAThread]
         static void Main()
         {
-            using (var game = new OverLordGame(new LevelScene(ScriptIO.Load("Content/Scripts/Levels/basic-room.lua"))))
-                game.Run();
+            var game = 	new OverLordGame(
+							new LevelScene(ScriptIO.Load("Content/Scripts/Levels/basic-room/basic-room.lua"),
+													 	 "Content/Scripts/Levels/basic-room/"));
+
+			App.Game = game;
+
+			var gameT = new Task(game.Run);
+			gameT.Start();
+
+			App.app = new Application();
+			App.form = new MainForm();
+
+			App.app.Run(App.form);
+
+			// Finish()
         }
     }
 }
-

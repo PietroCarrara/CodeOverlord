@@ -99,9 +99,6 @@
 #begin Scripts/Heroes/Rogue/rogue.lua
 /copy:Scripts/Heroes/Rogue/rogue.lua
 
-#begin Scripts/Levels/basic-room.lua
-/copy:Scripts/Levels/basic-room.lua
-
 #begin Sprites/Rooms/Basic Room/map.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -121,4 +118,10 @@
 
 #begin Scripts/Monsters/sample.lua
 /copy:Scripts/Monsters/sample.lua
+
+#begin Scripts/Levels/basic-room/basic-room.lua
+/copy:Scripts/Levels/basic-room/basic-room.lua
+
+#begin Scripts/Levels/basic-room/sample-slime.lua
+/copy:Scripts/Levels/basic-room/sample-slime.lua
 
