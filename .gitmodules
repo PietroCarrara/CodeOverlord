@@ -1,6 +1,6 @@
 [submodule "Prime"]
 	path = Prime
-	url = ./Prime/.git
+	url = https://github.com/PietroCarrara/Prime.git
 
 [submodule "EditorHtml"]
 	path = EditorHtml
