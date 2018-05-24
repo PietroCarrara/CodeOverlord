@@ -1,3 +1,7 @@
 [submodule "Prime"]
 	path = Prime
 	url = ./Prime/.git
+
+[submodule "OverlordEditorDependencies"]
+	path = OverlordEditorDependencies
+	url = https://github.com/PietroCarrara/OverlordEditorDependencies.git
