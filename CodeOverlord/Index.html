@@ -7,35 +7,84 @@
         top: 0;
         right: 0;
         bottom: 0;
-        left: 30px;
+        left: 0;
     }
+	table {
+		padding: 0;
+	}
+	td {
+		border: 1px solid black;
+	}
+	.scroll-container {
+		width: calc(100% - 20px);
+		margin-left: 20px;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
 </style>
 </head>
 <body>
 
-<div id="editor"></div>
+	<div class="scroll-container" id="scrollable" >
+		<table>
+			<tr id="tabs">
+			</tr>
+		</table>
+	</div>
+
+	<div id="editor"></div>
     
-<script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
+	<script>
+
+document.getElementById('scrollable').addEventListener('wheel', function(e) {
+
+	var div = document.getElementById('scrollable');
+
+	div.scrollLeft += e.deltaY * 10;
+});
+
+	</script>
+	<script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script>
 
 	var EditSession = ace.require("ace/edit_session").EditSession;
 
 	var editorSessions = [];
-	var currentSession = "";
+	var currentSession = '';
 
     var editor = ace.edit("editor");
 
 	function createSession(name, code) {
-		editorSessions[name] = new EditSession(code);
+
+		// Fisrt time running
+		if (currentSession == '') {
+			editorSessions[name] = editor.getSession();
+			editor.setValue(code);
+			editor.clearSelection();
+			currentSession = name;
+		} else {
+			editorSessions[name] = new EditSession(code);
+			setSession(editorSessions[name]);
+		}
+
+		var tabs = document.getElementById('tabs');
+		// <td onclick=setSession('name') >name</td>
+		tabs.innerHtml = '<td onclick="setSession(\'' + name + '\')">' + name + '</td>';
 	}
 
 	function setSession(name) {
+		// FIXME: Can't do this right up on loading the window
 		editor.setSession(editorSessions[name])
 		currentSession = name;
 	}
 
 	editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/lua");
+	
+	// Misc options
+	editor.setOption("dragEnabled", false)
+	editor.setOption("animatedScroll", false)
+	editor.setOption("showPrintMargin", false)
 	
 	editor.commands.addCommand({
     	name: 'w',
@@ -49,6 +98,6 @@
 		window.location.replace("action://done");
 	}
 
-</script>
+	</script>
 </body>
 </html>

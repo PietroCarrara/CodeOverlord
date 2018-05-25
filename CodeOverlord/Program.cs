@@ -32,6 +32,9 @@ namespace Overlord
 
 			App.app.Run(App.form);
 
+			// FIXME: Make it possible to quit the game without killing the process
+			gameT.Wait();
+
 			// Finish()
         }
     }

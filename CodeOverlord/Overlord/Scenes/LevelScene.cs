@@ -126,8 +126,9 @@ namespace Overlord
 		{
 			foreach (var pair in this.VirtualFiles)
 			{
+				System.Console.WriteLine("Acessando: " + pair.Key);
 				App.CreateSession(pair.Key, pair.Value.Text);
-				// App.SetSession(pair.Key);
+				System.Console.WriteLine("Acessando: " + pair.Key);
 			}
 		}
 

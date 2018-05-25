@@ -52,20 +52,21 @@ namespace Overlord.Editor
 					saveScript();
 					break;
 				case "done":
-					alert("Editor Ready, Sir!");
+					ready();
 					break;
 			}
 		}
 
-		// TODO: Implement
+		// TODO: Make work
 		public void CreateSession(string name, string code)
 		{
-			// web.ExecuteScript("createSession(" + escape(name) + ", " + escape(code) + ")");
+			web.ExecuteScript("createSession('" + escape(name) + "', '" + escape(code) + "')");
 		}
 
+		// TODO: Make work
 		public void SetSession(string name)
 		{
-			// web.ExecuteScript("setSession(" + escape(name) + ")");
+			web.ExecuteScript("setSession(" + escape(name) + ")");
 		}
 
 		private string escape(string text)
@@ -88,6 +89,12 @@ namespace Overlord.Editor
 		private void alert(string text)
 		{
 			var t = new Task(() => App.Alert(text));
+			t.Start();
+		}
+
+		private void ready()
+		{
+			var t = new Task(() => App.OnEditorReady());
 			t.Start();
 		}
 

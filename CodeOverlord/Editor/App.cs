@@ -24,9 +24,7 @@ namespace Overlord.Editor
 
 		public static void OnEditorReady()
 		{
-			Alert("kkkkj");
-
-			// Game.OnEditorReady();
+			Game.OnEditorReady();
 		}
 
 		public static string GetText()
