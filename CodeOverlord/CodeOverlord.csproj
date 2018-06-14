@@ -81,9 +81,13 @@
 	<Compile Include="Overlord\Entities\Combatants\Monster.cs" />
 	<Compile Include="Overlord\Entities\Combatants\Monsters\Slime.cs" />
 	<Compile Include="Overlord\Entities\Combatants\Heroes\Rogue.cs" />
+	<Compile Include="Overlord\Entities\Dialogs\Dialog.cs" />
+	<Compile Include="Overlord\Entities\Dialogs\Line.cs" />
+	<Compile Include="Overlord\Entities\Dialogs\LineKeeper.cs" />
 	<Compile Include="Overlord\Scenes\LevelScene.cs" />
 	<Compile Include="Overlord\Systems\Grid\Grid.cs" />
 	<Compile Include="Overlord\Systems\BattleManager.cs" />
+	<Compile Include="Overlord\Systems\CharManager.cs" />
 	<Compile Include="Overlord\Helpers\ScriptIO.cs" />
 	<Compile Include="Overlord\Helpers\Content\Fonts.cs" />
 	<Compile Include="Overlord\Helpers\Content\Icons.cs" />
@@ -91,6 +95,8 @@
 	<Compile Include="Overlord\Helpers\Content\Sprites\Heroes\Rogue.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Panels.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Buttons.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Ursula.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Constanze.cs" />
 	<Compile Include="Overlord\Exceptions\OverlordException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidCodeException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidMoveException.cs" />

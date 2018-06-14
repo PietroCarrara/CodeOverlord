@@ -29,12 +29,14 @@ namespace Overlord
 
 		public Dictionary<string, VirtualFile> VirtualFiles = new Dictionary<string, VirtualFile>();
 
+		private Table level;
+
 		public LevelScene(string scriptContent, string root)
 		{
 			UserData.RegisterType<Point>();
 
 			var script = new Script();
-			var level = script.DoString(scriptContent).Table;
+			level = script.DoString(scriptContent).Table;
 
 			this.Name = level.Get("name").String;
 			this.Map = level.Get("map").String;
@@ -83,10 +85,8 @@ namespace Overlord
 			BattleManager.Init(this);
 
 			var dragger = new MonsterDragger();
-			Add(dragger);
 
 			var spawner = new MonsterSpawner();
-			Add(spawner);
 
 			this.Add(new MousePositionHighlight(map.TileWidth, map.TileHeight));
 
@@ -102,17 +102,16 @@ namespace Overlord
 				bt.Destroy();
 			};
 			bt.Position = PrimeGame.Center - new Vector2(0, 200);
-			Add(bt);
 
 			var selector = Add(new ScriptSelector(300, 300, spawner));
 			
 			foreach (var pair in this.VirtualFiles)
 			{
-				System.Console.WriteLine(pair.Key);
 				selector[pair.Key] = pair.Value;
 			}
 
 			selector.Position = new Vector2(1280 - selector.Width / 2, 720 / 2 - selector.Height / 2);
+			selector.IsVisible = false;
 
 			// Camera setup
 			camTarget = new Entity();
@@ -120,6 +119,29 @@ namespace Overlord
 
 			this.Cam.Add(new DelayedFollowTarget(camTarget, 10));
 			this.Cam.Position = Vector2.Zero;
+
+			var dialogFont = Overlord.Content.Fonts.Dialogs(this.Content);
+			var dialog = this.Add(new Dialog());
+			foreach(var line in level.Get("dialog").Table.Values)
+			{
+				var character = line.Table.Get("char").String;
+				var contents = line.Table.Get("contents").String;
+
+				var l = this.Add(new Line(character, dialogFont, contents));
+
+				dialog.Put(l);
+			}
+
+			// Build UI after the dialog is gone
+			dialog.Add(new LineKeeper()).OnDone = () =>
+			{
+				Add(bt);
+				Add(spawner);
+				Add(dragger);
+				selector.IsVisible = true;
+			};
+
+			dialog.Next();
 		}
 
 		public void OnEditorReady()

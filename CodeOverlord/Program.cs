@@ -22,9 +22,10 @@ namespace Overlord
 							new LevelScene(ScriptIO.Load("Content/Scripts/Levels/basic-room/basic-room.lua"),
 													 	 "Content/Scripts/Levels/basic-room/"));
 
+
 			App.Game = game;
 
-			var gameT = new Task(game.Run);
+			var gameT = new Task(Run);
 			gameT.Start();
 
 			App.app = new Application();
@@ -35,7 +36,17 @@ namespace Overlord
 			// FIXME: Make it possible to quit the game without killing the process
 			gameT.Wait();
 
-			// Finish()
+			game.Dispose();
         }
+
+		static void Run()
+		{
+
+			using (var game = new OverLordGame(new LevelScene(ScriptIO.Load("Content/Scripts/Levels/basic-room/basic-room.lua"),
+													 	 	 				"Content/Scripts/Levels/basic-room/")))
+			{
+				game.Run();
+			}
+		}
     }
 }

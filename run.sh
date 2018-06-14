@@ -22,5 +22,9 @@ root="/home/pietro/Projects/CodeOverlord"
 rm -rf "./ace"
 cp "$root/EditorHtml/ace/" "./ace/" -r
 
+rm -rf "./css"
+mkdir -p "./css"
+cp "$root/EditorHtml/font-awesome.min.css" "./css/"
+
 mono CodeOverlord.exe
 cd "$root"

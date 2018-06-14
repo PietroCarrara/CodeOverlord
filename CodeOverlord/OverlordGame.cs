@@ -21,6 +21,13 @@ namespace Overlord
 			s.SetScriptText(sName, text);
 		}
 
+		protected override void Initialize()
+		{
+			CharManager.Initialize(this.Content);
+
+			base.Initialize();
+		}
+
 		public void OnEditorReady()
 		{
 			var s = this.ActiveScene as LevelScene;

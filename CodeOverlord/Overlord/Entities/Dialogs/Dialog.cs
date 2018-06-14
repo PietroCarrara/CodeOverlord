@@ -1,0 +1,40 @@
+using System.Collections.Generic;
+using Prime;
+
+namespace Overlord
+{
+	public class Dialog : Entity
+	{
+		private List<Line> lines = new List<Line>();
+
+		private IEnumerator<Line> linesE;
+
+		public void Put(Line l)
+		{
+			lines.Add(l);
+
+			l.IsVisible = false;
+		}
+
+		public void Next()
+		{
+			if (linesE == null)
+			{
+				linesE = lines.GetEnumerator();
+			}
+			else
+			{
+				linesE.Current.IsVisible = false;
+			}
+
+			if (linesE.MoveNext())
+			{
+				linesE.Current.IsVisible = true;
+			}
+			else
+			{
+				this.Destroy();
+			}
+		}
+	}
+}
