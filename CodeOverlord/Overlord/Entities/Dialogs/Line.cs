@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Prime;
 using Prime.Graphics;
 using Microsoft.Xna.Framework;
@@ -7,23 +9,56 @@ namespace Overlord
 {
 	public class Line : UIEntity 
 	{
+		// Text to be displayed
 		public string Contents;
 
+		// Textbox to display
 		private TextBox text;
 
+		// The picture talking
 		public Sprite Character;
 		public string Name { get; private set; }
 
+		// The text font
 		private SpriteFont font;
 
+		// Used to check time on drawing characters
+		private TimeSpan beginning;
+		private TimeSpan elapsed;
+
+		// Counter of currently displaying chars
+		private int totalChars;
+
+		// Have we finished writing text?
+		public bool IsFinished
+		{
+			get
+			{
+				return totalChars >= Contents.Length;
+			}
+		}
+
+		// Sizings
 		private Point boxSize = new Point(1280, 200);
 		private Point margin = new Point(40, 30);
 
-		public bool IsVisible
+		// Chars that should pause the speech a bit
+		private char[] pauseChars = new char[]{'!', ',', '?', '.'};
+
+		// How long to wait to print the next char in seconds.
+		// Defaults as 8 chars per second
+		private const float charsDelay = 1f / 30f;
+
+		// Start couting when we appear
+		public override bool IsVisible
 		{
 			set
 			{
-				text.IsVisible = Character.IsVisible = value;
+				if (value)
+				{
+					this.elapsed = this.beginning = Time.TotalGameTime;
+				}
+				base.IsVisible = value;
 			}
 		}
 
@@ -45,8 +80,6 @@ namespace Overlord
 
 			this.text = new TextBox(boxSize.X - margin.X, boxSize.Y - margin.Y, font, new RectangleSprite(boxSize.X, boxSize.Y, Color.FromNonPremultiplied(0, 0, 0, 200)));
 			
-			text.Text = this.Contents;
-
 			text.Position = new Vector2(1280 / 2f, 720 - boxSize.Y / 2f);
 
 			this.Insert(text);
@@ -56,6 +89,7 @@ namespace Overlord
 			// ________
 			// |  :)  |
 			// --------
+			//   Hello, traveler
 			if (Character.Width >= Character.Height)
 			{
 				Character.RelativePosition = new Vector2(Character.Width / 2f, 720 - boxSize.Y - Character.Height / 2f);
@@ -63,11 +97,35 @@ namespace Overlord
 			// ______
 			// |    |
 			// | :) |
-			// |    |
+			// | Hello, traveler
 			// ------
 			else
 			{
 				Character.RelativePosition = new Vector2(Character.Width / 2f, 720 - Character.Height / 2f);
+			}
+		}
+
+		public override void Update()
+		{
+			base.Update();
+
+			elapsed += Time.DeltaGameTime;
+
+			if (this.IsVisible && totalChars < this.Contents.Length)
+			{
+				if ((elapsed - beginning).TotalSeconds >= charsDelay)
+				{
+					totalChars++;
+					text.Text = Contents.Substring(0, totalChars);
+
+					beginning = elapsed;
+
+					if (pauseChars.Contains(Contents[totalChars - 1]))
+					{
+						// Wait 4 times more
+						beginning += System.TimeSpan.FromSeconds(10 * charsDelay);
+					}
+				}
 			}
 		}
 	}
