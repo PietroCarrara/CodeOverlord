@@ -16,6 +16,17 @@ namespace Overlord
 			l.IsVisible = false;
 		}
 
+		public bool CurrentFinished
+		{
+			get
+			{
+				if (linesE.Current == null)
+					return true;
+
+				return linesE.Current.IsFinished;
+			}
+		}
+
 		public void Next()
 		{
 			if (linesE == null)

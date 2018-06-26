@@ -18,7 +18,7 @@ namespace Overlord
 
 		public override void Update()
 		{
-			if (Input.IsButtonPressed(MouseButtons.Left))
+			if (Input.IsButtonPressed(MouseButtons.Left) && Owner.CurrentFinished)
 			{
 				Owner.Next();
 			}

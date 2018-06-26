@@ -25,6 +25,7 @@ namespace Overlord
 		// Used to check time on drawing characters
 		private TimeSpan beginning;
 		private TimeSpan elapsed;
+		private TimeSpan current;
 
 		// Counter of currently displaying chars
 		private int totalChars;
@@ -56,7 +57,8 @@ namespace Overlord
 			{
 				if (value)
 				{
-					this.elapsed = this.beginning = Time.TotalGameTime;
+					this.current = this.beginning = Time.TotalGameTime;
+					this.elapsed = new TimeSpan();
 				}
 				base.IsVisible = value;
 			}
@@ -105,20 +107,25 @@ namespace Overlord
 			}
 		}
 
+
+
 		public override void Update()
 		{
 			base.Update();
 
-			elapsed += Time.DeltaGameTime;
-
-			if (this.IsVisible && totalChars < this.Contents.Length)
+			if (this.IsVisible && !this.IsFinished)
 			{
-				if ((elapsed - beginning).TotalSeconds >= charsDelay)
+				current += Time.DeltaGameTime;
+				elapsed = current - beginning;
+
+				if (elapsed.TotalSeconds >= charsDelay)
 				{
+
+					Console.WriteLine(elapsed.TotalSeconds);
+
 					totalChars++;
 					text.Text = Contents.Substring(0, totalChars);
 
-					beginning = elapsed;
 
 					if (pauseChars.Contains(Contents[totalChars - 1]))
 					{
@@ -126,6 +133,13 @@ namespace Overlord
 						beginning += System.TimeSpan.FromSeconds(10 * charsDelay);
 					}
 				}
+			}
+
+			if (this.IsVisible && elapsed.TotalSeconds >= charsDelay && Input.IsButtonPressed(MouseButtons.Left))
+			{
+				text.Text = this.Contents;
+				totalChars = Contents.Length;
+				System.Console.WriteLine(elapsed.TotalSeconds);
 			}
 		}
 	}
