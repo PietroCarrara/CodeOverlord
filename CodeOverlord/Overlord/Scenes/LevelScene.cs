@@ -192,14 +192,14 @@ namespace Overlord
 				return;
 			}
 
-			if (Input.MousePosition().X >= 1260 || Input.IsKeyDown(Keys.D))
+			if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
 				camTarget.Position.X += camSpeed;
-			else if (Input.MousePosition().X <= 20 || Input.IsKeyDown(Keys.A))
+			else if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
 				camTarget.Position.X -= camSpeed;
 
-			if (Input.MousePosition().Y >= 700 || Input.IsKeyDown(Keys.S))
+			if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
 				camTarget.Position.Y += camSpeed;
-			else if (Input.MousePosition().Y <= 20 || Input.IsKeyDown(Keys.W))
+			else if (Input.IsKeyDown(Keys.W) || Input.IsKeyDown(Keys.Up))
 				camTarget.Position.Y -= camSpeed;
 		}
 	}

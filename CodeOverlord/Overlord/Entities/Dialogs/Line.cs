@@ -120,26 +120,24 @@ namespace Overlord
 
 				if (elapsed.TotalSeconds >= charsDelay)
 				{
-
-					Console.WriteLine(elapsed.TotalSeconds);
+					beginning = current;
 
 					totalChars++;
 					text.Text = Contents.Substring(0, totalChars);
 
-
 					if (pauseChars.Contains(Contents[totalChars - 1]))
 					{
 						// Wait 4 times more
-						beginning += System.TimeSpan.FromSeconds(10 * charsDelay);
+						beginning += TimeSpan.FromSeconds(10 * charsDelay);
 					}
 				}
 			}
 
-			if (this.IsVisible && elapsed.TotalSeconds >= charsDelay && Input.IsButtonPressed(MouseButtons.Left))
+			// Double clicking to fully draw line
+			if (this.IsVisible && totalChars >= 4 && Input.IsButtonPressed(MouseButtons.Left))
 			{
 				text.Text = this.Contents;
 				totalChars = Contents.Length;
-				System.Console.WriteLine(elapsed.TotalSeconds);
 			}
 		}
 	}

@@ -156,3 +156,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Characters/Constanze/Normal.png
 
+#begin Scripts/Levels/basic-room/sample-slime2.lua
+/copy:Scripts/Levels/basic-room/sample-slime2.lua
+
