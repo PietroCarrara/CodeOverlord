@@ -4,11 +4,27 @@ namespace Overlord
 {
 	public class VirtualFile
 	{
-		public string Text;
+		private string text;
+		public string Text
+		{
+			get
+			{
+				return this.text;
+			}
+			set
+			{
+				if (this.ReadOnly)
+					throw new InvalidCodeException("Trying to modify a readonly file!");
+
+				this.text = value;
+			}
+		}
+
+		public bool ReadOnly;
 
 		public VirtualFile(string s)
 		{
-			this.Text = s;
+			this.text = s;
 		}
 	}
 }

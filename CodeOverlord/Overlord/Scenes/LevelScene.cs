@@ -56,11 +56,21 @@ namespace Overlord
 				this.Spawns.Add(point);
 			}
 
-			foreach (var s in level.Get("files").Table.Values.AsObjects<string>())
+			foreach (var s in level.Get("files").Table.Pairs)
 			{
-				var content = ScriptIO.Load(root + s);
+				var table = s.Value.Table;
+				var path = table.Get("path").String;
 
-				this.VirtualFiles[s] = new VirtualFile(content);
+				var content = ScriptIO.Load(root + path);
+
+				var file = new VirtualFile(content);
+
+				if (table.Get("readOnly").Boolean)
+				{
+					file.ReadOnly = true;
+				}
+
+				this.VirtualFiles[path] = file;
 			}
 		}
 
@@ -87,8 +97,6 @@ namespace Overlord
 			var dragger = new MonsterDragger();
 
 			var spawner = new MonsterSpawner();
-
-			this.Add(new MousePositionHighlight(map.TileWidth, map.TileHeight));
 
 			var font = Overlord.Content.Fonts.Editor(this);
 			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
@@ -138,6 +146,8 @@ namespace Overlord
 				Add(bt);
 				Add(spawner);
 				Add(dragger);
+				this.Add(new MousePositionHighlight(map.TileWidth, map.TileHeight));
+
 				selector.IsVisible = true;
 			};
 
@@ -148,14 +158,14 @@ namespace Overlord
 		{
 			foreach (var pair in this.VirtualFiles)
 			{
-				App.CreateSession(pair.Key, pair.Value.Text);
+				App.CreateSession(pair.Key, pair.Value.Text, pair.Value.ReadOnly);
 			}
 		}
 
 		public void SetScriptText(string key, string text)
 		{
-			System.Console.WriteLine(text);
-			this.VirtualFiles[key].Text = text;
+			if (this.VirtualFiles.ContainsKey(key) && !this.VirtualFiles[key].ReadOnly)
+				this.VirtualFiles[key].Text = text;
 		}
 
 		public virtual void EndTurn()

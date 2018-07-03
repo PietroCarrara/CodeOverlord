@@ -36,8 +36,8 @@ level.lockFiles = true
 
 -- Files provided by the level
 level.files = {
-	"sample-slime.lua",
-	"sample-slime2.lua",
+	{ path = "sample-slime.lua", readOnly = true },
+	{ path = "sample-slime2.lua" },
 }
 
 level.spawns = {

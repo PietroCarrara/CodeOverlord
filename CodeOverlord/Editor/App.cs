@@ -86,9 +86,14 @@ namespace Overlord.Editor
 			received = true;
 		}
 
-		public static void CreateSession(string name, string code)
+		public static void CreateSession(string name, string code, bool readOnly)
 		{
-			conn.Send("createSession," + name + "\n" + code);
+			var ro = "";
+			if (readOnly) {
+				ro = ",readonly";
+			}
+
+			conn.Send("createSession," + name + ro + "\n" + code);
 		}
 
 		public static void SetSession(string name)
