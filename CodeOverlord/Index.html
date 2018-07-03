@@ -1,50 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style type="text/css" media="screen">
-    #editor { 
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-	table {
-		padding: 0;
-	}
-	td {
-		border: 1px solid black;
-	}
-	.scroll-container {
-		width: calc(100% - 20px);
-		margin-left: 20px;
-		overflow-x: auto;
-		white-space: nowrap;
-	}
-</style>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<title>Code Overlord | Text Editor</title>
+	<meta charset="utf-8">
+	<style type="text/css" media="screen">
+		html, body {
+			margin: 0;
+			height: 100%;
+			background-color: #272822;
+		}
+
+		#tabs {
+			background-color: white;
+			padding: 4px;
+		}
+
+		#editor, #tab-content, #container {
+		   height: 100%;
+		   width: 100%;
+		}
+	</style>
 </head>
 <body>
 
-	<div class="scroll-container" id="scrollable" >
-		<table>
-			<tr id="tabs">
-			</tr>
-		</table>
+	<div id="container">
+		<ul class="nav nav-tabs" id="tabs" role="tablist">
+		</ul>
+
+		<div class="tab-content" id="tab-content">
+			<div class="panel-body">
+				<div id="editor"></div>
+			</div>
+		</div>
 	</div>
 
-	<div id="editor"></div>
-    
-	<script>
-
-document.getElementById('scrollable').addEventListener('wheel', function(e) {
-
-	var div = document.getElementById('scrollable');
-
-	div.scrollLeft += e.deltaY * 10;
-});
-
-	</script>
 	<script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bootstrap/js/jquery-3.3.1.slim.min.js" type="text/javascript" ></script>
+	<script src="bootstrap/js/popper.min.js" type="text/javascript" ></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
 	<script>
 
 	var EditSession = ace.require("ace/edit_session").EditSession;
@@ -56,26 +50,55 @@ document.getElementById('scrollable').addEventListener('wheel', function(e) {
 
 	function createSession(name, code) {
 
-		// Fisrt time running
-		if (currentSession == '') {
-			editorSessions[name] = editor.getSession();
-			editor.setValue(code);
-			editor.clearSelection();
-			currentSession = name;
-		} else {
-			editorSessions[name] = new EditSession(code);
-			setSession(editorSessions[name]);
-		}
+		$('#tabs').append(newTab(name));
 
-		var tabs = document.getElementById('tabs');
-		// <td onclick=setSession('name') >name</td>
-		tabs.innerHtml = '<td onclick="setSession(\'' + name + '\')">' + name + '</td>';
+		editorSessions[name] = ace.createEditSession(code, 'ace/mode/lua');
+		setSession(name);
+
+	}
+
+	function newTab(name) {
+		return `
+		<li class="nav-item">
+			<a class="nav-link active" id="` + name + `" onclick="setSession(\'` + name + `\')" >` + name + `</a>
+		</li>
+		`
 	}
 
 	function setSession(name) {
-		// FIXME: Can't do this right up on loading the window
+
+		$('a.nav-link').removeClass('active')
+
+		document.getElementById(name).classList.add('active')
+
 		editor.setSession(editorSessions[name])
+
 		currentSession = name;
+	}
+
+	function save(editor) {
+		var txt = editor.getValue();
+		ws.send('save,' + currentSession + '\n' + txt);
+	}
+
+	function decodeFunc(data) {
+
+		data = data.split('\n');
+		var instructions = data[0].split(',');
+		var dataArg;
+		if (data.length > 1) {
+			dataArg = data.slice(1).join('\n');
+		}
+
+		switch(instructions[0]) {
+			case "alert":
+				alert(dataArg);
+				break;
+			case "createSession":
+				createSession(instructions[1], dataArg);		
+				break;
+		}
+
 	}
 
 	editor.setTheme("ace/theme/monokai");
@@ -85,17 +108,24 @@ document.getElementById('scrollable').addEventListener('wheel', function(e) {
 	editor.setOption("dragEnabled", false)
 	editor.setOption("animatedScroll", false)
 	editor.setOption("showPrintMargin", false)
+	editor.setOption("maxLines", 1000)
 	
 	editor.commands.addCommand({
     	name: 'w',
     	bindKey: {win: "Ctrl-S", "mac": "Cmd-S"},
     	exec: function(editor) {
-			window.location.replace("action://save");
+			save(editor)
     	}
 	});
 
-	window.onload = function () {
-		window.location.replace("action://done");
+	var ws = new WebSocket("ws://localhost:12347/ws")
+
+	ws.onopen = function (e) {
+		ws.send('onReady\n');
+	}
+
+	ws.onmessage = function(m) {
+		decodeFunc(m.data);
 	}
 
 	</script>

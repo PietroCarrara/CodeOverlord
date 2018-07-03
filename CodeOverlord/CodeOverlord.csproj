@@ -45,8 +45,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="OverlordGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-	<Compile Include="Editor\MainForm.cs" />
 	<Compile Include="Editor\App.cs" />
+	<Compile Include="Editor\SocketConnection.cs" />
     <Compile Include="Overlord\VirtualFile.cs" />
 	<Compile Include="Overlord\Components\LuaInterpreter.cs" />
 	<Compile Include="Overlord\Components\Monster\Skill.cs" />

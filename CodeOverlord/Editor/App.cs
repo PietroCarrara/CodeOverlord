@@ -1,73 +1,116 @@
 using Eto.Forms;
 using System;
+using System.Linq;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Overlord.Editor
 {
 	public static class App
 	{
-		public static Application app;
+		private static SocketConnection conn;
 
-		public static MainForm form;
+		private static OverLordGame game;
 
-		public static OverLordGame Game;
-
-		public static void Run()
+		public static void Run(OverLordGame g)
 		{
-			app.Run(form);
+			game = g;
+
+			conn = new SocketConnection();
+
+			conn.OnReceive = onReceive;
+
+			conn.Start();
+
+			Process.Start("http://localhost:" + SocketConnection.HttpPort + "/Index.html");
 		}
 
 		public static void Quit()
 		{
-			app.Quit();
+			conn.Stop();
 		}
 
+		// TODO: Remove this, it's not a good desing
 		public static void OnEditorReady()
 		{
-			Game.OnEditorReady();
+			game.OnEditorReady();
 		}
 
-		public static string GetText()
+		private static void onReceive(string str)
 		{
-			var text = "";
-
-			app.Invoke(() =>
+			var data = str.Split('\n');
+			var instructions = data[0].Split(',');
+			var dataArgs = "";
+			if (data.Length > 1)
 			{
-				text = form.Text;
-			});
+				dataArgs = string.Join("\n", data.Skip(1));
+			}
+
+			switch (instructions[0])
+			{
+				case "onReady":
+					OnEditorReady();
+					break;
+				case "save":
+					SaveScript(instructions[1], dataArgs);		
+					break;
+			}
+		}
+
+		private static bool received;
+		private static string text;
+		public static string GetText(string session = "")
+		{
+			text = "";
+			received = false;
+
+			if (session != null)
+			{
+				session = "," + session;
+			}
+
+			conn.Send("getText" + session + "\n" );
+
+			while (!received)
+			{
+				// Wait...
+			}
 
 			return text;
 		}
 
+		// Called when Go gives us the requested code
+		private static void receiveText(string txt)
+		{
+			text = txt;
+			received = true;
+		}
+
 		public static void CreateSession(string name, string code)
 		{
-			app.Invoke(() => form.CreateSession(name, code));
+			conn.Send("createSession," + name + "\n" + code);
 		}
 
 		public static void SetSession(string name)
 		{
-			app.Invoke(() => form.SetSession(name));
+			conn.Send("setSession," + name + "\n");
 		}
 
 		public static void SaveScript(string name, string content)
 		{
-			Game.SetScriptText(name, content);
+			game.SetScriptText(name, content);
 		}
 
-		public static void SetText(string text)
+		public static void SetText(string file, string text)
 		{
-			app.Invoke(() =>
-			{
-				form.Text = text;
-			});
+			string data = "setText," + file + "\n" + text;
+
+			conn.Send(data);
 		}
 
 		public static void Alert(string text)
 		{
-			app.Invoke(() =>
-			{
-				form.Alert(text);
-			});
+			conn.Send("alert\n" + text);
 		}
 	}
 }
