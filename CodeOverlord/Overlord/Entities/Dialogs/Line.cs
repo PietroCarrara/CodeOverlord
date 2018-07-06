@@ -134,7 +134,7 @@ namespace Overlord
 			}
 
 			// Double clicking to fully draw line
-			if (this.IsVisible && totalChars >= 4 && Input.IsButtonPressed(MouseButtons.Left))
+			if (this.IsVisible && totalChars >= 3 && Input.IsButtonPressed(MouseButtons.Left))
 			{
 				text.Text = this.Contents;
 				totalChars = Contents.Length;

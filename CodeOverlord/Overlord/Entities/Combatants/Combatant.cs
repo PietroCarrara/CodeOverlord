@@ -60,6 +60,11 @@ namespace Overlord
 			this.Add(new Heroes());
 		}
 
+		public void SetScript(string path)
+		{
+			this.Lua.Content = ScriptIO.Load(path);
+		}
+
 		public void ReceiveTurn()
 		{
 			this.CurrentStamina = this.Stamina;

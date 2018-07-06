@@ -122,9 +122,6 @@
 #begin Scripts/Levels/basic-room/basic-room.lua
 /copy:Scripts/Levels/basic-room/basic-room.lua
 
-#begin Scripts/Levels/basic-room/sample-slime.lua
-/copy:Scripts/Levels/basic-room/sample-slime.lua
-
 #begin Fonts/Dialogs.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -156,6 +153,30 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Characters/Constanze/Normal.png
 
-#begin Scripts/Levels/basic-room/sample-slime2.lua
-/copy:Scripts/Levels/basic-room/sample-slime2.lua
+#begin Scripts/Levels/basic-room/object.lua
+/copy:Scripts/Levels/basic-room/object.lua
+
+#begin Sprites/Characters/Constanze/Scared.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Characters/Constanze/Scared.png
+
+#begin Sprites/Characters/Pepper/Normal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Characters/Pepper/Normal.png
 

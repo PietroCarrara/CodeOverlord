@@ -20,48 +20,40 @@ namespace Overlord
 
 		public string Map;
 
-		public string[] Heroes;
-		private int spawnIndex = 0;
-
 		public int Width, Height;
-
-		public List<Point> Spawns = new List<Point>();
 
 		public Dictionary<string, VirtualFile> VirtualFiles = new Dictionary<string, VirtualFile>();
 
 		private Table level;
 
-		public LevelScene(string scriptContent, string root)
-		{
-			UserData.RegisterType<Point>();
+		private bool ended = true;
 
-			var script = new Script();
+		private string path, root;
+
+		public LevelScene(string path, string root)
+		{
+			this.path = path;
+			this.root = root;
+
+			BattleManager.Init(this);
+
+			var scriptContent = ScriptIO.Load(path);
+
+			var script = new LevelLua(this);
 			level = script.DoString(scriptContent).Table;
 
 			this.Name = level.Get("name").String;
 			this.Map = level.Get("map").String;
 
-			this.Heroes = level.Get("heroes").Table.Values.AsObjects<string>().ToArray();
-
 			this.Width = (int)level.Get("dimensions").Table.Get("x").Number;
 			this.Height = (int)level.Get("dimensions").Table.Get("y").Number;
-
-			foreach (var pos in level.Get("spawns").Table.Values)
-			{
-				var point = new Point();
-
-				point.X = (int) pos.Table.Get("x").Number;
-				point.Y = (int) pos.Table.Get("y").Number;
-		
-				this.Spawns.Add(point);
-			}
 
 			foreach (var s in level.Get("files").Table.Pairs)
 			{
 				var table = s.Value.Table;
-				var path = table.Get("path").String;
+				var filePath = table.Get("path").String;
 
-				var content = ScriptIO.Load(root + path);
+				var content = ScriptIO.Load(root + filePath);
 
 				var file = new VirtualFile(content);
 
@@ -70,7 +62,7 @@ namespace Overlord
 					file.ReadOnly = true;
 				}
 
-				this.VirtualFiles[path] = file;
+				this.VirtualFiles[filePath] = file;
 			}
 		}
 
@@ -92,8 +84,6 @@ namespace Overlord
 			Grid.TileWidth = map.TileWidth;
 			Grid.TileHeight = map.TileHeight;
 
-			BattleManager.Init(this);
-
 			var dragger = new MonsterDragger();
 
 			var spawner = new MonsterSpawner();
@@ -104,6 +94,8 @@ namespace Overlord
 			var bt = new Button(200, 50, btSpr, btSprHover, "Start!", font, null); 
 			bt.OnClick = () =>
 			{
+				ended = false;
+
 				BattleManager.Sort();
 				dragger.Destroy();
 				spawner.Destroy();
@@ -168,34 +160,79 @@ namespace Overlord
 				this.VirtualFiles[key].Text = text;
 		}
 
-		public virtual void EndTurn()
+		public virtual void UpdateLevel()
 		{
-			foreach(var spawn in this.Spawns)
+			if (ended)
+				return;
+
+			var status = level.Get("update").Function.Call().String;
+			switch(status)
 			{
-				if (this.spawnIndex >= this.Heroes.Length)
+				case "win":
+					win();
 					break;
-
-				if (Grid.IsAvailable(spawn))
-				{
-					// Spawn
-					var script = ScriptIO.Load(this.Heroes[spawnIndex]);
-					var hero = Hero.FromScript(script);
-
-					hero.GridPos = spawn;
-
-					this.Add(hero);
-					BattleManager.Add(hero);
-
-					spawnIndex++;
-				}
+				case "lose":
+					lose();
+					break;
 			}
+		}
+
+		private void win()
+		{
+			ended = true;
+
+			var font = Overlord.Content.Fonts.Editor(this);
+			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
+			var btSprHover = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
+			var bt = new Button(200, 50, btSpr, btSprHover, "You've Won! Go back...", font, null); 
+			bt.OnClick = () =>
+			{
+				this.Game.Exit();
+			};
+			bt.Position = PrimeGame.Center - new Vector2(0, 200);
+
+			this.Add(bt);
+		}
+
+		private void lose()
+		{
+			ended = true;
+
+			var font = Overlord.Content.Fonts.Editor(this);
+			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
+			var btSprHover = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
+			var bt = new Button(200, 50, btSpr, btSprHover, "You've Lost! Go back...", font, null); 
+			bt.OnClick = () =>
+			{
+				this.Game.Exit();
+			};
+			bt.Position = PrimeGame.Center - new Vector2(0, 200);
+
+			var btSpr2 = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
+			var btSprHover2 = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
+			var bt2 = new Button(200, 50, btSpr2, btSprHover2, "Retry", font, null); 
+			bt2.OnClick = () =>
+			{
+				this.Game.ActiveScene = new LevelScene(path, root);
+			};
+			bt2.Position = PrimeGame.Center - new Vector2(0, 200 - 100);
+
+			this.Add(bt);
+			this.Add(bt2);
 		}
 
 		public override void Update()
 		{
 			base.Update();
 
+			// Updates entities, but not the
+			// battle manager nor the camera
+			if (ended)
+				return;
+
 			BattleManager.Update();
+
+			this.UpdateLevel();
 
 			if (!Input.HasFocus())
 			{

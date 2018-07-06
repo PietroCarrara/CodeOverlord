@@ -11,10 +11,8 @@ namespace Overlord
 
 		public static List<Hero> Heroes = new List<Hero>();
 
-		private static LevelScene scene;
-
 		public static Combatant Current;
-		private static int currIndex=-1;
+		private static int currIndex = -1;
 		private static int total;
 
 		private static List<Combatant> participants = new List<Combatant>();
@@ -28,7 +26,12 @@ namespace Overlord
 
 		public static void Init(LevelScene s)
 		{
-			scene = s;
+			Monsters = new List<Monster>();
+			Heroes = new List<Hero>();
+			participants = new List<Combatant>();
+
+			currIndex = -1;
+			total = 0;
 		}
 
 		public static void Sort()
@@ -62,6 +65,29 @@ namespace Overlord
 			total++;
 		}
 
+		public static void Add(Combatant c)
+		{
+			var m = c as Monster;
+			if (m != null)
+			{
+				Add(m);
+			}
+			else
+			{
+				var h = c as Hero;
+
+				if (h != null)
+				{
+					Add(h);
+				}
+				else
+				{
+					// TODO: Throw custom exception
+					throw new System.Exception("Combatant is not a Hero nor a Monster!");
+				}
+			}
+		}
+
 		public static void Remove(Monster m)
 		{
 			Monsters.Remove(m);
@@ -91,7 +117,6 @@ namespace Overlord
 				if (currIndex >= total)
 				{
 					currIndex = 0;
-					scene.EndTurn();
 				}
 
 				Current = participants[currIndex];

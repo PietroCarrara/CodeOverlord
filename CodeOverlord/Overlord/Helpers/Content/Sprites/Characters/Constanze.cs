@@ -9,6 +9,11 @@ namespace Overlord.Content.Sprites.Characters
 		{
 			return cm.Load<Texture2D>("Sprites/Characters/Constanze/Normal");
 		}
+
+		public static Texture2D Scared(ContentManager cm)
+		{
+			return cm.Load<Texture2D>("Sprites/Characters/Constanze/Scared");
+		}
 	}
 }
 

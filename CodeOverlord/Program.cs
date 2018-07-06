@@ -18,8 +18,8 @@ namespace Overlord
         [STAThread]
         static void Main()
         {
-			using (var game = new OverLordGame(new LevelScene(ScriptIO.Load("Content/Scripts/Levels/basic-room/basic-room.lua"),
-													 	 	 				"Content/Scripts/Levels/basic-room/")))
+			using (var game = new OverLordGame(new LevelScene(  "Content/Scripts/Levels/basic-room/basic-room.lua",
+																"Content/Scripts/Levels/basic-room/")))
 			{
 				Task.Run(() => App.Run(game));
 

@@ -96,6 +96,7 @@
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Panels.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Buttons.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Ursula.cs" />
+	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Pepper.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Constanze.cs" />
 	<Compile Include="Overlord\Exceptions\OverlordException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidCodeException.cs" />
@@ -103,6 +104,7 @@
 	<Compile Include="Overlord\Exceptions\InvalidAttackException.cs" />
 	<Compile Include="Overlord\MonsterLua.cs" />
 	<Compile Include="Overlord\HeroLua.cs" />
+	<Compile Include="Overlord\LevelLua.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
