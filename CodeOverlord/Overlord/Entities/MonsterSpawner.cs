@@ -12,7 +12,7 @@ namespace Overlord
 			{
 				base.Update();
 
-				if (Script.Text == "")
+				if (Script == null) 
 					return;
 
 				var m = Monster.FromScript(Script.Text);

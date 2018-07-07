@@ -1,4 +1,5 @@
 using Prime;
+using Prime.UI;
 using Prime.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -6,12 +7,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
-	public class ScriptSelector : UIEntity 
+	public class ScriptSelector : Entity 
 	{
 		private MonsterSpawner m;
 
-		public ScriptSelector(float w, float h, MonsterSpawner m) : base(w, h)
+		private SelectList<VirtualFile> list;
+
+		public bool IsVisible
 		{
+			get
+			{
+				return list.IsVisible;
+			}
+			set
+			{
+				list.IsVisible = value;
+			}
+		}
+
+		public ScriptSelector(float w, float h, MonsterSpawner m)
+		{
+			this.list = new SelectList<VirtualFile>(new Vector2(w, h), AnchorPoint.CenterRight);
+
 			this.m = m;
 		}
 
@@ -28,30 +45,22 @@ namespace Overlord
 				// add it to the listview
 				if (!dict.ContainsKey(key))
 				{
-					var text = new TextComponent(key, Content.Fonts.Editor(this.Scene));
-					text.Color = Color.Black;
-
-					Scripts.Add(value, text);
+					list.Add(key, value);
 				}
 
 				dict[key] = value;
 			}
 		}
 
-		public ListView<VirtualFile> Scripts;
-
 		public override void Initialize()
 		{
-			var bg = this.Add(new Sprite(Content.Sprites.UI.Panels.Panel0(this.Scene)));
-			bg.Width = this.Width;
-			bg.Height = this.Height;
-			bg.RelativePosition = new Vector2(0, this.Height) / 2;
+			base.Initialize();
 
-			Scripts = this.Insert(new ListView<VirtualFile>(Width, Height, Width, Height / 5));
-			Scripts.Position = new Vector2(0, Height / 2);
-			Scripts.OnSelected = (s) =>
+			this.Scene.AddUI(list);
+
+			list.OnValueChange = (l) =>
 			{
-				this.m.Script = s;
+				m.Script = list.Selected;
 			};
 		}
 	}

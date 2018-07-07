@@ -9,6 +9,7 @@ namespace Overlord
 		public OverLordGame(LevelScene s) : base(s)
 		{
 			this.Window.AllowUserResizing = true;
+			this.IsMouseVisible = false;
 		}
 
 		public void SetScriptText(string sName, string text)

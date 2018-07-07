@@ -10,15 +10,13 @@ namespace Overlord
 	{
 		private static Dictionary<string, Texture2D> pics = new Dictionary<string, Texture2D>();
 
-		public static Sprite Character(string key)
+		public static Texture2D Character(string key)
 		{
-			return new Sprite(pics[key]);
+			return pics[key];
 		}
 		
 		public static void Initialize(ContentManager cm)
 		{
-			pics["ursula/normal"] = Overlord.Content.Sprites.Characters.Ursula.Normal(cm);
-
 			pics["constanze/normal"] = Overlord.Content.Sprites.Characters.Constanze.Normal(cm);
 			pics["constanze/scared"] = Overlord.Content.Sprites.Characters.Constanze.Scared(cm);
 

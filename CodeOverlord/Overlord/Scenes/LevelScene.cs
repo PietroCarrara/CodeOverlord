@@ -1,5 +1,6 @@
 using Prime;
 using Prime.Graphics;
+using Prime.UI;
 using System.Linq;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
@@ -88,10 +89,7 @@ namespace Overlord
 
 			var spawner = new MonsterSpawner();
 
-			var font = Overlord.Content.Fonts.Editor(this);
-			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
-			var btSprHover = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
-			var bt = new Button(200, 50, btSpr, btSprHover, "Start!", font, null); 
+			var bt = new Button("Start!", Prime.UI.AnchorPoint.TopCenter, new Vector2(200, 50), new Vector2(0, 100));
 			bt.OnClick = () =>
 			{
 				ended = false;
@@ -101,7 +99,6 @@ namespace Overlord
 				spawner.Destroy();
 				bt.Destroy();
 			};
-			bt.Position = PrimeGame.Center - new Vector2(0, 200);
 
 			var selector = Add(new ScriptSelector(300, 300, spawner));
 			
@@ -110,7 +107,6 @@ namespace Overlord
 				selector[pair.Key] = pair.Value;
 			}
 
-			selector.Position = new Vector2(1280 - selector.Width / 2, 720 / 2 - selector.Height / 2);
 			selector.IsVisible = false;
 
 			// Camera setup
@@ -120,14 +116,13 @@ namespace Overlord
 			this.Cam.Add(new DelayedFollowTarget(camTarget, 10));
 			this.Cam.Position = Vector2.Zero;
 
-			var dialogFont = Overlord.Content.Fonts.Dialogs(this.Content);
 			var dialog = this.Add(new Dialog());
 			foreach(var line in level.Get("dialog").Table.Values)
 			{
 				var character = line.Table.Get("char").String;
 				var contents = line.Table.Get("contents").String;
 
-				var l = this.Add(new Line(character, dialogFont, contents));
+				var l = this.Add(new Line(character, contents));
 
 				dialog.Put(l);
 			}
@@ -135,9 +130,9 @@ namespace Overlord
 			// Build UI after the dialog is gone
 			dialog.Add(new LineKeeper()).OnDone = () =>
 			{
-				Add(bt);
 				Add(spawner);
 				Add(dragger);
+				AddUI(bt);
 				this.Add(new MousePositionHighlight(map.TileWidth, map.TileHeight));
 
 				selector.IsVisible = true;
@@ -181,63 +176,39 @@ namespace Overlord
 		{
 			ended = true;
 
-			var font = Overlord.Content.Fonts.Editor(this);
-			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
-			var btSprHover = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
-			var bt = new Button(200, 50, btSpr, btSprHover, "You've Won! Go back...", font, null); 
+			var bt = new Button("You've won! Go back...", AnchorPoint.Center, new Vector2(200, 50)); 
 			bt.OnClick = () =>
 			{
 				this.Game.Exit();
 			};
-			bt.Position = PrimeGame.Center - new Vector2(0, 200);
 
-			this.Add(bt);
+			this.AddUI(bt);
 		}
 
 		private void lose()
 		{
 			ended = true;
 
-			var font = Overlord.Content.Fonts.Editor(this);
-			var btSpr = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
-			var btSprHover = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
-			var bt = new Button(200, 50, btSpr, btSprHover, "You've Lost! Go back...", font, null); 
+			var bt = new Button("You've Lost! Go back...", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, -100)); 
 			bt.OnClick = () =>
 			{
 				this.Game.Exit();
 			};
-			bt.Position = PrimeGame.Center - new Vector2(0, 200);
 
-			var btSpr2 = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0(this));
-			var btSprHover2 = new Sprite(Overlord.Content.Sprites.UI.Buttons.Button0Hover(this));
-			var bt2 = new Button(200, 50, btSpr2, btSprHover2, "Retry", font, null); 
+			var bt2 = new Button("Retry", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, 100)); 
 			bt2.OnClick = () =>
 			{
 				this.Game.ActiveScene = new LevelScene(path, root);
+				this.Destroy();
 			};
-			bt2.Position = PrimeGame.Center - new Vector2(0, 200 - 100);
 
-			this.Add(bt);
-			this.Add(bt2);
+			this.AddUI(bt);
+			this.AddUI(bt2);
 		}
 
 		public override void Update()
 		{
 			base.Update();
-
-			// Updates entities, but not the
-			// battle manager nor the camera
-			if (ended)
-				return;
-
-			BattleManager.Update();
-
-			this.UpdateLevel();
-
-			if (!Input.HasFocus())
-			{
-				return;
-			}
 
 			if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
 				camTarget.Position.X += camSpeed;
@@ -248,6 +219,15 @@ namespace Overlord
 				camTarget.Position.Y += camSpeed;
 			else if (Input.IsKeyDown(Keys.W) || Input.IsKeyDown(Keys.Up))
 				camTarget.Position.Y -= camSpeed;
+
+			// Updates entities, but not the
+			// battle manager nor the level script
+			if (ended)
+				return;
+
+			BattleManager.Update();
+
+			this.UpdateLevel();
 		}
 	}
 }

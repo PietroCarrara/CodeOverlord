@@ -1,26 +1,25 @@
 using System;
 using System.Linq;
 using Prime;
+using Prime.UI;
 using Prime.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
-	public class Line : UIEntity 
+	public class Line : Entity 
 	{
 		// Text to be displayed
 		public string Contents;
 
 		// Textbox to display
-		private TextBox text;
+		private Panel panel;
+		private Label label;
 
 		// The picture talking
-		public Sprite Character;
+		public Image Character;
 		public string Name { get; private set; }
-
-		// The text font
-		private SpriteFont font;
 
 		// Used to check time on drawing characters
 		private TimeSpan beginning;
@@ -40,8 +39,7 @@ namespace Overlord
 		}
 
 		// Sizings
-		private Point boxSize = new Point(1280, 200);
-		private Point margin = new Point(40, 30);
+		private Point boxSize = new Point(1280, 150);
 
 		// Chars that should pause the speech a bit
 		private char[] pauseChars = new char[]{'!', ',', '?', '.'};
@@ -51,8 +49,12 @@ namespace Overlord
 		private const float charsDelay = 1f / 30f;
 
 		// Start couting when we appear
-		public override bool IsVisible
+		public bool IsVisible
 		{
+			get
+			{
+				return panel.IsVisible;
+			}
 			set
 			{
 				if (value)
@@ -60,19 +62,17 @@ namespace Overlord
 					this.current = this.beginning = Time.TotalGameTime;
 					this.elapsed = new TimeSpan();
 				}
-				base.IsVisible = value;
+				panel.IsVisible = value;
+				Character.IsVisible = value;
 			}
 		}
 
-		public Line(string character, SpriteFont font, string contents)
+		public Line(string character, string contents)
 		{
-			this.Position = Vector2.Zero;
-
 			this.Contents = contents;
 
-			this.font = font;
+			this.Character = new Image(CharManager.Character(character), AnchorPoint.BottomLeft);
 
-			this.Character = CharManager.Character(character);
 			this.Name = character;
 		}
 
@@ -80,21 +80,22 @@ namespace Overlord
 		{
 			base.Initialize();
 
-			this.text = new TextBox(boxSize.X - margin.X, boxSize.Y - margin.Y, font, new RectangleSprite(boxSize.X, boxSize.Y, Color.FromNonPremultiplied(0, 0, 0, 200)));
+			this.Scene.AddUI(this.Character);
+
+			this.label = new Label("");
+
+			this.panel = new Panel(new Vector2(0, boxSize.Y), AnchorPoint.BottomCenter);
+			this.panel.AddChild(this.label);
+
+			this.Scene.AddUI(this.panel);
 			
-			text.Position = new Vector2(1280 / 2f, 720 - boxSize.Y / 2f);
-
-			this.Insert(text);
-
-			this.Add(Character);
-
 			// ________
 			// |  :)  |
 			// --------
 			//   Hello, traveler
-			if (Character.Width >= Character.Height)
+			if (Character.Size.X >= Character.Size.Y)
 			{
-				Character.RelativePosition = new Vector2(Character.Width / 2f, 720 - boxSize.Y - Character.Height / 2f);
+				Character.Offset = new Vector2(0, boxSize.Y);
 			}
 			// ______
 			// |    |
@@ -103,7 +104,7 @@ namespace Overlord
 			// ------
 			else
 			{
-				Character.RelativePosition = new Vector2(Character.Width / 2f, 720 - Character.Height / 2f);
+				Character.Offset = new Vector2(0, 0);
 			}
 		}
 
@@ -123,7 +124,7 @@ namespace Overlord
 					beginning = current;
 
 					totalChars++;
-					text.Text = Contents.Substring(0, totalChars);
+					label.Text = Contents.Substring(0, totalChars);
 
 					if (pauseChars.Contains(Contents[totalChars - 1]))
 					{
@@ -136,7 +137,7 @@ namespace Overlord
 			// Double clicking to fully draw line
 			if (this.IsVisible && totalChars >= 3 && Input.IsButtonPressed(MouseButtons.Left))
 			{
-				text.Text = this.Contents;
+				label.Text = this.Contents;
 				totalChars = Contents.Length;
 			}
 		}
