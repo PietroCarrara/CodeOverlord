@@ -30,6 +30,11 @@ namespace Overlord.Editor
 			conn.Stop();
 		}
 
+		public static void ResetSessions()
+		{
+			conn.Send("reset,\n");
+		}
+
 		// TODO: Remove this, it's not a good desing
 		public static void OnEditorReady()
 		{
@@ -52,7 +57,7 @@ namespace Overlord.Editor
 					OnEditorReady();
 					break;
 				case "save":
-					SaveScript(instructions[1], dataArgs);		
+					SaveScript(instructions[1], dataArgs);
 					break;
 			}
 		}
@@ -69,7 +74,7 @@ namespace Overlord.Editor
 				session = "," + session;
 			}
 
-			conn.Send("getText" + session + "\n" );
+			conn.Send("getText" + session + "\n");
 
 			while (!received)
 			{
@@ -89,7 +94,8 @@ namespace Overlord.Editor
 		public static void CreateSession(string name, string code, bool readOnly)
 		{
 			var ro = "";
-			if (readOnly) {
+			if (readOnly)
+			{
 				ro = ",readonly";
 			}
 

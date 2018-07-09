@@ -69,7 +69,6 @@
 		editorSessions[name] = ace.createEditSession(code, 'ace/mode/lua');
 		editorSessions[name].readOnly = readOnly;
 		setSession(name);
-
 	}
 
 	function newTab(name) {
@@ -100,6 +99,15 @@
 		currentSession = name;
 	}
 
+	function destroySessions() {
+
+		$('li.nav-item').remove()
+
+		editorSessions[currentSession].setValue('')
+		editorSessions = []
+		currentSession = ''
+	}
+
 	function save(editor) {
 		var txt = editor.getValue();
 		ws.send('save,' + currentSession + '\n' + txt);
@@ -121,8 +129,12 @@
 			case "createSession":
 				createSession(instructions[1], dataArg, instructions.includes('readonly'));		
 				break;
+			case 'reset':
+				destroySessions();
+				break;
 		}
 
+		ws.send("done")
 	}
 
 	editor.setTheme("ace/theme/monokai");

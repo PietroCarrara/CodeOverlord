@@ -31,7 +31,7 @@ namespace Overlord.Editor
 			var exe = "";
 
 			// Check if is running on windows
-			int p = (int) Environment.OSVersion.Platform;
+			int p = (int)Environment.OSVersion.Platform;
 			if ((p != 4) && (p != 6) && (p != 128))
 			{
 				exe = ".exe";
@@ -56,9 +56,21 @@ namespace Overlord.Editor
 			conn.Dispose();
 		}
 
+		private bool sending;
 		public void Send(string s)
 		{
-			conn.Send(Encoding.UTF8.GetBytes(s + "\0"));
+			try
+			{
+				while (sending) { }
+				sending = true;
+				Console.Write("Sending...");
+				conn.Send(Encoding.UTF8.GetBytes(s + "\n\0"));
+				Console.WriteLine(" Done!");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
 		}
 
 		public Task SendAsync(string s)
@@ -70,7 +82,7 @@ namespace Overlord.Editor
 		{
 			try
 			{
-				while(running)
+				while (running)
 				{
 					if (conn.Available > 0)
 					{
@@ -80,7 +92,14 @@ namespace Overlord.Editor
 
 						var str = Encoding.UTF8.GetString(bytes);
 
-						OnReceive?.Invoke(str);
+						if (str == "done")
+						{
+							this.sending = false;
+						}
+						else
+						{
+							OnReceive?.Invoke(str);
+						}
 					}
 				}
 			}
