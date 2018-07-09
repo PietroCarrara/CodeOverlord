@@ -17,6 +17,8 @@ namespace Overlord
 
 		private const float speed = 50;
 
+		public bool Despawnable;
+
 		public Point GridPos
 		{
 			get

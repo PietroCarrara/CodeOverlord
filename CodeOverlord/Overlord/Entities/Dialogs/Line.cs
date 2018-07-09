@@ -4,6 +4,7 @@ using Prime;
 using Prime.UI;
 using Prime.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
@@ -20,6 +21,8 @@ namespace Overlord
 		// The picture talking
 		public Image Character;
 		public string Name { get; private set; }
+
+		private SoundEffect effect;
 
 		// Used to check time on drawing characters
 		private TimeSpan beginning;
@@ -42,7 +45,7 @@ namespace Overlord
 		private Point boxSize = new Point(1280, 150);
 
 		// Chars that should pause the speech a bit
-		private char[] pauseChars = new char[]{'!', ',', '?', '.'};
+		private char[] pauseChars = new char[]{'!', ',', '?', '.', ':'};
 
 		// How long to wait to print the next char in seconds.
 		// Defaults as 8 chars per second
@@ -80,6 +83,8 @@ namespace Overlord
 		{
 			base.Initialize();
 
+			this.effect = this.Scene.Content.Load<SoundEffect>("Sounds/Slap");
+
 			this.Scene.AddUI(this.Character);
 
 			this.label = new Label("");
@@ -108,8 +113,6 @@ namespace Overlord
 			}
 		}
 
-
-
 		public override void Update()
 		{
 			base.Update();
@@ -129,7 +132,11 @@ namespace Overlord
 					if (pauseChars.Contains(Contents[totalChars - 1]))
 					{
 						// Wait 4 times more
-						beginning += TimeSpan.FromSeconds(10 * charsDelay);
+						beginning += TimeSpan.FromSeconds(4 * charsDelay);
+					}
+					else if (totalChars % 3 == 0)
+					{
+						effect.Play(0.3f, 0, 0);
 					}
 				}
 			}

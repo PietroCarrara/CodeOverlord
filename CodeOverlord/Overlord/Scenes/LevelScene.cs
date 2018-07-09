@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Overlord.Editor;
+using CodeOverlord.Overlord.LuaScripts;
 
 namespace Overlord
 {
@@ -16,6 +17,8 @@ namespace Overlord
 	{
 		private Entity camTarget;
 		private const float camSpeed = 15;
+
+		private Scene parent;
 
 		public string Name;
 
@@ -31,15 +34,28 @@ namespace Overlord
 
 		private string path, root;
 
-		public LevelScene(string path, string root)
+		private bool resetFiles;
+
+		public LevelScene(Scene s, string path, string root, bool resetFiles = true)
 		{
+			this.parent = s;
 			this.path = path;
 			this.root = root;
+			this.resetFiles = resetFiles;
+
+			VirtualFileScriptLoader.Files = VirtualFiles;
 
 			BattleManager.Init(this);
 
-			var scriptContent = ScriptIO.Load(path);
+			this.ClearColor = Color.Gray;
+		}
 
+		public override void Initialize()
+		{
+			base.Initialize();
+
+
+			var scriptContent = ScriptIO.Load(path);
 			var script = new LevelLua(this);
 			level = script.DoString(scriptContent).Table;
 
@@ -65,13 +81,6 @@ namespace Overlord
 
 				this.VirtualFiles[filePath] = file;
 			}
-		}
-
-		public override void Initialize()
-		{
-			base.Initialize();
-
-			this.ClearColor = Color.Gray;
 
 			var map = this.Add(new TilingMap(Content.Load<TiledMap>(this.Map)));
 			map.Width = this.Width;
@@ -95,13 +104,15 @@ namespace Overlord
 				ended = false;
 
 				BattleManager.Sort();
+				level.RawGet("initialize").Function.Call();
+
 				dragger.Destroy();
 				spawner.Destroy();
 				bt.Destroy();
 			};
 
 			var selector = Add(new ScriptSelector(300, 300, spawner));
-			
+
 			foreach (var pair in this.VirtualFiles)
 			{
 				selector[pair.Key] = pair.Value;
@@ -117,7 +128,7 @@ namespace Overlord
 			this.Cam.Position = Vector2.Zero;
 
 			var dialog = this.Add(new Dialog());
-			foreach(var line in level.Get("dialog").Table.Values)
+			foreach (var line in level.Get("dialog").Table.Values)
 			{
 				var character = line.Table.Get("char").String;
 				var contents = line.Table.Get("contents").String;
@@ -139,13 +150,21 @@ namespace Overlord
 			};
 
 			dialog.Next();
+
+			OnEditorReady();
+
+			level.RawGet("ready").Function.Call();
 		}
 
 		public void OnEditorReady()
 		{
-			foreach (var pair in this.VirtualFiles)
+			if (this.resetFiles)
 			{
-				App.CreateSession(pair.Key, pair.Value.Text, pair.Value.ReadOnly);
+				foreach (var pair in this.VirtualFiles)
+				{
+					System.Console.WriteLine("Sending " + pair.Key);
+					App.CreateSession(pair.Key, pair.Value.Text, pair.Value.ReadOnly);
+				}
 			}
 		}
 
@@ -155,13 +174,11 @@ namespace Overlord
 				this.VirtualFiles[key].Text = text;
 		}
 
-		public virtual void UpdateLevel()
+		public void CheckWin()
 		{
-			if (ended)
-				return;
-
 			var status = level.Get("update").Function.Call().String;
-			switch(status)
+
+			switch (status)
 			{
 				case "win":
 					win();
@@ -176,10 +193,13 @@ namespace Overlord
 		{
 			ended = true;
 
-			var bt = new Button("You've won! Go back...", AnchorPoint.Center, new Vector2(200, 50)); 
+			var bt = new Button("You've won! Go back...", AnchorPoint.Center, new Vector2(200, 50));
 			bt.OnClick = () =>
 			{
-				this.Game.Exit();
+				App.ResetSessions();
+
+				this.Game.ActiveScene = parent;
+				this.Destroy();
 			};
 
 			this.AddUI(bt);
@@ -189,16 +209,19 @@ namespace Overlord
 		{
 			ended = true;
 
-			var bt = new Button("You've Lost! Go back...", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, -100)); 
+			var bt = new Button("You've Lost! Go back...", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, -100));
 			bt.OnClick = () =>
 			{
-				this.Game.Exit();
+				App.ResetSessions();
+
+				this.Game.ActiveScene = parent;
+				this.Destroy();
 			};
 
-			var bt2 = new Button("Retry", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, 100)); 
+			var bt2 = new Button("Retry", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, 100));
 			bt2.OnClick = () =>
 			{
-				this.Game.ActiveScene = new LevelScene(path, root);
+				this.Game.ActiveScene = new LevelScene(parent, path, root, false);
 				this.Destroy();
 			};
 
@@ -226,8 +249,6 @@ namespace Overlord
 				return;
 
 			BattleManager.Update();
-
-			this.UpdateLevel();
 		}
 	}
 }

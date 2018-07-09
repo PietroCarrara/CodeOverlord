@@ -15,6 +15,8 @@ namespace Overlord
 		private static int currIndex = -1;
 		private static int total;
 
+		private static LevelScene scene;
+
 		private static List<Combatant> participants = new List<Combatant>();
 		public static List<Combatant> Participants
 		{
@@ -29,6 +31,8 @@ namespace Overlord
 			Monsters = new List<Monster>();
 			Heroes = new List<Hero>();
 			participants = new List<Combatant>();
+
+			scene = s;
 
 			currIndex = -1;
 			total = 0;
@@ -67,24 +71,18 @@ namespace Overlord
 
 		public static void Add(Combatant c)
 		{
-			var m = c as Monster;
-			if (m != null)
+			if (c is Monster m)
 			{
 				Add(m);
 			}
+			else if (c is Hero h)
+			{
+				Add(h);
+			}
 			else
 			{
-				var h = c as Hero;
-
-				if (h != null)
-				{
-					Add(h);
-				}
-				else
-				{
-					// TODO: Throw custom exception
-					throw new System.Exception("Combatant is not a Hero nor a Monster!");
-				}
+				// TODO: Throw custom exception
+				throw new System.Exception("Combatant is not a Hero nor a Monster!");
 			}
 		}
 
@@ -104,14 +102,37 @@ namespace Overlord
 			total--;
 		}
 
+		public static void Remove(Combatant c)
+		{
+			if (c is Monster m)
+			{
+				Remove(m);
+			}
+			else if (c is Hero h)
+			{
+				Remove(h);
+			}
+			else
+			{
+				// TODO: Throw custom exception
+				throw new System.Exception("Combatant is not a Hero nor a Monster!");
+			}
+		}
+
+
 		public static void Update()
 		{
 			if (total <= 0)
+			{
+				scene.CheckWin();
 				return;
+			}
 
 			if(Current == null)
 			{
 				currIndex++;
+
+				scene.CheckWin();
 				
 				// A turn has passed, reset the order
 				if (currIndex >= total)

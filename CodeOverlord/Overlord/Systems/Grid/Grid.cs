@@ -25,7 +25,8 @@ namespace Overlord
 			{
 				tileWidth = value;
 
-				HorizontalLines.Width = value * Height;
+				HorizontalLines.Width = value * Width;
+				HorizontalLines.Origin = new Vector2(HorizontalLines.Width, HorizontalLines.Height) / 2f;
 			}
 		}
 
@@ -40,6 +41,7 @@ namespace Overlord
 				tileHeight = value;
 
 				VerticalLines.Height = value * Height;
+				// VerticalLines.Origin = new Vector2(VerticalLines.Width, VerticalLines.Height) / 2f;
 			}
 		}
 
@@ -54,6 +56,11 @@ namespace Overlord
 			}
 
 			return true;
+		}
+
+		public static bool IsAvailable(int x, int y)
+		{
+			return IsAvailable(new Point(x, y));
 		}
 
 		public static void Init(LevelScene s)

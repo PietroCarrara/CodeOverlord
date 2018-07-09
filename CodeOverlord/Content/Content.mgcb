@@ -120,9 +120,6 @@
 #begin Scripts/Monsters/sample.lua
 /copy:Scripts/Monsters/sample.lua
 
-#begin Scripts/Levels/basic-room/basic-room.lua
-/copy:Scripts/Levels/basic-room/basic-room.lua
-
 #begin Fonts/Dialogs.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -141,9 +138,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Characters/Constanze/Normal.png
-
-#begin Scripts/Levels/basic-room/object.lua
-/copy:Scripts/Levels/basic-room/object.lua
 
 #begin Sprites/Characters/Constanze/Scared.png
 /importer:TextureImporter
@@ -4917,4 +4911,40 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Characters/Pepper/Normal.png
+
+#begin Sounds/Slap.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Slap.wav
+
+#begin Sprites/Characters/Pepper/Studying.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Characters/Pepper/Studying.png
+
+#begin Scripts/Levels/basic-room/basic-room.lua
+/copy:Scripts/Levels/basic-room/basic-room.lua
+
+#begin Scripts/Levels/basic-room/object.lua
+/copy:Scripts/Levels/basic-room/object.lua
+
+#begin Scripts/Levels/labyrinth/bússola.lua
+/copy:Scripts/Levels/labyrinth/bússola.lua
+
+#begin Scripts/Levels/labyrinth/bússolaNova.lua
+/copy:Scripts/Levels/labyrinth/bússolaNova.lua
+
+#begin Scripts/Levels/labyrinth/labyrinth.lua
+/copy:Scripts/Levels/labyrinth/labyrinth.lua
+
+#begin Scripts/Levels/labyrinth/slime.lua
+/copy:Scripts/Levels/labyrinth/slime.lua
 

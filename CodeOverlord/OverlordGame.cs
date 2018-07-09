@@ -1,15 +1,19 @@
 using System;
 using Prime;
 using Overlord.Editor;
+using CodeOverlord.Overlord.LuaScripts;
+using MoonSharp.Interpreter;
 
 namespace Overlord
 {
 	public class OverLordGame : PrimeGame
 	{
-		public OverLordGame(LevelScene s) : base(s)
+		public OverLordGame(Scene s) : base(s)
 		{
 			this.Window.AllowUserResizing = true;
 			this.IsMouseVisible = false;
+
+			Script.DefaultOptions.ScriptLoader = new VirtualFileScriptLoader();
 		}
 
 		public void SetScriptText(string sName, string text)

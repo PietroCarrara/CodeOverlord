@@ -12,7 +12,7 @@ level.name = "Basic Room"
 level.map = "Sprites/Rooms/Basic Room/map"
 
 level.dialog = {
-	{ char = "pepper/normal", contents = "Poxa vida... Se eu não acabar isso antes de o professor voltar eu vou estar ferrada..." },
+	{ char = "pepper/studying", contents = "Poxa vida... Se eu não acabar isso antes de o professor voltar eu vou estar ferrada..." },
 	{ char = "pepper/scared", contents = "Agh! Quem é você? Eu estava tão distraída com as minhas tarefas que nem te vi entrando..." },
 	{ char = "pepper/normal", contents = "Espera aí! Você deve ser o novo estagiário que o professor contratou! Que hora perfeita!" },
 	{ char = "pepper/normal", contents = "Essas tarefas que o professor me passou são muito difíceis, então um par extra de mãos vão ser bem úteis." },
@@ -40,12 +40,15 @@ level.files = {
 	{ path = "object.lua", readOnly = true },
 }
 
-function level.update()
-	
-	-- Every update spanw a rogue
-	local rogue = spawn("rogue")
-	rogue.SetScript("Content/Scripts/Heroes/Rogue/rogue.lua")
+function level.ready()
 
+end
+
+function level.initialize()
+
+end
+
+function level.update()
 	if (#monsters() >= 3) then
 		return "win"
 	else

@@ -6,16 +6,16 @@ using Microsoft.Xna.Framework;
 
 namespace Overlord
 {
-	public class LevelLua : Script
+	public class OverlordScript : Script
 	{
-		private LevelScene scene;
+		protected LevelScene Scene;
 
-		public LevelLua(LevelScene s)
+		public OverlordScript(LevelScene s)
 		{
-			this.scene = s;
+			this.Scene = s;
 
-			this.Globals["monsters"] = (Func<List<ProxyCombatant>>) monsters;
-			this.Globals["spawn"] = (Func<string, int, int, Combatant>)spawn;
+			this.Globals["monsters"] = (Func<List<ProxyCombatant>>)monsters;
+			this.Globals["gridIsAvailable"] = (Func<int, int, bool>)gridIsAvailable;
 
 			UserData.RegisterType<Point>();
 			UserData.RegisterType<Vector2>();
@@ -39,26 +39,22 @@ namespace Overlord
 			return list;
 		}
 
-		private Combatant spawn(string name, int x = 0, int y = 0)
+		private List<ProxyCombatant> heroes()
 		{
-			Combatant c = null;
+			var list = new List<ProxyCombatant>();
 
-			switch (name.ToLower())
+			foreach (var h in BattleManager.Heroes)
 			{
-				case "slime":
-					c = new Slime();
-					break;
-				case "rogue":
-					c = new Rogue();
-					break;
+				list.Add(new ProxyCombatant(h));
 			}
 
-			c.GridPos = new Point(x, y);
-
-			BattleManager.Add(c);
-			this.scene.Add(c);
-			return c;
+			return list;
 		}
+
+		private bool gridIsAvailable(int x, int y)
+		{
+			return Grid.IsAvailable(x, y);
+		}
+
 	}
 }
-
