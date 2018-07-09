@@ -33,19 +33,11 @@ namespace Overlord
 			}
 		}
 
-		public LuaInterpreter()
-		{
-			var loader = new MoonSharp.Interpreter.Loaders.FileSystemScriptLoader();
-			loader.ModulePaths = new string[]{"Content/Scripts/Lib/?.lua"};
-
-			this.Script.Options.ScriptLoader = loader;
-		}
-
 		public override void Initialize()
 		{
 			base.Initialize();
 
-			this.Owner = (Combatant) base.Owner;
+			this.Owner = (Combatant)base.Owner;
 		}
 
 		public void AddSkill(Skill s)
@@ -58,7 +50,7 @@ namespace Overlord
 			if (!CurrentInstructionDone)
 				return;
 
-			if(routine == null)
+			if (routine == null)
 			{
 				routine = Script.CreateCoroutine(This["update"]).Coroutine;
 				routine.AutoYieldCounter = 1;
@@ -67,7 +59,7 @@ namespace Overlord
 
 			var result = routine.Resume();
 
-			if(result.Type != DataType.YieldRequest)
+			if (result.Type != DataType.YieldRequest)
 			{
 				routine = null;
 			}

@@ -9,11 +9,11 @@ namespace Overlord
 	public class Heroes : Skill
 	{
 		public Heroes() : base("heroes")
-		{  }
+		{ }
 
 		public override object GetCode()
 		{
-			return (Func<List<ProxyCombatant>>) run;
+			return (Func<List<ProxyCombatant>>)run;
 		}
 
 		private List<ProxyCombatant> run()
