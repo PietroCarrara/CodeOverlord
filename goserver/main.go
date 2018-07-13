@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"io"
-	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -97,15 +96,14 @@ func receiveWS() {
 // Wait for C# to send messages, and raise onReceive
 func receive() {
 	for {
-		bytes, _ := ioutil.ReadAll(conn)
-		str := string(bytes)
+		str, err := bufio.NewReader(conn).ReadString(0)
 		if err != nil {
 
 			// Terminate once the connection has closed
-			// if err == io.EOF {
-			//	running = false
-			//	return
-			//}
+			if err == io.EOF {
+				running = false
+				return
+			}
 
 			log.Println("Error when receiving data: ", err)
 		}

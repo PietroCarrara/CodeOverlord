@@ -22,7 +22,7 @@ namespace Overlord
 
 			pics["pepper/normal"] = Overlord.Content.Sprites.Characters.Pepper.Normal(cm);
 			pics["pepper/studying"] = cm.Load<Texture2D>("Sprites/Characters/Pepper/Studying");
-			pics["pepper/scared"] = Overlord.Content.Sprites.Characters.Constanze.Normal(cm);
+			pics["pepper/scared"] = Overlord.Content.Sprites.Characters.Pepper.Normal(cm);
 		}
 	}
 }

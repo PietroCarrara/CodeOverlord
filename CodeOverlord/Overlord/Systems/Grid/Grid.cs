@@ -1,6 +1,7 @@
 using Prime;
 using Prime.Graphics;
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Overlord
@@ -9,47 +10,23 @@ namespace Overlord
 	{
 		public static int Width, Height;
 
-		private static int tileWidth, tileHeight;
-
 		private static Entity e = new Entity();
 
 		private static LevelScene scene;
 
-		public static int TileWidth
-		{
-			get
-			{
-				return tileWidth;
-			}
-			set
-			{
-				tileWidth = value;
+		private static List<Point> Colliders;
 
-				HorizontalLines.Width = value * Width;
-				HorizontalLines.Origin = new Vector2(HorizontalLines.Width, HorizontalLines.Height) / 2f;
-			}
-		}
-
-		public static int TileHeight
-		{
-			get
-			{
-				return tileHeight;
-			}
-			set
-			{
-				tileHeight = value;
-
-				VerticalLines.Height = value * Height;
-				// VerticalLines.Origin = new Vector2(VerticalLines.Width, VerticalLines.Height) / 2f;
-			}
-		}
-
-		private static Sprite VerticalLines = new RectangleSprite(3, 1, Color.Red), HorizontalLines = new RectangleSprite(1, 3, Color.Blue);
+		public static int TileWidth, TileHeight;
 
 		public static bool IsAvailable(Point p)
 		{
-			foreach(var c in BattleManager.Participants)
+			foreach (var c in Colliders)
+			{
+				if (c == p)
+					return false;
+			}
+
+			foreach (var c in BattleManager.Participants)
 			{
 				if (c.GridPos == p)
 					return false;
@@ -67,10 +44,14 @@ namespace Overlord
 		{
 			scene = s;
 
-			s.Add(e);
-
-			e.Add(VerticalLines);
-			e.Add(HorizontalLines);
+			if (s.Map.Layers.ContainsKey("Colliders"))
+			{
+				Colliders = s.Map.Layers["Colliders"].Objects;
+			}
+			else
+			{
+				Colliders = new List<Point>();
+			}
 		}
 
 		public static Vector2 PointToWorld(int x, int y)
@@ -85,10 +66,11 @@ namespace Overlord
 
 		public static Point WorldToPoint(Vector2 pos)
 		{
-			var res = Point.Zero;
-
-			res.X = (int) Math.Floor((pos.X / TileWidth));
-			res.Y = (int) Math.Floor((pos.Y / TileHeight));
+			var res = new Point
+			{
+				X = (int)Math.Floor(pos.X / TileWidth),
+				Y = (int)Math.Floor(pos.Y / TileHeight)
+			};
 
 			return res;
 		}

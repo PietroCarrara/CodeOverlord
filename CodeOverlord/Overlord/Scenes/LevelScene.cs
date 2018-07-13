@@ -4,12 +4,12 @@ using Prime.UI;
 using System.Linq;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
-using MonoGame.Extended.Tiled;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Overlord.Editor;
 using CodeOverlord.Overlord.LuaScripts;
+using System;
 
 namespace Overlord
 {
@@ -22,7 +22,8 @@ namespace Overlord
 
 		public string Name;
 
-		public string Map;
+		public TilingMap Map { get; private set; }
+		private string map;
 
 		public int Width, Height;
 
@@ -60,7 +61,7 @@ namespace Overlord
 			level = script.DoString(scriptContent).Table;
 
 			this.Name = level.Get("name").String;
-			this.Map = level.Get("map").String;
+			this.map = level.Get("map").String;
 
 			this.Width = (int)level.Get("dimensions").Table.Get("x").Number;
 			this.Height = (int)level.Get("dimensions").Table.Get("y").Number;
@@ -82,17 +83,17 @@ namespace Overlord
 				this.VirtualFiles[filePath] = file;
 			}
 
-			var map = this.Add(new TilingMap(Content.Load<TiledMap>(this.Map)));
-			map.Width = this.Width;
-			map.Height = this.Height;
+			this.Map = this.Add(TilingMap.Load(Content, this.map));
+			this.Map.Width = this.Width;
+			this.Map.Height = this.Height;
 
-			map.Position = PrimeGame.Center;
+			Map.Position = PrimeGame.Center;
 
 			Grid.Init(this);
-			Grid.Width = map.WidthInTiles;
-			Grid.Height = map.HeightInTiles;
-			Grid.TileWidth = map.TileWidth;
-			Grid.TileHeight = map.TileHeight;
+			Grid.Width = this.Map.WidthInTiles;
+			Grid.Height = this.Map.HeightInTiles;
+			Grid.TileWidth = this.Map.TileWidth;
+			Grid.TileHeight = this.Map.TileHeight;
 
 			var dragger = new MonsterDragger();
 
@@ -144,7 +145,7 @@ namespace Overlord
 				Add(spawner);
 				Add(dragger);
 				AddUI(bt);
-				this.Add(new MousePositionHighlight(map.TileWidth, map.TileHeight));
+				this.Add(new MousePositionHighlight(this.Map.TileWidth, this.Map.TileHeight));
 
 				selector.IsVisible = true;
 			};

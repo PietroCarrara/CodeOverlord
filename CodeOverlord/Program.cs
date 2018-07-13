@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using System.Threading;
 using Prime;
-using Eto.Forms;
 using Overlord.Editor;
 using CodeOverlord.Overlord.Scenes;
 

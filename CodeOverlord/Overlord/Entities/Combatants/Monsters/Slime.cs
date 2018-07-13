@@ -3,7 +3,6 @@ using Prime.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.TextureAtlases;
 
 namespace Overlord
 {

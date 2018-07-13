@@ -24,8 +24,8 @@ namespace Overlord
 		{
 			Begin();
 
-			var gridPos = this.Owner.GridPos;
-			gridPos += movement;
+			var prevGridPos = this.Owner.GridPos;
+			var gridPos = prevGridPos + movement;
 
 			if (!Grid.IsAvailable(gridPos))
 			{
@@ -42,7 +42,7 @@ namespace Overlord
 
 			Tasks.Create(
 				() => Owner.Position += speed * Time.DetlaTime * movement.ToVector2(),
-				() => Math.Abs((Owner.Position - target).X) <= 1 && Math.Abs((Owner.Position - target).Y) <= 1,
+				() => Math.Abs((Owner.Position - target).X) <= 1 && Math.Abs((Owner.Position - target).Y) <= 1 && prevGridPos != this.Owner.GridPos,
 				() => { Owner.CurrentStamina--; End(); this.Owner.Animations.Play("idle"); }
 			);
 		}
