@@ -14,6 +14,11 @@ namespace Overlord
 		{
 			this.Scene = s;
 
+			this.Options.DebugPrint = (str) =>
+			{
+				this.Scene.ConsoleWriteLine(str);
+			};
+
 			this.Globals["monsters"] = (Func<List<ProxyCombatant>>)monsters;
 			this.Globals["gridIsAvailable"] = (Func<int, int, bool>)gridIsAvailable;
 

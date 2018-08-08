@@ -12,10 +12,11 @@ namespace Overlord
 
 		public LevelLua(LevelScene s) : base(s)
 		{
-			this.Globals["spawn"] = (Func<string, int, int, Combatant>)spawn;
+			this.Globals["spawn"] = (Func<string, int, int, ProxyCombatant>)spawn;
+			this.Globals["setScript"] = (Action<ProxyCombatant, string>)setScript;
 		}
 
-		private Combatant spawn(string name, int x = 0, int y = 0)
+		private ProxyCombatant spawn(string name, int x = 0, int y = 0)
 		{
 			Combatant c = null;
 
@@ -36,8 +37,13 @@ namespace Overlord
 
 			BattleManager.Add(c);
 			this.Scene.Add(c);
-			return c;
+			return new ProxyCombatant(c);
 		}
+        
+        private void setScript(ProxyCombatant combatant, string path)
+        {
+			combatant.Combatant.SetScript(path);
+        }
 	}
 }
 

@@ -48,7 +48,7 @@ namespace Overlord
 
 			BattleManager.Init(this);
 
-			this.ClearColor = Color.Gray;
+			this.ClearColor = Color.Blue;
 		}
 
 		public override void Initialize()
@@ -250,6 +250,20 @@ namespace Overlord
 				return;
 
 			BattleManager.Update();
+		}
+
+		private Panel console;
+
+		public void ConsoleWriteLine(string str)
+		{
+            if (console == null)
+            {
+				console = new Panel(new Vector2(400, 300));
+				console.Draggable = true;
+				this.AddUI(console);
+            }
+
+			console.AddChild(new Label(str));
 		}
 	}
 }

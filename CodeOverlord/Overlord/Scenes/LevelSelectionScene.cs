@@ -35,16 +35,20 @@ namespace CodeOverlord.Overlord.Scenes
 
 			panel = new Panel(Vector2.Zero);
 
+            var title = new Header("Seleção de Nível", AnchorPoint.TopCenter);
+            
+            panel.AddChild(title);
+            
 			foreach (var pair in levels)
 			{
 				var bt = new Button(pair.Value, AnchorPoint.Auto);
 				bt.OnClick += () => this.Game.ActiveScene = new LevelScene(this, pair.Value, pair.Key + "/");
 
 				panel.AddChild(bt);
-
 			}
 
 			this.AddUI(this.panel);
+			panel.GetFocus();
 		}
 	}
 }
