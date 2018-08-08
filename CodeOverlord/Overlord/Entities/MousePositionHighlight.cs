@@ -26,6 +26,10 @@ namespace Overlord
 		{
 			// Position itsef on one of the tiles
 			this.Position = Grid.PointToWorld( Grid.WorldToPoint( Input.MousePosition(this.Scene.Cam)));
+
+			var p = Grid.WorldToPoint(this.Position);
+            
+            spr.IsVisible = Grid.IsAvailable(p);
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace Overlord
 
 				var p = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
 
-				if (Script == null || !BattleManager.IsEmpty(p)) 
+				if (Script == null || !Grid.IsAvailable(p)) 
 					return;
 
 				var m = Monster.FromScript(Script.Text);
@@ -33,6 +33,8 @@ namespace Overlord
 				var p = Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam));
 
 				var m = BattleManager.GetByPos(p);
+
+				if (m == null) return;
 
 				if (m.Despawnable)
 				{

@@ -20,6 +20,11 @@ namespace Overlord
 
 		public static bool IsAvailable(Point p)
 		{
+			if (p.X < 0 || p.Y < 0 || p.X >= Width || p.Y >= Height)
+			{
+				return false;
+			}
+        
 			foreach (var c in Colliders)
 			{
 				if (c == p)

@@ -4948,3 +4948,12 @@
 #begin Scripts/Levels/labyrinth/slime.lua
 /copy:Scripts/Levels/labyrinth/slime.lua
 
+#begin Scripts/Levels/methods/methods.lua
+/copy:Scripts/Levels/methods/methods.lua
+
+#begin Scripts/Levels/methods/main.lua
+/copy:Scripts/Levels/methods/main.lua
+
+#begin Scripts/Levels/methods/slime.lua
+/copy:Scripts/Levels/methods/slime.lua
+
