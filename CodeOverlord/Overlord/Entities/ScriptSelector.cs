@@ -7,11 +7,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
-	public class ScriptSelector : Entity 
+	public class ScriptSelector : Entity
 	{
 		private MonsterSpawner m;
 
 		private SelectList<VirtualFile> list;
+
+		public List<VirtualFile> Files
+		{
+			get
+			{
+				return list.Items;
+			}
+		}
 
 		public bool IsVisible
 		{

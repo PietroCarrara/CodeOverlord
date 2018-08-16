@@ -20,7 +20,7 @@ namespace Overlord
 			}
 		}
 
-		public bool ReadOnly;
+		public bool ReadOnly, Spawnable;
 
 		public VirtualFile(string s)
 		{

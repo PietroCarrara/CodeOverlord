@@ -67,6 +67,11 @@ namespace Overlord
 			this.Lua.Content = ScriptIO.Load(path);
 		}
 
+		public void SetScript(VirtualFile f)
+		{
+			this.Lua.Content = f.Text;
+		}
+
 		public void ReceiveTurn()
 		{
 			this.CurrentStamina = this.Stamina;
@@ -76,17 +81,17 @@ namespace Overlord
 		{
 			this.CurrentHealth -= d;
 
-			if(this.CurrentHealth <= 0)
+			if (this.CurrentHealth <= 0)
 			{
-				Animations.Play("die", () => 
+				Animations.Play("die", () =>
 				{
 					Destroy();
 					a?.Invoke();
 				});
 			}
-			else if (a != null)
+			else
 			{
-				a();
+				a?.Invoke();
 			}
 		}
 	}

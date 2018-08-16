@@ -8,16 +8,9 @@ namespace Overlord
 {
 	public class OverlordScript : Script
 	{
-		protected LevelScene Scene;
-
-		public OverlordScript(LevelScene s)
+		public OverlordScript()
 		{
-			this.Scene = s;
-
-			this.Options.DebugPrint = (str) =>
-			{
-				this.Scene.ConsoleWriteLine(str);
-			};
+			this.Options.DebugPrint = LevelScene.ConsoleWriteLine;
 
 			this.Globals["monsters"] = (Func<List<ProxyCombatant>>)monsters;
 			this.Globals["gridIsAvailable"] = (Func<int, int, bool>)gridIsAvailable;

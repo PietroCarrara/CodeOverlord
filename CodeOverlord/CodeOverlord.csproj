@@ -60,7 +60,6 @@
 	<Compile Include="Overlord\Entities\Combatants\Heroes\Rogue.cs" />
 	<Compile Include="Overlord\Entities\Dialogs\Dialog.cs" />
 	<Compile Include="Overlord\Entities\Dialogs\Line.cs" />
-	<Compile Include="Overlord\Entities\Dialogs\LineKeeper.cs" />
 	<Compile Include="Overlord\Scenes\LevelScene.cs" />
 	<Compile Include="Overlord\Systems\Grid\Grid.cs" />
 	<Compile Include="Overlord\Systems\BattleManager.cs" />
@@ -109,6 +108,7 @@
 	<Compile Include="Overlord\LuaScripts\OverlordScript.cs" />
 	<Compile Include="Overlord\LuaScripts\VirtualFileScriptLoader.cs" />
 	<Compile Include="Overlord\Scenes\LevelSelectionScene.cs" />
+	<Compile Include="Overlord\Scenes\Level.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

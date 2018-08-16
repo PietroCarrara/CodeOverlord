@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Overlord
 {
-	public class Line : Entity 
+	public class Line : Entity
 	{
 		// Text to be displayed
 		public string Contents;
@@ -45,7 +45,7 @@ namespace Overlord
 		private Point boxSize = new Point(1280, 150);
 
 		// Chars that should pause the speech a bit
-		private char[] pauseChars = new char[]{'!', ',', '?', '.', ':'};
+		private char[] pauseChars = new char[] { '!', ',', '?', '.', ':' };
 
 		// How long to wait to print the next char in seconds.
 		// Defaults as 8 chars per second
@@ -93,7 +93,7 @@ namespace Overlord
 			this.panel.AddChild(this.label);
 
 			this.Scene.AddUI(this.panel);
-			
+
 			// ________
 			// |  :)  |
 			// --------
@@ -111,6 +111,16 @@ namespace Overlord
 			{
 				Character.Offset = new Vector2(0, 0);
 			}
+		}
+
+		public void Attach()
+		{
+			this.Character.Attach();
+		}
+
+		public void Unatatch()
+		{
+			this.Character.Unnatach();
 		}
 
 		public override void Update()

@@ -19,7 +19,7 @@ function level.ready()
 
 	slime1 = spawn('slime', 6, 6)
 
-	setScript(slime1, 'Content/Scripts/Levels/methods/slime.lua')
+	setScript(slime1, 'slime.lua')
 
 end
 

@@ -37,7 +37,7 @@ level.lockFiles = true
 
 -- Files provided by the level
 level.files = {
-	{ path = "object.lua", readOnly = true },
+	{ path = "object.lua", readOnly = true, spawnable = true },
 }
 
 function level.ready()
@@ -52,7 +52,7 @@ function level.update()
 	if (#monsters() >= 3) then
 		return "win"
 	else
-		return "lose"
+		-- return "lose"
 	end
 end
 

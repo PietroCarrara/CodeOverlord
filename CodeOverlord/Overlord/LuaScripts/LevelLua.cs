@@ -8,9 +8,7 @@ namespace Overlord
 {
 	public class LevelLua : OverlordScript
 	{
-		private LevelScene scene;
-
-		public LevelLua(LevelScene s) : base(s)
+		public LevelLua()
 		{
 			this.Globals["spawn"] = (Func<string, int, int, ProxyCombatant>)spawn;
 			this.Globals["setScript"] = (Action<ProxyCombatant, string>)setScript;
@@ -30,20 +28,22 @@ namespace Overlord
 					break;
 				default:
 					// TODO: Custom exception
-					throw new Exception("spawn: Invalud name: \"" + name + "\"");
+					throw new Exception("spawn: Invalid name: \"" + name + "\"");
 			}
 
 			c.GridPos = new Point(x, y);
 
 			BattleManager.Add(c);
-			this.Scene.Add(c);
+			PrimeGame.Game.ActiveScene.Add(c);
 			return new ProxyCombatant(c);
 		}
-        
-        private void setScript(ProxyCombatant combatant, string path)
-        {
-			combatant.Combatant.SetScript(path);
-        }
+
+		private void setScript(ProxyCombatant combatant, string path)
+		{
+			var s = (LevelScene)combatant.Combatant.Scene;
+
+			combatant.Combatant.SetScript(s.Level.Files[path]);
+		}
 	}
 }
 
