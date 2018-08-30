@@ -18,9 +18,9 @@ namespace Overlord
 
 		public override void Initialize()
 		{
-			base.Initialize();
-
 			base.Animations = Add(Content.Sprites.Monsters.Slime.SpriteSheet(this.Scene));
+
+			base.Initialize();
 
 			// Slime skills
 			this.Add(new PushUp());

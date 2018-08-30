@@ -1,10 +1,3 @@
---
--- basic-room.lua
--- Copyright (C) 2018 pietro <pietro@the-arch>
---
--- Distributed under terms of the MIT license.
---
-
 local level = {}
 
 level.name = "Basic Room"
@@ -26,14 +19,9 @@ level.dialog = {
 	{ char = "pepper/normal", contents = "Bom, voltando ao que importa: O meu dever de casa." },
 	{ char = "pepper/normal", contents = "O professor me deu uma classe, e eu tenho que criar 3 objetos a partir dela, mas eu não estou conseguindo! Daria pra quebrar esse galho pra mim?" },
 	{ char = "pepper/scared", contents = "Ah, e para invocar objetos, é só selecionar a classe no menu à direita e clicar com o botão direito." },
-
 }
 
 level.dimensions = { x = 1300, y = 1300 }
-
--- User can't create new files
--- Still to be implemented
-level.lockFiles = true
 
 -- Files provided by the level
 level.files = {
@@ -52,7 +40,7 @@ function level.update()
 	if (#monsters() >= 3) then
 		return "win"
 	else
-		-- return "lose"
+		return "lose"
 	end
 end
 

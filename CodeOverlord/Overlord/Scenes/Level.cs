@@ -73,6 +73,7 @@ namespace Overlord.Overlord.Scenes
 		// Can use the apis
 		public void Initialize()
 		{
+			Console.WriteLine("Initializing...");
 			level.Get("initialize").Function.Call();
 		}
 
@@ -86,11 +87,8 @@ namespace Overlord.Overlord.Scenes
 		{
 			var func = level.Get("update");
 
-			Console.WriteLine(func);
-
 			if (func.Type == DataType.Function)
 			{
-				Console.WriteLine("level.update() is a function!");
 				var res = func.Function.Call();
 
 				if (!res.IsNil()) return res.String;

@@ -10,7 +10,7 @@ namespace Overlord
 {
 	public class LuaInterpreter : Component
 	{
-		public Script Script = new Script();
+		public Script Script = new OverlordScript();
 		public MoonSharp.Interpreter.Table This;
 
 		public bool CurrentInstructionDone = true;

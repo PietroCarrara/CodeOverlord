@@ -41,7 +41,7 @@ namespace Overlord
 			Owner.Animations.Play("walk");
 
 			Tasks.Create(
-				() => Owner.Position += speed * Time.DetlaTime * movement.ToVector2(),
+				() => Owner.Position += speed * TimeControl.GetScale() * Time.DetlaTime * movement.ToVector2(),
 				() => Math.Abs((Owner.Position - target).X) <= 1 && Math.Abs((Owner.Position - target).Y) <= 1 && prevGridPos != this.Owner.GridPos,
 				() => { Owner.CurrentStamina--; End(); this.Owner.Animations.Play("idle"); }
 			);

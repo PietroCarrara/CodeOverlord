@@ -14,7 +14,7 @@ namespace Overlord
 
 		private static LevelScene scene;
 
-		private static List<Point> Colliders;
+		private static bool[,] Colliders;
 
 		public static int TileWidth, TileHeight;
 
@@ -24,12 +24,9 @@ namespace Overlord
 			{
 				return false;
 			}
-        
-			foreach (var c in Colliders)
-			{
-				if (c == p)
-					return false;
-			}
+
+			if (Colliders[p.X, p.Y])
+				return false;
 
 			foreach (var c in BattleManager.Participants)
 			{
@@ -49,13 +46,19 @@ namespace Overlord
 		{
 			scene = s;
 
+			Width = scene.Map.WidthInTiles;
+			Height = scene.Map.HeightInTiles;
+			TileWidth = scene.Map.TileWidth;
+			TileHeight = scene.Map.TileHeight;
+
+			Colliders = new bool[Width, Height];
+
 			if (s.Map.Layers.ContainsKey("Colliders"))
 			{
-				Colliders = s.Map.Layers["Colliders"].Objects;
-			}
-			else
-			{
-				Colliders = new List<Point>();
+				foreach (var p in s.Map.Layers["Colliders"].Objects)
+				{
+					Colliders[p.X, p.Y] = true;
+				}
 			}
 		}
 

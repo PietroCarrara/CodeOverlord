@@ -109,6 +109,9 @@
 	<Compile Include="Overlord\LuaScripts\VirtualFileScriptLoader.cs" />
 	<Compile Include="Overlord\Scenes\LevelSelectionScene.cs" />
 	<Compile Include="Overlord\Scenes\Level.cs" />
+	<Compile Include="Overlord\Systems\TimeControl.cs" />
+	<Compile Include="Overlord\Components\AnimationScaler.cs" />
+	<Compile Include="Overlord\Components\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -18,8 +18,6 @@ namespace Overlord
 		[STAThread]
 		static void Main()
 		{
-			var sla = new LevelSelectionScene();
-
 			using (var game = new OverLordGame(new LevelSelectionScene()))
 			{
 				Task.Run(() => App.Run(game));

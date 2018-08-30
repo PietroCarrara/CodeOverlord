@@ -79,9 +79,11 @@ namespace Overlord
 			this.Name = character;
 		}
 
-		public override void Initialize()
+		public void Reset()
 		{
 			base.Initialize();
+
+			this.totalChars = 0;
 
 			this.effect = this.Scene.Content.Load<SoundEffect>("Sounds/Slap");
 
@@ -89,10 +91,8 @@ namespace Overlord
 
 			this.label = new Label("");
 
-			this.panel = new Panel(new Vector2(0, boxSize.Y), AnchorPoint.BottomCenter);
+			this.panel = this.Scene.AddUI(new Panel(new Vector2(0, boxSize.Y), AnchorPoint.BottomCenter));
 			this.panel.AddChild(this.label);
-
-			this.Scene.AddUI(this.panel);
 
 			// ________
 			// |  :)  |

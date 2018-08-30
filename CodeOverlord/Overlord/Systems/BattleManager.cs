@@ -36,6 +36,8 @@ namespace Overlord
 
 			currIndex = -1;
 			total = 0;
+
+			Current = null;
 		}
 
 		public static void Sort()
@@ -43,10 +45,10 @@ namespace Overlord
 			participants.Clear();
 			participants.AddRange(Monsters);
 			participants.AddRange(Heroes);
-			
+
 			// Maybe have some kind of 'Speed' status?
 			// By now just shuffle it
-			participants = participants.OrderBy((e) => Randomic.Rand()).ToList();
+			// participants = participants.OrderBy((e) => Randomic.Rand()).ToList();
 
 			total = participants.Count();
 		}
@@ -90,7 +92,7 @@ namespace Overlord
 		{
 			Monsters.Remove(m);
 			participants.Remove(m);
-			
+
 			total--;
 		}
 
@@ -98,7 +100,7 @@ namespace Overlord
 		{
 			Heroes.Remove(m);
 			participants.Remove(m);
-			
+
 			total--;
 		}
 
@@ -128,12 +130,12 @@ namespace Overlord
 				return;
 			}
 
-			if(Current == null)
+			if (Current == null)
 			{
 				currIndex++;
 
 				scene.CheckWin();
-				
+
 				// A turn has passed, reset the order
 				if (currIndex >= total)
 				{
@@ -143,7 +145,7 @@ namespace Overlord
 				Current = participants[currIndex];
 				Current.ReceiveTurn();
 			}
-			
+
 			Current.Lua.DoTurn();
 		}
 
@@ -161,9 +163,9 @@ namespace Overlord
 		{
 			var p = new Point(x, y);
 
-			foreach(var m in participants)
+			foreach (var m in participants)
 			{
-				if(m.GridPos == p)
+				if (m.GridPos == p)
 				{
 					return m;
 				}

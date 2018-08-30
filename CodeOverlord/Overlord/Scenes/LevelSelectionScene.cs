@@ -34,7 +34,7 @@ namespace CodeOverlord.Overlord.Scenes
 				}
 			}
 
-			panel = new Panel(Vector2.Zero);
+			panel = this.AddUI(new Panel(Vector2.Zero));
 
 			var title = new Header("Seleção de Nível", AnchorPoint.TopCenter);
 

@@ -100,23 +100,6 @@
 #begin Scripts/Heroes/Rogue/rogue.lua
 /copy:Scripts/Heroes/Rogue/rogue.lua
 
-#begin Sprites/Rooms/Basic Room/map.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Sprites/Rooms/Basic Room/map.tmx
-
-#begin Sprites/Rooms/Basic Room/tileset.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/Rooms/Basic Room/tileset.png
-
 #begin Scripts/Monsters/sample.lua
 /copy:Scripts/Monsters/sample.lua
 
@@ -4930,6 +4913,45 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Characters/Pepper/Studying.png
 
+#begin Sprites/Rooms/Basic Room/labyrinth.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Sprites/Rooms/Basic Room/labyrinth.tmx
+
+#begin Sprites/Rooms/Basic Room/map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Sprites/Rooms/Basic Room/map.tmx
+
+#begin Sprites/Rooms/Basic Room/tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Rooms/Basic Room/tileset.png
+
+#begin Sprites/Rooms/Labyrinth/labyrinth.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Sprites/Rooms/Labyrinth/labyrinth.tmx
+
+#begin Sprites/Rooms/Labyrinth/tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Rooms/Labyrinth/tileset.png
+
 #begin Scripts/Levels/basic-room/basic-room.lua
 /copy:Scripts/Levels/basic-room/basic-room.lua
 
@@ -4948,12 +4970,12 @@
 #begin Scripts/Levels/labyrinth/slime.lua
 /copy:Scripts/Levels/labyrinth/slime.lua
 
-#begin Scripts/Levels/methods/methods.lua
-/copy:Scripts/Levels/methods/methods.lua
+#begin Scripts/Levels/object-instance/object-instance.lua
+/copy:Scripts/Levels/object-instance/object-instance.lua
 
-#begin Scripts/Levels/methods/main.lua
-/copy:Scripts/Levels/methods/main.lua
+#begin Scripts/Levels/object-instance/slime.lua
+/copy:Scripts/Levels/object-instance/slime.lua
 
-#begin Scripts/Levels/methods/slime.lua
-/copy:Scripts/Levels/methods/slime.lua
+#begin Scripts/Levels/object-instance/main.lua
+/copy:Scripts/Levels/object-instance/main.lua
 

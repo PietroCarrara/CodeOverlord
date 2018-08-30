@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using CodeOverlord.Overlord.Components;
 
 namespace Overlord
 {
@@ -15,7 +16,7 @@ namespace Overlord
 
 		public SpriteSheet Animations;
 
-		private const float speed = 50;
+		public AnimationScaler AnimationScaler { get; private set; }
 
 		public bool Despawnable;
 
@@ -42,6 +43,8 @@ namespace Overlord
 			CurrentDamage = Damage;
 			CurrentHealth = Health;
 			CurrentReach = Reach;
+
+			this.AnimationScaler = this.Add(new AnimationScaler());
 
 			this.Add(Lua);
 

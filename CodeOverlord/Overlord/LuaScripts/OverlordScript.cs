@@ -15,6 +15,8 @@ namespace Overlord
 			this.Globals["monsters"] = (Func<List<ProxyCombatant>>)monsters;
 			this.Globals["gridIsAvailable"] = (Func<int, int, bool>)gridIsAvailable;
 
+			this.Globals["new"] = this.DoString("return dofile");
+
 			UserData.RegisterType<Point>();
 			UserData.RegisterType<Vector2>();
 			UserData.RegisterType<Entity>();

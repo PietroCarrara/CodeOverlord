@@ -1,4 +1,4 @@
-local this = require "bússola"
+local this = new "bússola.lua"
 
 -- Como consertar a bússola?
 

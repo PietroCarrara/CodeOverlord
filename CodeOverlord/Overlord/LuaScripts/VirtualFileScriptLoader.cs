@@ -17,11 +17,15 @@ namespace CodeOverlord.Overlord.LuaScripts
 
 		public override object LoadFile(string file, Table globalContext)
 		{
+			Console.WriteLine(file);
+
 			return Files[file].Text;
 		}
 
 		public override bool ScriptFileExists(string name)
 		{
+			Console.WriteLine(name);
+
 			return Files.ContainsKey(name);
 		}
 	}

@@ -5,6 +5,9 @@
 
 -- Criamos a variável this, que começa
 -- sendo um slime simples
+-- A palavra chave 'local' diz que é uma
+-- variável local. É um bom hábito sempre
+-- declarar variáveis com 'local'
 local this = Slime()
 
 -- Definimos a função update dentro de this

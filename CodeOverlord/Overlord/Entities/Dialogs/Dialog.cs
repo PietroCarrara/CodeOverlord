@@ -19,6 +19,7 @@ namespace Overlord
 			if (this.Initialized)
 			{
 				this.Scene.Add(l);
+				l.Reset();
 				l.IsVisible = false;
 			}
 		}
@@ -30,6 +31,7 @@ namespace Overlord
 			foreach (var l in lines)
 			{
 				this.Scene.Add(l);
+				l.Reset();
 				l.IsVisible = false;
 			}
 		}

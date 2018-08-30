@@ -23,7 +23,6 @@ cp "$root/EditorHtml/bootstrap/" "./bootstrap/" -r
 
 rm -rf "./css"
 mkdir -p "./css"
-cp "$root/EditorHtml/font-awesome.min.css" "./css/"
 
 cp "$root/goserver/goserver" goserver
 cp "$root/goserver/goserver.exe" goserver.exe

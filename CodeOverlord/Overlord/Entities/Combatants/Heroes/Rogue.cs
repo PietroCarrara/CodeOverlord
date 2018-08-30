@@ -14,9 +14,9 @@ namespace Overlord
 
 		public override void Initialize()
 		{
-			base.Initialize();
-
 			base.Animations = Add(Content.Sprites.Heroes.Rogue.SpriteSheet(this.Scene));
+
+			base.Initialize();
 
 			// Rogue Skills
 			this.Add(new SurpriseAttackUp());
