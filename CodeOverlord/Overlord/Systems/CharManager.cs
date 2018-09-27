@@ -17,9 +17,6 @@ namespace Overlord
 
 		public static void Initialize(ContentManager cm)
 		{
-			pics["constanze/normal"] = Content.Sprites.Characters.Constanze.Normal(cm);
-			pics["constanze/scared"] = Content.Sprites.Characters.Constanze.Scared(cm);
-
 			pics["pepper/normal"] = Content.Sprites.Characters.Pepper.Normal(cm);
 			pics["pepper/studying"] = cm.Load<Texture2D>("Sprites/Characters/Pepper/Studying");
 			pics["pepper/scared"] = Content.Sprites.Characters.Pepper.Normal(cm);

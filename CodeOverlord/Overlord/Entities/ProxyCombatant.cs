@@ -17,6 +17,11 @@ namespace Overlord
 
 		public DynValue Index(Script s, DynValue index, bool isDirectIndexing)
 		{
+			if (index.String == "base")
+			{
+				return DynValue.FromObject(s, Combatant);
+			}
+
 			var res = Combatant.Lua.This.Get(index);
 
 			var func = res.Function;
@@ -25,6 +30,8 @@ namespace Overlord
 				res = DynValue.FromObject(s, caller(func));
 				return res;
 			}
+
+
 
 			return res;
 		}
@@ -36,52 +43,7 @@ namespace Overlord
 		{
 			return (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) =>
 			{
-				Console.WriteLine(arg2);
-
-				if (arg10 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
-				}
-				else if (arg9 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-				}
-				else if (arg8 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-				}
-				else if (arg7 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-				}
-				else if (arg6 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4, arg5, arg6);
-				}
-				else if (arg5 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4, arg5);
-				}
-				else if (arg4 != null)
-				{
-					return func.Call(arg1, arg2, arg3, arg4);
-				}
-				else if (arg3 != null)
-				{
-					return func.Call(arg1, arg2, arg3);
-				}
-				else if (arg2 != null)
-				{
-					return func.Call(arg1, arg2);
-				}
-				else if (arg1 != null)
-				{
-					return func.Call(arg1);
-				}
-				else
-				{
-					return func.Call();
-				}
+				return func.Call(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
 			};
 		}
 

@@ -8,10 +8,7 @@ level.files = {
 	{ path = "slime.lua", readOnly = true },
 }
 
-local scale = 50 
-level.dimensions = { x = 20 * scale, y = 13 * scale }
-
-level.map = "Sprites/Rooms/Labyrinth/labyrinth"
+level.map = "Sprites/Rooms/labyrinth"
 
 level.dialog = {
 	{ char = "pepper/studying", contents = "Poxa vida... Se eu não acabar isso antes de o professor voltar eu vou estar ferrada..." },

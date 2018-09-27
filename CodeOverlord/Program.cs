@@ -18,7 +18,7 @@ namespace Overlord
 		[STAThread]
 		static void Main()
 		{
-			using (var game = new OverLordGame(new LevelSelectionScene()))
+			using (var game = new OverLordGame(new ConnectionLoadingScene()))
 			{
 				Task.Run(() => App.Run(game));
 

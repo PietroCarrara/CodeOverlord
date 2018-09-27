@@ -1,20 +1,26 @@
 local this = Slime()
 
-local name
+-- Biblioteca de manipulação de strings
+local strings = require 'strings'
 
-function this.setName(n)
-	name = n
+local nome
+
+function this.setNome(n)
+	-- Temos que garantir que a primeira letra seja sempre maiúscula
+	nome = n
 end
 
-function this.getName()
-	return name
+function this.getNome()
+	return nome
 end
 
 function this.update()
 
-	print('Meu nome é ', name)
+	print('Meu nome é ', nome)
 
 	passTurn()
 end
 
 return this
+
+

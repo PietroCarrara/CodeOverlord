@@ -18,9 +18,9 @@ namespace CodeOverlord.Overlord.Scenes
 
 		public override void Initialize()
 		{
-			base.Initialize();
+			Console.WriteLine("INICIALIZEI MAN");
 
-			Console.WriteLine("Level selecion is initialized: " + this.Initialized);
+			base.Initialize();
 
 			foreach (var dir in Directory.GetDirectories(Path))
 			{
@@ -30,7 +30,6 @@ namespace CodeOverlord.Overlord.Scenes
 				if (File.Exists(name))
 				{
 					levels.Add(dir, new Level(name));
-					// levels[dir] = new Level(name);
 				}
 			}
 

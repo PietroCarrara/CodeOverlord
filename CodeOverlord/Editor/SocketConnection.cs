@@ -37,7 +37,14 @@ namespace Overlord.Editor
 				exe = ".exe";
 			}
 
-			Process.Start("goserver" + exe, ":" + SockPort + " :" + HttpPort);
+			var pinfo = new ProcessStartInfo("goserver" + exe, ":" + SockPort + " :" + HttpPort);
+
+#if !DEBUG
+			pinfo.RedirectStandardOutput = pinfo.RedirectStandardError = true;
+			pinfo.UseShellExecute = false;
+			pinfo.CreateNoWindow = true;
+#endif
+			Process.Start(pinfo);
 
 			conn = conn.Accept();
 

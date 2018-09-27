@@ -1,23 +1,20 @@
 using Prime;
-using Prime.Graphics;
 using Prime.UI;
 using System.Linq;
-using System.Collections.Generic;
-using MoonSharp.Interpreter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 using Overlord.Editor;
 using CodeOverlord.Overlord.LuaScripts;
 using System;
 using Overlord.Overlord.Scenes;
+using System.Threading.Tasks;
 
 namespace Overlord
 {
 	public class LevelScene : Scene
 	{
 		private Entity camTarget;
-		private const float camSpeed = 15;
+		private const float camSpeed = 500;
 
 		private Scene parent;
 
@@ -47,16 +44,19 @@ namespace Overlord
 
 			VirtualFileScriptLoader.Files = level.Files;
 
-			this.ClearColor = Color.Blue;
+			this.ClearColor = Color.Black;
 		}
 
 		public override void Initialize()
 		{
 			base.Initialize();
 
+			TimeControl.SetScale(1);
+
 			this.Map = this.Add(TilingMap.Load(Content, Level.Map));
-			this.Map.Width = Level.Width;
-			this.Map.Height = Level.Height;
+			// Scale
+			this.Map.Width *= 4;
+			this.Map.Height *= 4;
 
 			var dialog = this.Add(Level.Dialog);
 
@@ -133,7 +133,7 @@ namespace Overlord
 			// Camera setup
 			camTarget = new Entity
 			{
-				Position = Vector2.Zero
+				Position = new Vector2(this.Map.Width / 2, this.Map.Height / 2)
 			};
 
 			this.Cam.Add(new DelayedFollowTarget(camTarget, 10));
@@ -147,6 +147,7 @@ namespace Overlord
 				AddUI(startBt);
 				AddUI(restartBt);
 				AddUI(exitBt);
+
 				this.Add(new MousePositionHighlight(this.Map.TileWidth, this.Map.TileHeight));
 
 				speedPanel.IsVisible = true;
@@ -157,7 +158,7 @@ namespace Overlord
 			dialog.Rewind();
 			dialog.Next();
 
-			OnEditorReady();
+			Task.Run(() => OnEditorReady());
 
 			Level.Ready();
 		}
@@ -199,7 +200,7 @@ namespace Overlord
 		{
 			ended = true;
 
-			var bt = new Button("You've won! Go back...", AnchorPoint.Center, new Vector2(200, 50));
+			var bt = new Button("Você venceu!\nSair", AnchorPoint.Center, new Vector2(200, 100));
 			bt.OnClick = () =>
 			{
 				App.ResetSessions();
@@ -215,7 +216,7 @@ namespace Overlord
 		{
 			ended = true;
 
-			var bt = new Button("You've Lost! Go back...", AnchorPoint.Center, new Vector2(200, 50), new Vector2(0, -100));
+			var bt = new Button("Você perdeu!\nSair", AnchorPoint.Center, new Vector2(200, 100), new Vector2(0, -100));
 			bt.OnClick = () =>
 			{
 				App.ResetSessions();
@@ -240,19 +241,20 @@ namespace Overlord
 			base.Update();
 
 			if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
-				camTarget.Position.X += camSpeed;
+				camTarget.Position.X += camSpeed * Time.DetlaTime;
 			else if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
-				camTarget.Position.X -= camSpeed;
+				camTarget.Position.X -= camSpeed * Time.DetlaTime;
 
 			if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
-				camTarget.Position.Y += camSpeed;
+				camTarget.Position.Y += camSpeed * Time.DetlaTime;
 			else if (Input.IsKeyDown(Keys.W) || Input.IsKeyDown(Keys.Up))
-				camTarget.Position.Y -= camSpeed;
+				camTarget.Position.Y -= camSpeed * Time.DetlaTime;
 
 			// Updates entities, but not the
 			// battle manager
 			if (ended)
 				return;
+
 
 			BattleManager.Update();
 		}

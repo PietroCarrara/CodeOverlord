@@ -5,6 +5,9 @@ using Prime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MoonSharp.Interpreter;
+using Overlord.Editor;
+using CodeOverlord.Overlord.Systems;
+using System.Diagnostics;
 
 namespace Overlord
 {
@@ -29,6 +32,12 @@ namespace Overlord
 			set
 			{
 				This = this.Script.DoString(value).Table;
+
+				if (This["update"] == null)
+				{
+					This["update"] = Script.DoString("return function() passTurn() end");
+				}
+
 				this.content = value;
 			}
 		}
@@ -50,19 +59,31 @@ namespace Overlord
 			if (!CurrentInstructionDone)
 				return;
 
-			if (routine == null)
+			try
 			{
-				routine = Script.CreateCoroutine(This["update"]).Coroutine;
-				routine.AutoYieldCounter = 1;
-				routine.Resume(1);
+				if (routine == null)
+				{
+					routine = Script.CreateCoroutine(This["update"]).Coroutine;
+					routine.AutoYieldCounter = 1;
+					routine.Resume(1);
+				}
+
+				var result = routine.Resume();
+
+				if (result.Type != DataType.YieldRequest)
+				{
+					routine = null;
+					this.Owner.timesRun++;
+					BattleManager.Current = null;
+				}
 			}
-
-			var result = routine.Resume();
-
-			if (result.Type != DataType.YieldRequest)
+			catch (InterpreterException e)
 			{
+				LuaErrorHandler.Handle(e);
+
 				routine = null;
 			}
+
 
 			if (Owner.CurrentStamina <= 0 && CurrentInstructionDone)
 				BattleManager.Current = null;

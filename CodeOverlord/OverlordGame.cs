@@ -3,6 +3,7 @@ using Prime;
 using Overlord.Editor;
 using CodeOverlord.Overlord.LuaScripts;
 using MoonSharp.Interpreter;
+using CodeOverlord.Overlord.Scenes;
 
 namespace Overlord
 {
@@ -35,12 +36,10 @@ namespace Overlord
 
 		public void OnEditorReady()
 		{
-			var s = this.ActiveScene as LevelScene;
-
-			if (s == null)
-				return;
-
-			s.OnEditorReady();
+			if (this.ActiveScene is ConnectionLoadingScene l)
+			{
+				l.Done();
+			}
 		}
 	}
 }

@@ -7,13 +7,12 @@ level.files = {
 	{ path = "main.lua" },
 }
 
-local scale = 50 
-level.dimensions = { x = 20 * scale, y = 20 * scale }
-
-level.map = "Sprites/Rooms/Basic Room/map"
+level.map = "Sprites/Rooms/basic"
 
 level.dialog = {
-	{ char = "pepper/normal", contents = "Ei, tem essa função aí que você recebe dois slimes. Chame o 1 de 'Michael' e o 2 de 'Jackson'." },
+	{ char = "pepper/normal", contents = "Ok, agora que você viu como criar objetos, vamos começar a manipulá-los." },
+	{ char = "pepper/normal", contents = "Você tem uma função que recebe dois objetos de slime (dê uma lida no script deles para entendê-los)." },
+	{ char = "pepper/normal", contents = "Eu gostaria que o slime1 tivesse o nome de Michael e o slime2 tivesse o nome de Jackson, você consegue fazer isso?" },
 }
 
 level.counter = 0

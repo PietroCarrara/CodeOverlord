@@ -71,9 +71,7 @@
 	<Compile Include="Overlord\Helpers\Content\Sprites\Heroes\Rogue.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Panels.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\UI\Buttons.cs" />
-	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Ursula.cs" />
 	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Pepper.cs" />
-	<Compile Include="Overlord\Helpers\Content\Sprites\Characters\Constanze.cs" />
 	<Compile Include="Overlord\Exceptions\OverlordException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidCodeException.cs" />
 	<Compile Include="Overlord\Exceptions\InvalidMoveException.cs" />
@@ -112,6 +110,8 @@
 	<Compile Include="Overlord\Systems\TimeControl.cs" />
 	<Compile Include="Overlord\Components\AnimationScaler.cs" />
 	<Compile Include="Overlord\Components\PauseMenu.cs" />
+	<Compile Include="Overlord\Systems\LuaErrorHandler.cs" />
+	<Compile Include="Overlord\Scenes\ConnectionLoadingScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

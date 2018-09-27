@@ -14,6 +14,13 @@ namespace Overlord
 		internal int Stamina, Damage, Health, Reach;
 		internal int CurrentStamina, CurrentDamage, CurrentHealth, CurrentReach;
 
+		// How many times have we run
+		// the update function. Increases
+		// at the END of the func
+		internal int timesRun = 0;
+
+		public int TimesRun { get => timesRun; }
+
 		public SpriteSheet Animations;
 
 		public AnimationScaler AnimationScaler { get; private set; }

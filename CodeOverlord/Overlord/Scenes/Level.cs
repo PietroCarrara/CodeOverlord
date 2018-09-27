@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
+using CodeOverlord.Overlord.Systems;
 
 namespace Overlord.Overlord.Scenes
 {
 	public class Level
 	{
 		private Table level;
-
-		// Width and height in Prime units
-		public int Width, Height;
 
 		public string Name { get; private set; }
 
@@ -33,9 +31,6 @@ namespace Overlord.Overlord.Scenes
 
 			this.Name = level.Get("name").String;
 			this.Map = level.Get("map").String;
-
-			this.Width = (int)level.Get("dimensions").Table.Get("x").Number;
-			this.Height = (int)level.Get("dimensions").Table.Get("y").Number;
 
 			var root = path.Substring(0, path.LastIndexOf('/') + 1);
 
@@ -89,7 +84,16 @@ namespace Overlord.Overlord.Scenes
 
 			if (func.Type == DataType.Function)
 			{
-				var res = func.Function.Call();
+				DynValue res = null;
+				try
+				{
+					res = func.Function.Call();
+				}
+				catch (InterpreterException e)
+				{
+					LuaErrorHandler.Handle(e);
+					return "";
+				}
 
 				if (!res.IsNil()) return res.String;
 			}

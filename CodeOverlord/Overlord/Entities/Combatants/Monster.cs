@@ -8,7 +8,7 @@ namespace Overlord
 		{
 			var lua = new MonsterLua();
 
-			var m = (Monster) lua.Script.DoString(s).Table["base"];
+			var m = (Monster)lua.Script.DoString(s).Table["base"];
 			m.Lua.Content = s;
 
 			return m;

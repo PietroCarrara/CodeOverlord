@@ -8,11 +8,12 @@ namespace Overlord
 
 		public override void Update()
 		{
-			if(Input.IsButtonDown(MouseButtons.Left))
+			if (Input.IsButtonDown(MouseButtons.Left))
 			{
-				if(target == null)
+				if (target == null)
 				{
 					target = BattleManager.GetByPos(Grid.WorldToPoint(Input.MousePosition(this.Scene.Cam)));
+					if (target != null && !target.Despawnable) target = null;
 				}
 				else
 				{

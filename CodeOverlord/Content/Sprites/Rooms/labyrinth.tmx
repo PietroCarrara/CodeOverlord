@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="left-up" width="20" height="13" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="left-up" width="20" height="13" tilewidth="16" tileheight="16" infinite="0" nextobjectid="4">
  <tileset firstgid="1" name="dungeon tileset calciumtrice" tilewidth="16" tileheight="16" tilecount="1050" columns="30">
   <image source="tileset.png" width="480" height="560"/>
  </tileset>

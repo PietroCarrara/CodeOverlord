@@ -22,8 +22,26 @@
 /processorParam:TextureFormat=NoChange
 /build:Fonts/Editor.spritefont
 
+#begin Icons/Scroll.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Icons/Scroll.png
+
 #begin Fonts/alagard.ttf
 /copy:Fonts/alagard.ttf
+
+#begin Scripts/Heroes/Rogue/rogue.lua
+/copy:Scripts/Heroes/Rogue/rogue.lua
+
+#begin Scripts/Monsters/sample.lua
+/copy:Scripts/Monsters/sample.lua
 
 #begin Fonts/Dialogs.spritefont
 /importer:FontDescriptionImporter
@@ -4787,6 +4805,30 @@
 /processorParam:Quality=Best
 /build:Sounds/Slap.wav
 
+#begin Sprites/Characters/Constanze/Normal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Characters/Constanze/Normal.png
+
+#begin Sprites/Characters/Constanze/Scared.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Characters/Constanze/Scared.png
+
 #begin Sprites/Characters/Pepper/Normal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4862,70 +4904,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Rooms/tileset.png
 
-#begin Scripts/Levels/basic-room/basic-room.lua
-/copy:Scripts/Levels/basic-room/basic-room.lua
-
-#begin Scripts/Levels/basic-room/object.lua
-/copy:Scripts/Levels/basic-room/object.lua
-
-#begin Scripts/Levels/getters-setters/getters-setters.lua
-/copy:Scripts/Levels/getters-setters/getters-setters.lua
-
-#begin Scripts/Levels/getters-setters/main.lua
-/copy:Scripts/Levels/getters-setters/main.lua
-
-#begin Scripts/Levels/getters-setters/slime.lua
-/copy:Scripts/Levels/getters-setters/slime.lua
-
-#begin Scripts/Levels/getters-setters/strings.lua
-/copy:Scripts/Levels/getters-setters/strings.lua
-
-#begin Scripts/Levels/labyrinth/bússola.lua
-/copy:Scripts/Levels/labyrinth/bússola.lua
-
-#begin Scripts/Levels/labyrinth/bússolaNova.lua
-/copy:Scripts/Levels/labyrinth/bússolaNova.lua
-
-#begin Scripts/Levels/labyrinth/labyrinth.lua
-/copy:Scripts/Levels/labyrinth/labyrinth.lua
-
-#begin Scripts/Levels/labyrinth/slime.lua
-/copy:Scripts/Levels/labyrinth/slime.lua
-
-#begin Scripts/Levels/object-instance/main.lua
-/copy:Scripts/Levels/object-instance/main.lua
-
-#begin Scripts/Levels/object-instance/object-instance.lua
-/copy:Scripts/Levels/object-instance/object-instance.lua
-
-#begin Scripts/Levels/object-instance/slime.lua
-/copy:Scripts/Levels/object-instance/slime.lua
-
-#begin Scripts/Levels/reference/main.lua
-/copy:Scripts/Levels/reference/main.lua
-
-#begin Scripts/Levels/reference/modifica_nome.lua
-/copy:Scripts/Levels/reference/modifica_nome.lua
-
-#begin Scripts/Levels/reference/reference.lua
-/copy:Scripts/Levels/reference/reference.lua
-
-#begin Scripts/Levels/reference/slime.lua
-/copy:Scripts/Levels/reference/slime.lua
-
-#begin Scripts/Levels/syntax/slime.lua
-/copy:Scripts/Levels/syntax/slime.lua
-
-#begin Scripts/Levels/syntax/syntax.lua
-/copy:Scripts/Levels/syntax/syntax.lua
-
-#begin Scripts/Levels/what-is-object/contador.lua
-/copy:Scripts/Levels/what-is-object/contador.lua
-
-#begin Scripts/Levels/what-is-object/what-is-object.lua
-/copy:Scripts/Levels/what-is-object/what-is-object.lua
-
-#begin Sprites/UI/Animations/Loading.png
+#begin Sprites/UI/Buttons/Button0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4935,5 +4914,115 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/UI/Animations/Loading.png
+/build:Sprites/UI/Buttons/Button0.png
+
+#begin Sprites/UI/Buttons/Button0Hover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/UI/Buttons/Button0Hover.png
+
+#begin Sprites/UI/Panels/Panel0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/UI/Panels/Panel0.png
+
+#begin Scripts/Levels/basic-room/basic-room.lua
+/importer:
+/processor:
+/build:Scripts/Levels/basic-room/basic-room.lua
+
+#begin Scripts/Levels/basic-room/object.lua
+/importer:
+/processor:
+/build:Scripts/Levels/basic-room/object.lua
+
+#begin Scripts/Levels/getters-setters/getters-setters.lua
+/importer:
+/processor:
+/build:Scripts/Levels/getters-setters/getters-setters.lua
+
+#begin Scripts/Levels/getters-setters/main.lua
+/importer:
+/processor:
+/build:Scripts/Levels/getters-setters/main.lua
+
+#begin Scripts/Levels/getters-setters/slime.lua
+/importer:
+/processor:
+/build:Scripts/Levels/getters-setters/slime.lua
+
+#begin Scripts/Levels/labyrinth/bússola.lua
+/importer:
+/processor:
+/build:Scripts/Levels/labyrinth/bússola.lua
+
+#begin Scripts/Levels/labyrinth/bússolaNova.lua
+/importer:
+/processor:
+/build:Scripts/Levels/labyrinth/bússolaNova.lua
+
+#begin Scripts/Levels/labyrinth/labyrinth.lua
+/importer:
+/processor:
+/build:Scripts/Levels/labyrinth/labyrinth.lua
+
+#begin Scripts/Levels/labyrinth/slime.lua
+/importer:
+/processor:
+/build:Scripts/Levels/labyrinth/slime.lua
+
+#begin Scripts/Levels/object-instance/main.lua
+/importer:
+/processor:
+/build:Scripts/Levels/object-instance/main.lua
+
+#begin Scripts/Levels/object-instance/object-instance.lua
+/importer:
+/processor:
+/build:Scripts/Levels/object-instance/object-instance.lua
+
+#begin Scripts/Levels/object-instance/slime.lua
+/importer:
+/processor:
+/build:Scripts/Levels/object-instance/slime.lua
+
+#begin Scripts/Levels/reference/main.lua
+/importer:
+/processor:
+/build:Scripts/Levels/reference/main.lua
+
+#begin Scripts/Levels/reference/modifica_nome.lua
+/importer:
+/processor:
+/build:Scripts/Levels/reference/modifica_nome.lua
+
+#begin Scripts/Levels/reference/reference.lua
+/importer:
+/processor:
+/build:Scripts/Levels/reference/reference.lua
+
+#begin Scripts/Levels/reference/slime.lua
+/importer:
+/processor:
+/build:Scripts/Levels/reference/slime.lua
+
+#begin Scripts/Levels/syntax/slime.lua
+/copy:Scripts/Levels/syntax/slime.lua
+
+#begin Scripts/Levels/syntax/syntax.lua
+/copy:Scripts/Levels/syntax/syntax.lua
 

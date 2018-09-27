@@ -2,7 +2,7 @@ local level = {}
 
 level.name = "Basic Room"
 
-level.map = "Sprites/Rooms/Basic Room/map"
+level.map = "Sprites/Rooms/basic"
 
 level.dialog = {
 	{ char = "pepper/studying", contents = "Poxa vida... Se eu não acabar isso antes de o professor voltar eu vou estar ferrada..." },
@@ -20,8 +20,6 @@ level.dialog = {
 	{ char = "pepper/normal", contents = "O professor me deu uma classe, e eu tenho que criar 3 objetos a partir dela, mas eu não estou conseguindo! Daria pra quebrar esse galho pra mim?" },
 	{ char = "pepper/scared", contents = "Ah, e para invocar objetos, é só selecionar a classe no menu à direita e clicar com o botão direito." },
 }
-
-level.dimensions = { x = 1300, y = 1300 }
 
 -- Files provided by the level
 level.files = {
