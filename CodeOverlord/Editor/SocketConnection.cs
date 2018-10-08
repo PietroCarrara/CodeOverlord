@@ -4,6 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using Prime;
 
 namespace Overlord.Editor
 {
@@ -19,6 +22,8 @@ namespace Overlord.Editor
 		public Action<string> OnReceive;
 
 		private Task receiveTask;
+
+		private Queue<string> messages = new Queue<string>();
 
 		public void Start()
 		{
@@ -48,6 +53,8 @@ namespace Overlord.Editor
 
 			conn = conn.Accept();
 
+			Task.Run(() => messenger());
+
 			receiveTask = new Task(receive);
 			receiveTask.Start();
 		}
@@ -63,26 +70,30 @@ namespace Overlord.Editor
 			conn.Dispose();
 		}
 
-		private bool sending;
-		public void Send(string s)
+		private void messenger()
 		{
-			try
+			while (true)
 			{
-				while (sending) { }
-				sending = true;
-				Console.Write("Sending...");
-				conn.Send(Encoding.UTF8.GetBytes(s + "\n\0"));
-				Console.WriteLine(" Done!");
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.Message);
+				if (messages.Count > 0)
+				{
+					var s = messages.Dequeue();
+					try
+					{
+						conn.Send(Encoding.UTF8.GetBytes(s + "\n\0"));
+
+					}
+					catch (SocketException e)
+					{
+						Console.WriteLine("Error while sending message!\nsocket: " + e.Message);
+					}
+				}
 			}
 		}
 
-		public Task SendAsync(string s)
+		public void Send(string s)
 		{
-			return Task.Run(() => Send(s));
+			messages.Enqueue(s);
+			Console.WriteLine("Enfileirando mensagem!");
 		}
 
 		private void receive()
@@ -99,14 +110,9 @@ namespace Overlord.Editor
 
 						var str = Encoding.UTF8.GetString(bytes);
 
-						if (str == "done")
-						{
-							this.sending = false;
-						}
-						else
-						{
-							OnReceive?.Invoke(str);
-						}
+						Console.WriteLine("Recebendo mensagem: " + str);
+
+						OnReceive?.Invoke(str);
 					}
 				}
 			}
