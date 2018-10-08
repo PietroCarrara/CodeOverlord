@@ -1,14 +1,14 @@
 local level = {}
 
 level.name = "Objetos e Referências"
+level.map = "Sprites/Rooms/basic"
+level.index = 3
 
 level.files = {
 	{ path = "slime.lua", readOnly = true },
 	{ path = "modifica_nome.lua" },
 	{ path = "main.lua", readOnly = true },
 }
-
-level.map = "Sprites/Rooms/basic"
 
 level.dialog = {
 	{ char = "pepper/normal", contents = "Bom, se já está estudando orientação a objeto, já deve ter estudado passagem por valor e referência." },

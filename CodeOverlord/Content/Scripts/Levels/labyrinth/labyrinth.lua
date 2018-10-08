@@ -1,14 +1,15 @@
 local level = {}
 
 level.name = "Labirinto"
+level.map = "Sprites/Rooms/labyrinth"
+level.index = 7
+
 
 level.files = {
 	{ path = "bússola.lua", readOnly = true },
 	{ path = "bússolaNova.lua" },
 	{ path = "slime.lua", readOnly = true },
 }
-
-level.map = "Sprites/Rooms/labyrinth"
 
 level.dialog = {
 	{ char = "pepper/studying", contents = "Poxa vida... Se eu não acabar isso antes de o professor voltar eu vou estar ferrada..." },

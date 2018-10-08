@@ -6,6 +6,7 @@ using Prime.UI;
 using Microsoft.Xna.Framework;
 using Overlord;
 using Overlord.Overlord.Scenes;
+using System.Linq;
 namespace CodeOverlord.Overlord.Scenes
 {
 	public class LevelSelectionScene : Scene
@@ -18,8 +19,6 @@ namespace CodeOverlord.Overlord.Scenes
 
 		public override void Initialize()
 		{
-			Console.WriteLine("INICIALIZEI MAN");
-
 			base.Initialize();
 
 			foreach (var dir in Directory.GetDirectories(Path))
@@ -39,10 +38,12 @@ namespace CodeOverlord.Overlord.Scenes
 
 			panel.AddChild(title);
 
-			foreach (var pair in levels)
+			foreach (var pair in levels.OrderBy((e) => e.Value.Index))
 			{
 				var bt = new Button(pair.Value.Name, AnchorPoint.Auto);
 				bt.OnClick += () => this.Game.ActiveScene = new LevelScene(this, pair.Value);
+
+				Console.WriteLine("Index: " + pair.Value.Index);
 
 				panel.AddChild(bt);
 			}

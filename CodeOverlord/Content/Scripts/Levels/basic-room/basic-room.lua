@@ -1,8 +1,8 @@
 local level = {}
 
 level.name = "Basic Room"
-
 level.map = "Sprites/Rooms/basic"
+level.index = 6
 
 level.dialog = {
 	{ char = "pepper/studying", contents = "Poxa vida... Se eu não acabar isso antes de o professor voltar eu vou estar ferrada..." },

@@ -1,11 +1,11 @@
 local level = {}
 
 level.name = "O que é objeto?"
-
 level.map = "Sprites/Rooms/revisao"
+level.index = 1
 
 level.dialog = {
-	{ char = "pepper/normal", contents = "Opa, boas vindas ao Code Overlord, uma ferramenta que vai tentar facilitar sua vida ao estudar orientação a objeto!" },
+	{ char = "pepper/normal", contents = "Boas vindas ao Code Overlord, uma ferramenta que vai tentar facilitar sua vida ao estudar orientação a objeto!" },
 	{ char = "pepper/normal", contents = "Pra começar, vamos falar um pouco sobre esses tais de objetos." },
 	{ char = "pepper/normal", contents = "Quando programamos, podemos notar a separação de dois conceitos: dados (estruturas, structs) e quem manipula esses dados (funções)." },
 	{ char = "pepper/normal", contents = 'Porém, a orientação a objeto começa a misturar esses dois. Agora nós vamos deixar nossos dados inteligentes. Ao invés de nos perguntarmos "o que minhas estruturas guardam?" vamos nos perguntar "o que nossas estruturas fazem?".' },

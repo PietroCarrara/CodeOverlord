@@ -11,6 +11,8 @@ namespace Overlord.Overlord.Scenes
 
 		public string Name { get; private set; }
 
+		public int Index { get; private set; }
+
 		// Path to the map file
 		public string Map;
 
@@ -31,6 +33,7 @@ namespace Overlord.Overlord.Scenes
 
 			this.Name = level.Get("name").String;
 			this.Map = level.Get("map").String;
+			this.Index = (int)level.Get("index").Number;
 
 			var root = path.Substring(0, path.LastIndexOf('/') + 1);
 
@@ -69,13 +72,16 @@ namespace Overlord.Overlord.Scenes
 		public void Initialize()
 		{
 			Console.WriteLine("Initializing...");
-			level.Get("initialize").Function.Call();
+
+			var f = level.Get("initialize").Function;
+			if (f != null) f.Call();
 		}
 
 		// Level has finished loading
 		public void Ready()
 		{
-			level.Get("ready").Function.Call();
+			var f = level.Get("ready").Function;
+			if (f != null) f.Call();
 		}
 
 		public string Update()

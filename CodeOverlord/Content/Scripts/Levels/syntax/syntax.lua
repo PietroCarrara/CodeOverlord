@@ -1,8 +1,8 @@
 local level = {}
 
 level.name = "Revisão Sintática"
-
 level.map = "Sprites/Rooms/revisao"
+level.index = 2
 
 level.dialog = {
 	{ char = "pepper/normal", contents = "Bom, vamos começar por uma revisão básica..." },

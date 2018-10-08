@@ -1,13 +1,13 @@
 local level = {}
 
 level.name = "Objetos Instanciados"
+level.map = "Sprites/Rooms/basic"
+level.index = 4
 
 level.files = {
 	{ path = "slime.lua", readOnly = true },
 	{ path = "main.lua" },
 }
-
-level.map = "Sprites/Rooms/basic"
 
 level.dialog = {
 	{ char = "pepper/normal", contents = "Ok, agora que você viu como criar objetos, vamos começar a manipulá-los." },

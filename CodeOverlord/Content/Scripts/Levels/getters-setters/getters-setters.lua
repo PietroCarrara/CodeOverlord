@@ -1,14 +1,14 @@
 local level = {}
 
 level.name = "Getters e Setters"
+level.map = "Sprites/Rooms/revisao"
+level.index = 5
 
 level.files = {
 	{ path = "strings.lua", readOnly = true },
 	{ path = "slime.lua" },
 	{ path = "main.lua", readOnly = true },
 }
-
-level.map = "Sprites/Rooms/revisao"
 
 level.dialog = {
 	{ char = "pepper/normal", contents = "Ok, você consegui definir os nomes que eu te falei!" },
