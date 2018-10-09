@@ -112,6 +112,7 @@
 	<Compile Include="Overlord\Components\PauseMenu.cs" />
 	<Compile Include="Overlord\Systems\LuaErrorHandler.cs" />
 	<Compile Include="Overlord\Scenes\ConnectionLoadingScene.cs" />
+	<Compile Include="Overlord\Systems\PlayerData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -122,6 +123,9 @@
     </Reference>
 	<Reference Include="MoonSharp">
 		<HintPath>..\packages\MoonSharp.2.0.0.0\lib\net40-client\MoonSharp.Interpreter.dll</HintPath>
+	</Reference>
+	<Reference Include="Newtonsoft.Json">
+	  <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
 	</Reference>
   </ItemGroup>
 

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Prime;
 using System;
+using Prime.UI;
+using Microsoft.Xna.Framework;
 
 namespace Overlord
 {
@@ -11,6 +13,8 @@ namespace Overlord
 		private IEnumerator<Line> linesE;
 
 		public Action OnDone;
+
+		private Button skip;
 
 		public void Put(Line l)
 		{
@@ -34,6 +38,10 @@ namespace Overlord
 				l.Reset();
 				l.IsVisible = false;
 			}
+
+			skip = new Button("Pular", AnchorPoint.TopRight, new Vector2(200, 50));
+			skip.OnClick = Finish;
+			this.Scene.AddUI(skip);
 		}
 
 		public bool CurrentFinished
@@ -64,7 +72,7 @@ namespace Overlord
 			{
 				foreach (var line in lines)
 				{
-					line.Unatatch();
+					line.Unattach();
 				}
 				linesE = null;
 				OnDone?.Invoke();
@@ -88,6 +96,17 @@ namespace Overlord
 			{
 				Next();
 			}
+		}
+
+		public void Finish()
+		{
+			foreach (var line in lines)
+			{
+				line.Unattach();
+			}
+			linesE = null;
+			skip.Unattach();
+			OnDone?.Invoke();
 		}
 	}
 }

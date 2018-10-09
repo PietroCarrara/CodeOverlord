@@ -15,6 +15,8 @@ namespace Overlord.Editor
 		public const int SockPort = 12346;
 		public const int HttpPort = 12347;
 
+		private Process goserver;
+
 		private Socket conn;
 
 		private bool running;
@@ -49,7 +51,7 @@ namespace Overlord.Editor
 			pinfo.UseShellExecute = false;
 			pinfo.CreateNoWindow = true;
 #endif
-			Process.Start(pinfo);
+			goserver = Process.Start(pinfo);
 
 			conn = conn.Accept();
 
@@ -68,6 +70,8 @@ namespace Overlord.Editor
 			conn.Shutdown(SocketShutdown.Both);
 			conn.Close();
 			conn.Dispose();
+
+			goserver.Kill();
 		}
 
 		private void messenger()
@@ -79,8 +83,9 @@ namespace Overlord.Editor
 					var s = messages.Dequeue();
 					try
 					{
+						Console.WriteLine("C#->GO: " + s.Split('\n')[0]);
 						conn.Send(Encoding.UTF8.GetBytes(s + "\n\0"));
-
+						System.Threading.Thread.Sleep(50);
 					}
 					catch (SocketException e)
 					{

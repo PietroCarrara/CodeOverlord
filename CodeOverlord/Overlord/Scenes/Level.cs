@@ -68,20 +68,25 @@ namespace Overlord.Overlord.Scenes
 			}
 		}
 
-		// Can use the apis
-		public void Initialize()
-		{
-			Console.WriteLine("Initializing...");
-
-			var f = level.Get("initialize").Function;
-			if (f != null) f.Call();
-		}
-
 		// Level has finished loading
 		public void Ready()
 		{
 			var f = level.Get("ready").Function;
 			if (f != null) f.Call();
+		}
+
+		// Can use the apis
+		public void Initialize()
+		{
+			var f = level.Get("initialize").Function;
+			try
+			{
+				if (f != null) f.Call();
+			}
+			catch (ScriptRuntimeException e)
+			{
+				LuaErrorHandler.Handle(e);
+			}
 		}
 
 		public string Update()
@@ -98,7 +103,7 @@ namespace Overlord.Overlord.Scenes
 				catch (InterpreterException e)
 				{
 					LuaErrorHandler.Handle(e);
-					return "";
+					return "lose";
 				}
 
 				if (!res.IsNil()) return res.String;

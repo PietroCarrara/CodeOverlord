@@ -8,6 +8,8 @@ using CodeOverlord.Overlord.LuaScripts;
 using System;
 using Overlord.Overlord.Scenes;
 using System.Threading.Tasks;
+using CodeOverlord.Overlord.Systems;
+using CodeOverlord.Overlord.Scenes;
 
 namespace Overlord
 {
@@ -16,7 +18,7 @@ namespace Overlord
 		private Entity camTarget;
 		private const float camSpeed = 500;
 
-		private Scene parent;
+		private LevelSelectionScene parent;
 
 		public Level Level { get; private set; }
 
@@ -34,7 +36,7 @@ namespace Overlord
 		/// <param name="parent">Parent scene to return on completion.</param>
 		/// <param name="level">The level object that represents this level.</param>
 		/// <param name="resetFiles">If set to <c>true</c>If the files on the browser should be overwritten.</param>
-		public LevelScene(Scene parent, Level level, bool resetFiles = true)
+		public LevelScene(LevelSelectionScene parent, Level level, bool resetFiles = true)
 		{
 			this.parent = parent;
 			this.Level = level;
@@ -103,7 +105,7 @@ namespace Overlord
 
 				dragger.Destroy();
 				spawner.Destroy();
-				startBt.Unnatach();
+				startBt.Unattach();
 			};
 
 			var restartBt = new Button("Recomeçar", AnchorPoint.BottomRight, new Vector2(250, 50), new Vector2(0, 50));
@@ -210,6 +212,14 @@ namespace Overlord
 			};
 
 			this.AddUI(bt);
+
+			var player = PlayerData.GetInstance();
+			if (player.MaxIndex <= this.Level.Index - 1)
+			{
+				player.MaxIndex = this.Level.Index;
+				parent.ReevalLocks();
+				player.Save();
+			}
 		}
 
 		private void lose()

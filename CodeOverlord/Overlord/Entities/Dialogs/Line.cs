@@ -118,9 +118,12 @@ namespace Overlord
 			this.Character.Attach();
 		}
 
-		public void Unatatch()
+		public void Unattach()
 		{
-			this.Character.Unnatach();
+			this.Character.Unattach();
+			this.panel.Unattach();
+
+			this.Destroy();
 		}
 
 		public override void Update()

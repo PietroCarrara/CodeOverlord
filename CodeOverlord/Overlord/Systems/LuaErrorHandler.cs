@@ -7,7 +7,14 @@ namespace CodeOverlord.Overlord.Systems
 	{
 		public static void Handle(InterpreterException e)
 		{
-			App.Alert(e.DecoratedMessage);
+			if (e.InnerException is InterpreterException i)
+			{
+				Handle(i);
+			}
+			else
+			{
+				App.Alert(e.DecoratedMessage);
+			}
 		}
 	}
 }
