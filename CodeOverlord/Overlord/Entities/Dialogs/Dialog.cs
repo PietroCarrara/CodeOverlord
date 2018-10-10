@@ -70,12 +70,7 @@ namespace Overlord
 			}
 			else
 			{
-				foreach (var line in lines)
-				{
-					line.Unattach();
-				}
-				linesE = null;
-				OnDone?.Invoke();
+				Finish();
 			}
 		}
 
