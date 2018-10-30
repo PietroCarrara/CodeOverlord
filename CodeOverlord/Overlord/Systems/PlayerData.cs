@@ -22,7 +22,6 @@ namespace CodeOverlord.Overlord.Systems
 			{
 				var json = "{}";
 
-				// TODO: Read if file exists
 				if (File.Exists(Filename))
 				{
 					json = File.ReadAllText(Filename);

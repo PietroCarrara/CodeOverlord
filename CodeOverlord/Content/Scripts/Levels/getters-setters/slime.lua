@@ -1,4 +1,4 @@
-local this = Slime()
+local this = new 'Slime.lua'
 
 -- Biblioteca de manipulação de strings
 local strings = require 'strings'

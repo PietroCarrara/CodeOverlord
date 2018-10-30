@@ -35,6 +35,18 @@ namespace Overlord.Editor
 			conn.Bind(new IPEndPoint(IPAddress.Any, SockPort));
 			conn.Listen(1);
 
+			try
+			{
+				foreach (var proc in Process.GetProcessesByName("goserver"))
+				{
+					proc.Kill();
+				}
+			}
+			catch (Exception)
+			{
+				// TODO: Remove this try/catch
+			}
+
 			var exe = "";
 
 			// Check if is running on windows
@@ -46,11 +58,13 @@ namespace Overlord.Editor
 
 			var pinfo = new ProcessStartInfo("goserver" + exe, ":" + SockPort + " :" + HttpPort);
 
-#if !DEBUG
-			pinfo.RedirectStandardOutput = pinfo.RedirectStandardError = true;
+			/*pinfo.RedirectStandardOutput = false;
+			pinfo.RedirectStandardError = true;
 			pinfo.UseShellExecute = false;
-			pinfo.CreateNoWindow = true;
-#endif
+			pinfo.CreateNoWindow = true;*/
+
+			pinfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+
 			goserver = Process.Start(pinfo);
 
 			conn = conn.Accept();

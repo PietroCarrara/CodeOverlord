@@ -2,7 +2,7 @@ local level = {}
 
 level.name = "Getters e Setters"
 level.map = "Sprites/Rooms/revisao"
-level.index = 5
+level.index = 10
 
 level.files = {
 	{ path = "strings.lua", readOnly = true },
@@ -11,16 +11,15 @@ level.files = {
 }
 
 level.dialog = {
-	{ char = "pepper/normal", contents = "Ok, você consegui definir os nomes que eu te falei!" },
 	{ char = "pepper/normal", contents = "Uma coisa legal sobre nomes é que eles sempre começam com letra maiúscula, mas nada impede um programador de definir o nome daqueles slimes começando em letras minúsculas!" },
-	{ char = "pepper/normal", contents = "Para impedir isso, agora os nomes dos slimes estão privados, então ninguém vai poder mudá-los! Hahahahaha, este código é infalível!... Exceto.. que... ele é meio inútil, né? De que adianta ter uma variável de nome se ninguém pode usar ela pra nada?" },
-	{ char = "pepper/normal", contents = "Pra deixar as pessoas usarem nossas variáveis privadas, usamos 'getters e setters', que são funções públicas que vão manipular nossas variáveis privadas!" },
+	{ char = "pepper/normal", contents = "Para impedir isso, eu criei uma classe de slime com nomes privados, então ninguém vai poder mudá-los! Hahahahaha, este código é infalível!... Exceto.. que... ele é meio inútil, né? De que adianta ter uma variável de nome se ninguém pode usar ela pra nada?" },
+	{ char = "pepper/normal", contents = "Pra deixar as pessoas usarem nossas variáveis privadas, usamos 'getters e setters': funções públicas que vão manipular nossas variáveis privadas!" },
 	{ char = "pepper/normal", contents = "Se essa última frase minha não fez tanto sentido assim, eu posso resumir: usamos getters e setters pra deixar as pessoas mexerem nos nossos objetos seguindo as nossas regras!" },
 	{ char = "pepper/normal", contents = "Veja, por exemplo, o código da main aberto no editor: o nosso colega de trabalho que escreveu essa função se esqueceu das boas maneiras do português e deixou os pobres slimes com nomes minúsculos!" },
 	{ char = "pepper/normal", contents = "E nós ainda por cima não podemos editar o código que ele escreveu!" },
-	{ char = "pepper/normal", contents = "Agh, mas nós podemos editar os setters do slime então!" },
+	{ char = "pepper/normal", contents = "Ah, mas nós podemos editar os setters do slime então!" },
 	{ char = "pepper/normal", contents = "Vamos adicionar uma regra pra que caso a primeira letra do nome seja minúscula, ela fique maiúscula! Você consegue fazer isso?" },
-	{ char = "pepper/normal", contents = "Agh, caso ainda não tenha jogado a fase de manipulação de strings, eu recomendo fazê-la caso não consiga concluir esse desafio!" },
+	{ char = 'pepper/normal', contents = 'E pra essa fase, eu está disponível uma classe de manipulação de strings, dê uma lida nos comentários dela para aprender a usá-la!' }
 }
 
 level.counter = 0

@@ -84,6 +84,8 @@
 
 		console.log('aa');
 
+		save()
+
 		$('a.nav-link').removeClass('active')
 
 		document.getElementById(name).classList.add('active')
@@ -114,7 +116,8 @@
 
 	function save() {
 		var txt = editor.getValue();
-		ws.send('save,' + currentSession + '\n' + txt);
+		if (currentSession != '')
+			ws.send('save,' + currentSession + '\n' + txt);
 	}
 
 	function decodeFunc(data) {
@@ -137,7 +140,28 @@
 			case 'reset':
 				destroySessions();
 				break;
+			case 'ping':
+				isAlive = true;
 		}
+	}
+
+	function ping() {
+		ws.send('ping\n')
+	}
+
+	var isAlive = true
+	function check() {
+		console.log('Checking...')
+		if (!isAlive) {
+			die()
+		} else {
+			isAlive = false
+		}
+	}
+
+	function die() {
+		alert('A conexão foi perdida! Reinicie o jogo para voltar a jogar!')
+		window.location.href="about:blank"
 	}
 
 	editor.setTheme("ace/theme/monokai");
@@ -153,10 +177,17 @@
 
 	ws.onopen = function (e) {
 		ws.send('onReady\n');
+
+		setInterval(ping, 1000)
+		setInterval(check, 2000)
 	}
 
 	ws.onmessage = function(m) {
 		decodeFunc(m.data);
+	}
+
+	ws.onclose = function(m) {
+		die()
 	}
 
 	</script>

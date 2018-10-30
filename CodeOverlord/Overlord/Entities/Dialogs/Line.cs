@@ -39,6 +39,15 @@ namespace Overlord
 			{
 				return totalChars >= Contents.Length;
 			}
+			set
+			{
+				if (value)
+				{
+					totalChars = Contents.Length;
+					label.Text = Contents;
+				}
+				IsVisible = value;
+			}
 		}
 
 		// Sizings

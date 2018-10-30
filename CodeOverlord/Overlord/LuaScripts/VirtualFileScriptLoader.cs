@@ -17,14 +17,14 @@ namespace CodeOverlord.Overlord.LuaScripts
 
 		public override object LoadFile(string file, Table globalContext)
 		{
-			Console.WriteLine(file);
+			if (file == "Slime.lua") return "return Slime()";
 
 			return Files[file].Text;
 		}
 
 		public override bool ScriptFileExists(string name)
 		{
-			Console.WriteLine(name);
+			if (name == "Slime.lua") return true;
 
 			return Files.ContainsKey(name);
 		}

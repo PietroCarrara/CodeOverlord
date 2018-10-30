@@ -81,6 +81,11 @@ namespace Overlord
 			{
 				LuaErrorHandler.Handle(e);
 
+				if (this.Owner.Scene is LevelScene level)
+				{
+					level.Lose();
+				}
+
 				routine = null;
 			}
 

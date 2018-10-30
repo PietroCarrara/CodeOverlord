@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 
 namespace Overlord.Editor
 {
@@ -57,6 +58,9 @@ namespace Overlord.Editor
 					break;
 				case "save":
 					SaveScript(instructions[1], dataArgs);
+					break;
+				case "ping":
+					conn.Send("ping\n");
 					break;
 			}
 		}

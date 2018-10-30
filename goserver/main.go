@@ -116,11 +116,13 @@ func receive() {
 func onReceive(str string) {
 	log.Println("Sending string C#->JS")
 	sendWS(str)
+	log.Println("Done sending string C#->JS")
 }
 
 func onReceiveWS(str string) {
 	log.Println("Sending string JS->C#")
 	send(str)
+	log.Println("Done sending string JS->C#")
 }
 
 // Sends a message to C#

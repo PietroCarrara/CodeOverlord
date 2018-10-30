@@ -4862,69 +4862,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Rooms/tileset.png
 
-#begin Scripts/Levels/basic-room/basic-room.lua
-/copy:Scripts/Levels/basic-room/basic-room.lua
-
-#begin Scripts/Levels/basic-room/object.lua
-/copy:Scripts/Levels/basic-room/object.lua
-
-#begin Scripts/Levels/getters-setters/getters-setters.lua
-/copy:Scripts/Levels/getters-setters/getters-setters.lua
-
-#begin Scripts/Levels/getters-setters/main.lua
-/copy:Scripts/Levels/getters-setters/main.lua
-
-#begin Scripts/Levels/getters-setters/slime.lua
-/copy:Scripts/Levels/getters-setters/slime.lua
-
-#begin Scripts/Levels/getters-setters/strings.lua
-/copy:Scripts/Levels/getters-setters/strings.lua
-
-#begin Scripts/Levels/labyrinth/bússola.lua
-/copy:Scripts/Levels/labyrinth/bússola.lua
-
-#begin Scripts/Levels/labyrinth/bússolaNova.lua
-/copy:Scripts/Levels/labyrinth/bússolaNova.lua
-
-#begin Scripts/Levels/labyrinth/labyrinth.lua
-/copy:Scripts/Levels/labyrinth/labyrinth.lua
-
-#begin Scripts/Levels/labyrinth/slime.lua
-/copy:Scripts/Levels/labyrinth/slime.lua
-
-#begin Scripts/Levels/object-instance/main.lua
-/copy:Scripts/Levels/object-instance/main.lua
-
-#begin Scripts/Levels/object-instance/object-instance.lua
-/copy:Scripts/Levels/object-instance/object-instance.lua
-
-#begin Scripts/Levels/object-instance/slime.lua
-/copy:Scripts/Levels/object-instance/slime.lua
-
-#begin Scripts/Levels/reference/main.lua
-/copy:Scripts/Levels/reference/main.lua
-
-#begin Scripts/Levels/reference/modifica_nome.lua
-/copy:Scripts/Levels/reference/modifica_nome.lua
-
-#begin Scripts/Levels/reference/reference.lua
-/copy:Scripts/Levels/reference/reference.lua
-
-#begin Scripts/Levels/reference/slime.lua
-/copy:Scripts/Levels/reference/slime.lua
-
-#begin Scripts/Levels/syntax/slime.lua
-/copy:Scripts/Levels/syntax/slime.lua
-
-#begin Scripts/Levels/syntax/syntax.lua
-/copy:Scripts/Levels/syntax/syntax.lua
-
-#begin Scripts/Levels/what-is-object/contador.lua
-/copy:Scripts/Levels/what-is-object/contador.lua
-
-#begin Scripts/Levels/what-is-object/what-is-object.lua
-/copy:Scripts/Levels/what-is-object/what-is-object.lua
-
 #begin Sprites/UI/Animations/Loading.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4936,4 +4873,179 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/UI/Animations/Loading.png
+
+#begin Scripts/Levels/access-modifiers/access-modifiers.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/access-modifiers/access-modifiers.lua
+
+#begin Scripts/Levels/access-modifiers/funcionario.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/access-modifiers/funcionario.lua
+
+#begin Scripts/Levels/access-modifiers/main.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/access-modifiers/main.lua
+
+#begin Scripts/Levels/access-modifiers/pessoa.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/access-modifiers/pessoa.lua
+
+#begin Scripts/Levels/aprofundando-na-classe/aprofundando-na-classe.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/aprofundando-na-classe/aprofundando-na-classe.lua
+
+#begin Scripts/Levels/aprofundando-na-classe/main.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/aprofundando-na-classe/main.lua
+
+#begin Scripts/Levels/aprofundando-na-classe/pessoa.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/aprofundando-na-classe/pessoa.lua
+
+#begin Scripts/Levels/getters-setters/getters-setters.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/getters-setters/getters-setters.lua
+
+#begin Scripts/Levels/getters-setters/main.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/getters-setters/main.lua
+
+#begin Scripts/Levels/getters-setters/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/getters-setters/slime.lua
+
+#begin Scripts/Levels/getters-setters/strings.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/getters-setters/strings.lua
+
+#begin Scripts/Levels/heranca/funcionario.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/heranca/funcionario.lua
+
+#begin Scripts/Levels/heranca/heranca.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/heranca/heranca.lua
+
+#begin Scripts/Levels/heranca/main.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/heranca/main.lua
+
+#begin Scripts/Levels/heranca/pessoa.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/heranca/pessoa.lua
+
+#begin Scripts/Levels/labyrinth/bússola.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/labyrinth/bússola.lua
+
+#begin Scripts/Levels/labyrinth/bússolaNova.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/labyrinth/bússolaNova.lua
+
+#begin Scripts/Levels/labyrinth/labyrinth.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/labyrinth/labyrinth.lua
+
+#begin Scripts/Levels/labyrinth/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/labyrinth/slime.lua
+
+#begin Scripts/Levels/relembrando-structs/main.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/relembrando-structs/main.lua
+
+#begin Scripts/Levels/relembrando-structs/pessoa.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/relembrando-structs/pessoa.lua
+
+#begin Scripts/Levels/relembrando-structs/relembrando-structs.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/relembrando-structs/relembrando-structs.lua
+
+#begin Scripts/Levels/sentient-slimes/sentient-slimes.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/sentient-slimes/sentient-slimes.lua
+
+#begin Scripts/Levels/sentient-slimes/slime-esperto.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/sentient-slimes/slime-esperto.lua
+
+#begin Scripts/Levels/sentient-slimes/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/sentient-slimes/slime.lua
+
+#begin Scripts/Levels/sliming/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/sliming/slime.lua
+
+#begin Scripts/Levels/sliming/sliming.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/sliming/sliming.lua
+
+#begin Scripts/Levels/smart-slime/slime-esperto.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/smart-slime/slime-esperto.lua
+
+#begin Scripts/Levels/smart-slime/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/smart-slime/slime.lua
+
+#begin Scripts/Levels/smart-slime/smart-slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/smart-slime/smart-slime.lua
+
+#begin Scripts/Levels/smarter-slimes/slime-esperto.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/smarter-slimes/slime-esperto.lua
+
+#begin Scripts/Levels/smarter-slimes/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/smarter-slimes/slime.lua
+
+#begin Scripts/Levels/smarter-slimes/smarter-slimes.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/smarter-slimes/smarter-slimes.lua
+
+#begin Scripts/Levels/syntax/slime.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/syntax/slime.lua
+
+#begin Scripts/Levels/syntax/syntax.lua
+/importer:
+/processor:
+/copy:Scripts/Levels/syntax/syntax.lua
 

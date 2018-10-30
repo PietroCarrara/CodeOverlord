@@ -4,7 +4,7 @@
 -- 	Pra começar, temos que declarar uma nova string com:
 -- 		local str = strings.String('foo')
 -- 	Depois podemos pegar o segundo caractere de uma string com:
--- 		print(str[2])
+-- 		print(str[2]) -> 'o'
 -- 	Também podemos modificá-lo (só lembrando que vetores em lua começam em 1):
 -- 		str[1] = 'F'
 --

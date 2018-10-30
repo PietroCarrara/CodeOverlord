@@ -1,4 +1,4 @@
-local this = Slime()
+local this = new 'Slime.lua'
 
 local bussola = new "bússolaNova.lua"
 
@@ -7,8 +7,10 @@ function this.update()
 	local dir = bussola.getDirecao()
 	local posicao = this.getPosition()
 
+	-- Pegamos a direção que a bússola dos deu
 	posicao = direcaoToPonto(posicao, dir)
 
+	-- Se a casa está disponível (não é uma parede, uma mesa...), movemos para ela
 	if gridIsAvailable(posicao.X, posicao.Y) then
 		if (dir == "up") then
 			moveUp()
@@ -19,6 +21,7 @@ function this.update()
 		elseif (dir == "right") then
 			moveRight()
 		end
+	-- Senão, pedimos uma nova direção
 	else
 		bussola.renovarCaminho()
 	end

@@ -2,18 +2,12 @@ local level = {}
 
 level.name = "Revisão Sintática"
 level.map = "Sprites/Rooms/revisao"
-level.index = 2
+level.index = 6
 
 level.dialog = {
-	{ char = "pepper/normal", contents = "Bom, vamos começar por uma revisão básica..." },
-	{ char = "pepper/normal", contents = "Aqui no laboratório usamos a linguagem Lua, que além de ser brasileira é orientada a objetos!" },
-	{ char = "pepper/normal", contents = "Esse código aberto no editor mostra algumas coisas básicas sobre a linguagem:" },
-	{ char = "pepper/normal", contents = "Vemos como fazer um for e um if, além de como declarar funções." },
-	{ char = "pepper/normal", contents = "Veja que quando declaramos o contador do nosso for ou quando declaramos funções, não expressamos tipos!" },
-	{ char = "pepper/normal", contents = "Isso por que em Lua, variáveis podem guardar qualquer coisa, sem serem limitadas por tipos." },
-	{ char = "pepper/normal", contents = "Mas não deixe isso embolar muito sua cabeça, o importante agora é focar nos elementos da sintaxe." },
-	{ char = "pepper/normal", contents = "Caso venha se esquecer deles, volte para essa fase ou dê uma olhada online, eu tenho certeza de que vai conseguir achar o que estivar procurando!" },
-	{ char = "pepper/normal", contents = "Aquele slime ali no canto está se remoendo para começar sua viagem, então é só clicar em começar! Te vejo nas outras fases (mas não espere que elas sejam tão fáceis quanto essa!)" },
+	{ char = "pepper/normal", contents = "Bom, lembra de quando eu falei que não era pra se assustar com a sintaxe? É, tem uma hora que cada um de nós tem que enfrentar seus demônios..." },
+	{ char = "pepper/normal", contents = "Nesse código temos a estrutura de um 'for' e de um 'if'. Caso se esqueça de algum deles, volta para esta fase para se lembrar!" },
+	{ char = "pepper/normal", contents = 'Mas agora a questão é a seguinte: aquele slime ali está muito apressado e quer chegar rápido naquele tesouro! Você consegue fazê-lo chegar lá em uma só chamada do método update? (Dica: a sintaxe do for não está ali à toa... mas nada impede você não usá-lo :v)' },
 }
 
 -- Files provided by the level

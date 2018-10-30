@@ -40,7 +40,7 @@ namespace Overlord
 			}
 
 			skip = new Button("Pular", AnchorPoint.TopRight, new Vector2(200, 50));
-			skip.OnClick = Finish;
+			skip.OnClick = GoToLast;
 			this.Scene.AddUI(skip);
 		}
 
@@ -87,10 +87,23 @@ namespace Overlord
 		{
 			base.Update();
 
-			if (Input.IsButtonPressed(MouseButtons.Left) && CurrentFinished)
+			if (Input.IsButtonPressed(MouseButtons.Left) && CurrentFinished && Input.MousePosition(this.Scene.Cam).X < 1100)
 			{
 				Next();
 			}
+		}
+
+		public void GoToLast()
+		{
+			var line = linesE.Current;
+
+			while (linesE.MoveNext())
+			{
+				line = linesE.Current;
+			}
+
+			line.IsVisible = true;
+			line.IsFinished = true;
 		}
 
 		public void Finish()

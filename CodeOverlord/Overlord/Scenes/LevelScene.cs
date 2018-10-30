@@ -187,22 +187,33 @@ namespace Overlord
 		{
 			var status = Level.Update();
 
-			switch (status)
+			if (status.StartsWith("win"))
 			{
-				case "win":
-					win();
-					break;
-				case "lose":
-					lose();
-					break;
+				var msg = status.Substring(3);
+				if (msg.Length < 1)
+				{
+					msg = "Você venceu!";
+				}
+
+				Win(msg);
+			}
+			else if (status.StartsWith("lose"))
+			{
+				var msg = status.Substring(4);
+				if (msg.Length < 1)
+				{
+					msg = "Você perdeu!";
+				}
+
+				Lose(msg);
 			}
 		}
 
-		private void win()
+		public void Win(string msg = "Você venceu!")
 		{
 			ended = true;
 
-			var bt = new Button("Você venceu!\nSair", AnchorPoint.Center, new Vector2(200, 100));
+			var bt = new Button(msg + "\nSair", AnchorPoint.Center, new Vector2(320, 150));
 			bt.OnClick = () =>
 			{
 				App.ResetSessions();
@@ -222,11 +233,11 @@ namespace Overlord
 			}
 		}
 
-		private void lose()
+		public void Lose(string msg = "Você perdeu!")
 		{
 			ended = true;
 
-			var bt = new Button("Você perdeu!\nSair", AnchorPoint.Center, new Vector2(200, 100), new Vector2(0, -100));
+			var bt = new Button(msg + "\nSair", AnchorPoint.Center, new Vector2(320, 150), new Vector2(0, -100));
 			bt.OnClick = () =>
 			{
 				App.ResetSessions();
@@ -281,7 +292,7 @@ namespace Overlord
 
 		public void consoleWriteLine(string str)
 		{
-			str = str.Replace("\t", "    ");
+			str = str.Replace("\t", " ");
 
 			if (console == null)
 			{
